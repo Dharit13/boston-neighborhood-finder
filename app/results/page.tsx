@@ -97,7 +97,7 @@ export default function ResultsPage() {
       // Score each neighborhood against the "balanced" tier (or stretched if no balanced)
       const budgetForScoring = tiers.balanced;
       const scoredList: ScoredNeighborhood[] = neighborhoods.map((n) => {
-        const perPersonRent = getPerPersonRent(n, input!.roommates);
+        const perPersonRent = getPerPersonRent(n, input!.roommates, input!.livingArrangement);
         const commuteResult = commuteMap.get(n.id);
         const commuteMinutes = commuteResult?.durationMinutes ?? null;
 

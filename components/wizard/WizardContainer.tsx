@@ -26,6 +26,7 @@ export default function WizardContainer() {
     monthlyIncome: 0,
     hasCar: false,
     roommates: 0,
+    livingArrangement: "alone" as const,
     maxRent: 0,
     officeDays: 0 as OfficeDays,
     officeAddress: null,

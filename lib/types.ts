@@ -18,7 +18,8 @@ export interface UserInput {
   ageGroup: AgeGroup;
   monthlyIncome: number;
   hasCar: boolean;
-  roommates: number; // 0, 1, 2, or 3
+  roommates: number; // 0, 1, 2, or 3 — total other people you live with
+  livingArrangement: "alone" | "couple" | "own-room" | "shared-room";
   maxRent: number;
   officeDays: OfficeDays;
   officeAddress: string | null;
