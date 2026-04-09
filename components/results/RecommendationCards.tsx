@@ -1,4 +1,14 @@
-import type { TieredRecommendation } from "@/lib/types";
+import type { TieredRecommendation, MbtaLine } from "@/lib/types";
+
+const MBTA_COLORS: Record<MbtaLine, string> = {
+  red: "bg-red-500",
+  green: "bg-green-600",
+  blue: "bg-blue-600",
+  orange: "bg-orange-500",
+  silver: "bg-gray-400",
+  bus: "bg-yellow-500",
+  ferry: "bg-cyan-500",
+};
 
 interface Props {
   recommendations: TieredRecommendation[];
@@ -88,16 +98,59 @@ export default function RecommendationCards({
                   <span>Safety</span>
                   <span className="font-semibold">{n.scores.safety}/100</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span>Transit</span>
-                  <span className="font-semibold text-xs">
-                    {n.neighborhood.mbtaLines
-                      .filter((l) => l !== "bus")
-                      .map((l) => l === "red" ? "Red" : l === "green" ? "Green" : l === "blue" ? "Blue" : l === "orange" ? "Orange" : l === "silver" ? "Silver" : l === "ferry" ? "Ferry" : l)
-                      .join(", ") || "Bus"}
-                    {n.neighborhood.mbtaLines.includes("bus") && n.neighborhood.mbtaLines.some((l) => l !== "bus") ? " + Bus" : ""}
+                {/* Transit — stations and bus routes */}
+                <div className="pt-1 border-t border-gray-200 mt-1">
+                  <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                    Transit
                   </span>
+                  {/* T Stations */}
+                  {n.neighborhood.mbtaStations.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {n.neighborhood.mbtaStations
+                        .filter((s) => s.line !== "ferry")
+                        .map((s) => (
+                          <span
+                            key={`${s.line}-${s.name}`}
+                            className="inline-flex items-center gap-1 text-xs bg-gray-100 rounded px-1.5 py-0.5"
+                          >
+                            <span
+                              className={`w-2 h-2 rounded-full ${MBTA_COLORS[s.line]}`}
+                            />
+                            {s.name}
+                          </span>
+                        ))}
+                    </div>
+                  )}
+                  {/* Bus Routes */}
+                  {n.neighborhood.busRoutes.length > 0 && (
+                    <div className="text-xs text-gray-500 mt-1">
+                      <span className="inline-flex items-center gap-1">
+                        <span className={`w-2 h-2 rounded-full ${MBTA_COLORS.bus}`} />
+                        Bus {n.neighborhood.busRoutes.join(", ")}
+                      </span>
+                    </div>
+                  )}
+                  {/* Ferry */}
+                  {n.neighborhood.mbtaStations
+                    .filter((s) => s.line === "ferry")
+                    .map((s) => (
+                      <div key={s.name} className="text-xs text-gray-500 mt-1">
+                        <span className="inline-flex items-center gap-1">
+                          <span className={`w-2 h-2 rounded-full ${MBTA_COLORS.ferry}`} />
+                          {s.name}
+                        </span>
+                      </div>
+                    ))}
                 </div>
+                {/* Walking */}
+                {n.commuteRoute && n.commuteRoute.includes("walk") && (
+                  <div className="flex justify-between">
+                    <span>Walk</span>
+                    <span className="font-semibold text-xs">
+                      {n.commuteRoute.match(/(\d+)\s*min\s*walk/)?.[0] || "Available"}
+                    </span>
+                  </div>
+                )}
               </div>
               {rec.tradeoffVsPrev && (
                 <p className="mt-3 text-xs text-gray-500 italic">

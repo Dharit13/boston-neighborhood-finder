@@ -28,6 +28,7 @@ import {
 } from "@/lib/budget";
 import { getPerPersonRent } from "@/lib/neighborhoods";
 import { fetchCommuteTimes } from "@/lib/commute";
+import RecommendationOverview from "@/components/results/RecommendationOverview";
 import RecommendationCards from "@/components/results/RecommendationCards";
 import NeighborhoodProfile from "@/components/results/NeighborhoodProfile";
 import CompareView from "@/components/results/CompareView";
@@ -326,6 +327,14 @@ export default function ResultsPage() {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
+        {/* AI Overview — why these neighborhoods */}
+        {input && recommendations.length > 0 && (
+          <RecommendationOverview
+            recommendations={recommendations}
+            userInput={input}
+          />
+        )}
+
         {/* Recommendation Cards */}
         <RecommendationCards
           recommendations={recommendations}

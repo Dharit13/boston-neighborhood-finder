@@ -142,17 +142,66 @@ export default function NeighborhoodProfile({
         </div>
       )}
 
-      {/* MBTA Lines */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        {n.mbtaLines.map((line) => (
-          <span
-            key={line}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-gray-100 text-sm"
-          >
-            <span className={`w-2.5 h-2.5 rounded-full ${MBTA_COLORS[line]}`} />
-            {MBTA_LABELS[line]}
-          </span>
-        ))}
+      {/* Transit Details */}
+      <div className="mb-6 space-y-3">
+        <h3 className="font-semibold text-gray-900">Transit</h3>
+        {/* T Stations grouped by line */}
+        {n.mbtaLines
+          .filter((line) => line !== "bus" && line !== "ferry")
+          .map((line) => {
+            const stations = n.mbtaStations.filter((s) => s.line === line);
+            return (
+              <div key={line} className="flex items-start gap-2">
+                <span
+                  className={`mt-1 w-3 h-3 rounded-full flex-shrink-0 ${MBTA_COLORS[line]}`}
+                />
+                <div>
+                  <span className="text-sm font-medium">{MBTA_LABELS[line]}</span>
+                  {stations.length > 0 && (
+                    <span className="text-sm text-gray-500 ml-1">
+                      — {stations.map((s) => s.name).join(", ")}
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        {/* Bus Routes */}
+        {n.busRoutes.length > 0 && (
+          <div className="flex items-start gap-2">
+            <span
+              className={`mt-1 w-3 h-3 rounded-full flex-shrink-0 ${MBTA_COLORS.bus}`}
+            />
+            <div>
+              <span className="text-sm font-medium">Bus</span>
+              <span className="text-sm text-gray-500 ml-1">
+                — Routes {n.busRoutes.join(", ")}
+              </span>
+            </div>
+          </div>
+        )}
+        {/* Ferry */}
+        {n.mbtaStations
+          .filter((s) => s.line === "ferry")
+          .map((s) => (
+            <div key={s.name} className="flex items-start gap-2">
+              <span
+                className={`mt-1 w-3 h-3 rounded-full flex-shrink-0 ${MBTA_COLORS.ferry}`}
+              />
+              <div>
+                <span className="text-sm font-medium">{s.name}</span>
+              </div>
+            </div>
+          ))}
+        {/* Walk time */}
+        {scored.commuteRoute && scored.commuteRoute.includes("walk") && (
+          <div className="flex items-start gap-2">
+            <span className="mt-1 w-3 h-3 rounded-full flex-shrink-0 bg-gray-300" />
+            <span className="text-sm font-medium">
+              {scored.commuteRoute.match(/(\d+\s*min\s*walk)/)?.[0] || "Walking available"}
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -200,7 +249,15 @@ export default function NeighborhoodProfile({
                 </div>
                 {scored.commuteRoute && (
                   <div className="text-gray-600 mt-1">
-                    via {scored.commuteRoute}
+                    via{" "}
+                    {scored.commuteRoute.includes(" · ")
+                      ? scored.commuteRoute.split(" · ")[0]
+                      : scored.commuteRoute}
+                  </div>
+                )}
+                {scored.commuteRoute && scored.commuteRoute.includes("walk") && (
+                  <div className="text-gray-500 mt-1 text-xs">
+                    🚶 {scored.commuteRoute.match(/(\d+\s*min\s*walk)/)?.[0] || "Walk option available"}
                   </div>
                 )}
               </div>

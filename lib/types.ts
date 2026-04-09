@@ -70,6 +70,8 @@ export interface Neighborhood {
   communityScore: number; // 0-100
   amenities: Amenities;
   mbtaLines: MbtaLine[];
+  mbtaStations: { line: MbtaLine; name: string }[];
+  busRoutes: string[];
   parkingCost: number; // monthly estimate in dollars
   centroid: { lat: number; lng: number };
 }
