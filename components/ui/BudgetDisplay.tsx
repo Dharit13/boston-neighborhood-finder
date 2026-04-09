@@ -30,8 +30,7 @@ export default function BudgetDisplay({
       {(Object.entries(TIER_CONFIG) as [keyof typeof TIER_CONFIG, typeof TIER_CONFIG[keyof typeof TIER_CONFIG]][]).map(
         ([key, config]) => {
           if (!activeTiers.includes(key)) return null;
-          const totalBudget = tiers[key];
-          const perPerson = calculatePerPersonBudget(totalBudget, roommates);
+          const perPerson = tiers[key]; // already per-person (based on user's personal income/max)
           const colorClasses = {
             green: "bg-green-50 border-green-200 text-green-800",
             blue: "bg-blue-50 border-blue-200 text-blue-800",

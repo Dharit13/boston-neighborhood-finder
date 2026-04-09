@@ -22,7 +22,6 @@ import {
 } from "@/lib/scoring";
 import {
   calculateBudgetTiers,
-  calculatePerPersonBudget,
   getActiveTiers,
   getRentAsPercentOfIncome,
 } from "@/lib/budget";
@@ -150,12 +149,13 @@ export default function ResultsPage() {
         maxBudget: number;
       }[] = [];
 
+      // Budget tiers are already per-person (based on user's personal income/max)
       if (activeTiers.includes("saver")) {
         tierConfigs.push({
           tier: "saver",
           label: "Easy on Your Wallet",
           color: "green",
-          maxBudget: calculatePerPersonBudget(tiers.saver, input!.roommates),
+          maxBudget: tiers.saver,
         });
       }
       if (activeTiers.includes("balanced")) {
@@ -163,7 +163,7 @@ export default function ResultsPage() {
           tier: "balanced",
           label: "Balanced Pick",
           color: "blue",
-          maxBudget: calculatePerPersonBudget(tiers.balanced, input!.roommates),
+          maxBudget: tiers.balanced,
         });
       }
       if (activeTiers.includes("stretched")) {
@@ -171,7 +171,7 @@ export default function ResultsPage() {
           tier: "stretched",
           label: "At Your Max",
           color: "orange",
-          maxBudget: calculatePerPersonBudget(tiers.stretched, input!.roommates),
+          maxBudget: tiers.stretched,
         });
       }
 
@@ -192,9 +192,10 @@ export default function ResultsPage() {
         (a, b) => a.perPersonRent - b.perPersonRent
       );
 
-      const saverBudget = calculatePerPersonBudget(tiers.saver, input!.roommates);
-      const balancedBudget = calculatePerPersonBudget(tiers.balanced, input!.roommates);
-      const stretchedBudget = calculatePerPersonBudget(tiers.stretched, input!.roommates);
+      // Tiers are already per-person amounts
+      const saverBudget = tiers.saver;
+      const balancedBudget = tiers.balanced;
+      const stretchedBudget = tiers.stretched;
 
       for (let i = 0; i < byRent.length; i++) {
         const n = byRent[i];
