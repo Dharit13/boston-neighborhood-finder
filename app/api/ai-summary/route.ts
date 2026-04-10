@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
+import { checkRateLimit, ipFromRequest } from "@/lib/rateLimit";
 
 export async function POST(request: NextRequest) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -10,6 +11,15 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const ip = ipFromRequest(request);
+  const rl = await checkRateLimit(ip);
+  if (!rl.ok) {
+    return NextResponse.json(
+      { error: "rate_limited", retryAfterSeconds: rl.resetSeconds },
+      { status: 429, headers: { "Retry-After": String(rl.resetSeconds) } }
+    );
+  }
+
   const { neighborhood, userPrefs } = await request.json();
 
   const prompt = `You are a friendly Boston local helping someone find the right neighborhood. Based on their preferences and a specific neighborhood's data, write a personalized 2-3 sentence summary of why this neighborhood does or doesn't fit them. Be honest — if it's a weak match, say so constructively. Use a conversational tone.
@@ -17,7 +27,6 @@ export async function POST(request: NextRequest) {
 USER PREFERENCES:
 - Age group: ${userPrefs.ageGroup}
 - Monthly income: $${userPrefs.monthlyIncome}
-- Has car: ${userPrefs.hasCar ? "Yes" : "No"}
 - Roommates: ${userPrefs.roommates}
 - Max rent: $${userPrefs.maxRent}/mo
 - Office days/week: ${userPrefs.officeDays}
@@ -35,7 +44,7 @@ NEIGHBORHOOD: ${neighborhood.name}
 - Community score: ${neighborhood.communityScore}/100
 ${neighborhood.commuteMinutes ? `- Commute: ${neighborhood.commuteMinutes} min via ${neighborhood.commuteRoute}` : "- Commute: Remote worker"}
 
-Write ONLY the 2-3 sentence personalized summary. No headers, bullets, or preamble.`;
+Write ONLY the 2-3 sentence personalized summary. No headers, bullets, preamble, or markdown formatting (no **bold**, no *italics*). Use plain text only.`;
 
   const client = new Anthropic({ apiKey });
 
