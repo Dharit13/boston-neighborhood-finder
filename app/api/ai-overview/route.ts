@@ -22,9 +22,24 @@ export async function POST(request: NextRequest) {
 
   const { recommendations, userPrefs } = await request.json();
 
-  const recSummaries = recommendations
+  interface RecSummary {
+    name: string;
+    label: string;
+    matchScore: number;
+    perPersonRent: number;
+    rentPercent: number;
+    commuteMinutes: number | null;
+    commuteRoute: string | null;
+    safety: number;
+    walkScore: number;
+    mbtaLines: string[];
+    stations?: string;
+    description: string;
+  }
+
+  const recSummaries = (recommendations as RecSummary[])
     .map(
-      (r: any, i: number) =>
+      (r, i) =>
         `${i + 1}. ${r.name} (${r.label})
    - Match: ${r.matchScore}% | Rent: $${r.perPersonRent}/mo (${r.rentPercent}% of income)
    - Commute: ${r.commuteMinutes ? `${r.commuteMinutes} min via ${r.commuteRoute}` : "Remote"}

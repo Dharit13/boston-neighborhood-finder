@@ -36,7 +36,6 @@ const ARRANGEMENT_OPTIONS: {
 const ROOMMATE_OPTIONS = [
   { value: 1, label: "1 roommate (2 people total)" },
   { value: 2, label: "2 roommates (3 people total)" },
-  { value: 3, label: "3+ roommates (4 people total)" },
 ];
 
 export default function StepHousing({ input, onChange }: Props) {
@@ -48,9 +47,17 @@ export default function StepHousing({ input, onChange }: Props) {
     arrangement: UserInput["livingArrangement"]
   ) => {
     if (arrangement === "alone") {
-      onChange({ livingArrangement: arrangement, roommates: 0 });
+      onChange({
+        livingArrangement: arrangement,
+        roommates: 0,
+        apartmentSize: input.apartmentSize === "2br" ? "1br" : input.apartmentSize,
+      });
     } else if (arrangement === "couple") {
-      onChange({ livingArrangement: arrangement, roommates: 1 });
+      onChange({
+        livingArrangement: arrangement,
+        roommates: 1,
+        apartmentSize: input.apartmentSize === "studio" ? "1br" : input.apartmentSize,
+      });
     } else {
       onChange({
         livingArrangement: arrangement,
@@ -60,37 +67,109 @@ export default function StepHousing({ input, onChange }: Props) {
   };
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900">Housing</h2>
-      <p className="text-gray-600">
-        Help us understand your housing situation and budget.
-      </p>
+    <div className="space-y-5">
+      <div>
+        <h2 className="text-2xl font-bold text-white tracking-tight">
+          Housing
+        </h2>
+        <p className="text-white/50 text-sm mt-1">
+          How you plan to live and what you can spend.
+        </p>
+      </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
           Living Arrangement
         </label>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           {ARRANGEMENT_OPTIONS.map((opt) => (
             <button
               key={opt.value}
               onClick={() => handleArrangementChange(opt.value)}
-              className={`text-left py-3 px-4 rounded-lg border ${
+              className={`text-left py-3 px-4 rounded-lg transition-all ${
                 input.livingArrangement === opt.value
-                  ? "border-blue-600 bg-blue-50 text-blue-700"
-                  : "border-gray-300 text-gray-600 hover:bg-gray-50"
+                  ? "bg-white text-black"
+                  : "border border-white/15 text-white/60 hover:text-white hover:border-white/30"
               }`}
             >
-              <div className="font-medium text-sm">{opt.label}</div>
-              <div className="text-xs mt-0.5 opacity-75">{opt.description}</div>
+              <div
+                className={`text-sm font-semibold ${
+                  input.livingArrangement === opt.value
+                    ? "text-black"
+                    : "text-white/80"
+                }`}
+              >
+                {opt.label}
+              </div>
+              <div
+                className={`text-xs mt-0.5 ${
+                  input.livingArrangement === opt.value
+                    ? "text-black/60"
+                    : "text-white/40"
+                }`}
+              >
+                {opt.description}
+              </div>
             </button>
           ))}
         </div>
       </div>
 
+      {input.livingArrangement === "alone" && (
+        <div>
+          <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
+            Apartment Size
+          </label>
+          <div className="grid grid-cols-2 gap-2">
+            {([
+              { value: "studio" as const, label: "Studio" },
+              { value: "1br" as const, label: "1 Bedroom" },
+            ]).map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => onChange({ apartmentSize: opt.value })}
+                className={`py-2.5 px-4 rounded-lg text-center text-sm font-medium transition-all ${
+                  input.apartmentSize === opt.value
+                    ? "bg-white text-black"
+                    : "border border-white/15 text-white/60 hover:text-white hover:border-white/30"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {input.livingArrangement === "couple" && (
+        <div>
+          <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
+            Apartment Size
+          </label>
+          <div className="grid grid-cols-2 gap-2">
+            {([
+              { value: "1br" as const, label: "1 Bedroom" },
+              { value: "2br" as const, label: "2 Bedroom" },
+            ]).map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => onChange({ apartmentSize: opt.value })}
+                className={`py-2.5 px-4 rounded-lg text-center text-sm font-medium transition-all ${
+                  input.apartmentSize === opt.value
+                    ? "bg-white text-black"
+                    : "border border-white/15 text-white/60 hover:text-white hover:border-white/30"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {showRoommates && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
             How many roommates?
           </label>
           <div className="grid grid-cols-1 gap-2">
@@ -98,10 +177,10 @@ export default function StepHousing({ input, onChange }: Props) {
               <button
                 key={opt.value}
                 onClick={() => onChange({ roommates: opt.value })}
-                className={`py-2 px-3 rounded-lg border text-center text-sm ${
+                className={`py-2.5 px-4 rounded-lg text-center text-sm font-medium transition-all ${
                   input.roommates === opt.value
-                    ? "border-blue-600 bg-blue-50 text-blue-700 font-medium"
-                    : "border-gray-300 text-gray-600 hover:bg-gray-50"
+                    ? "bg-white text-black"
+                    : "border border-white/15 text-white/60 hover:text-white hover:border-white/30"
                 }`}
               >
                 {opt.label}
@@ -112,30 +191,86 @@ export default function StepHousing({ input, onChange }: Props) {
       )}
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Maximum monthly rent you&apos;re willing to pay (your share)
+        <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
+          {input.livingArrangement === "own-room" ||
+          input.livingArrangement === "shared-room"
+            ? "Maximum monthly rent (your share)"
+            : "Maximum monthly rent"}
         </label>
         <div className="relative">
-          <span className="absolute left-3 top-2 text-gray-500">$</span>
+          <span className="absolute left-4 top-3 text-white/40 pointer-events-none">$</span>
           <input
             type="number"
             value={input.maxRent || ""}
             onChange={(e) =>
               onChange({ maxRent: parseInt(e.target.value) || 0 })
             }
-            placeholder="2500"
-            className="w-full pl-7 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="2,500"
+            className="w-full pl-8 pr-4 py-3 rounded-lg bg-white/5 border border-white/15 text-white placeholder:text-white/25 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all"
           />
         </div>
-        <p className="mt-1 text-sm text-gray-500">
-          This is your personal max — we&apos;ll also show cheaper options.
-        </p>
+      </div>
+
+      {/* Budget Priority */}
+      <div>
+        <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
+          How do you feel about spending up to your max?
+        </label>
+        <div className="grid grid-cols-3 gap-2">
+          {([
+            {
+              value: "save" as const,
+              label: "Save Money",
+              desc: "Prioritize cheaper areas",
+            },
+            {
+              value: "balanced" as const,
+              label: "Balanced",
+              desc: "Weigh cost with other factors",
+            },
+            {
+              value: "spend" as const,
+              label: "Best Fit",
+              desc: "Willing to pay for the right spot",
+            },
+          ]).map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => onChange({ budgetPriority: opt.value })}
+              className={`py-3 px-3 rounded-lg text-center transition-all ${
+                input.budgetPriority === opt.value
+                  ? "bg-white text-black"
+                  : "border border-white/15 text-white/60 hover:text-white hover:border-white/30"
+              }`}
+            >
+              <div
+                className={`text-sm font-semibold ${
+                  input.budgetPriority === opt.value
+                    ? "text-black"
+                    : "text-white/80"
+                }`}
+              >
+                {opt.label}
+              </div>
+              <div
+                className={`text-xs mt-0.5 ${
+                  input.budgetPriority === opt.value
+                    ? "text-black/60"
+                    : "text-white/40"
+                }`}
+              >
+                {opt.desc}
+              </div>
+            </button>
+          ))}
+        </div>
       </div>
 
       <BudgetDisplay
         monthlyIncome={input.monthlyIncome}
         maxRent={input.maxRent}
         roommates={input.roommates}
+        livingArrangement={input.livingArrangement}
       />
     </div>
   );

@@ -1,61 +1,72 @@
-import { calculateBudgetTiers, calculatePerPersonBudget, getActiveTiers } from "@/lib/budget";
+import { calculateBudgetTiers, getActiveTiers } from "@/lib/budget";
+import type { UserInput } from "@/lib/types";
 
 interface Props {
   monthlyIncome: number;
   maxRent: number;
   roommates: number;
+  livingArrangement?: UserInput["livingArrangement"];
 }
 
 const TIER_CONFIG = {
-  saver: { label: "Budget Saver", sublabel: "45% of income", color: "green" },
+  saver: { label: "Budget Saver", sublabel: "45% of income", color: "emerald" },
   balanced: { label: "Balanced", sublabel: "60% of income", color: "blue" },
-  stretched: { label: "At Your Max", sublabel: "Your limit", color: "orange" },
+  stretched: { label: "At Your Max", sublabel: "Your limit", color: "amber" },
 } as const;
 
 export default function BudgetDisplay({
   monthlyIncome,
   maxRent,
   roommates,
+  livingArrangement,
 }: Props) {
   if (!monthlyIncome || !maxRent) return null;
 
   const tiers = calculateBudgetTiers(monthlyIncome, maxRent);
   const activeTiers = getActiveTiers(monthlyIncome, maxRent);
 
+  const colorClasses: Record<string, string> = {
+    emerald: "border-emerald-500/30 bg-emerald-500/10 text-emerald-300",
+    blue: "border-blue-500/30 bg-blue-500/10 text-blue-300",
+    amber: "border-amber-500/30 bg-amber-500/10 text-amber-300",
+  };
+
+  const isRoommateSplit =
+    livingArrangement === "own-room" || livingArrangement === "shared-room";
+
   return (
-    <div className="mt-4 space-y-3">
-      <p className="text-sm font-medium text-gray-700">
-        Your budget tiers {roommates > 0 ? `(per person with ${roommates} roommate${roommates > 1 ? "s" : ""})` : ""}:
+    <div className="mt-4 space-y-2">
+      <p className="text-xs font-semibold text-white/60 uppercase tracking-widest">
+        Your budget tiers{" "}
+        {isRoommateSplit && roommates > 0
+          ? `(per person with ${roommates} roommate${roommates > 1 ? "s" : ""})`
+          : ""}
       </p>
-      {(Object.entries(TIER_CONFIG) as [keyof typeof TIER_CONFIG, typeof TIER_CONFIG[keyof typeof TIER_CONFIG]][]).map(
-        ([key, config]) => {
-          if (!activeTiers.includes(key)) return null;
-          const perPerson = tiers[key]; // already per-person (based on user's personal income/max)
-          const colorClasses = {
-            green: "bg-green-50 border-green-200 text-green-800",
-            blue: "bg-blue-50 border-blue-200 text-blue-800",
-            orange: "bg-orange-50 border-orange-200 text-orange-800",
-          };
-          return (
-            <div
-              key={key}
-              className={`p-3 rounded-lg border ${colorClasses[config.color]}`}
-            >
-              <div className="flex justify-between items-center">
-                <div>
-                  <span className="font-medium">{config.label}</span>
-                  <span className="text-sm ml-2 opacity-75">
-                    ({config.sublabel})
-                  </span>
-                </div>
-                <span className="font-bold text-lg">
-                  ${perPerson.toLocaleString()}/mo
+      {(
+        Object.entries(TIER_CONFIG) as [
+          keyof typeof TIER_CONFIG,
+          (typeof TIER_CONFIG)[keyof typeof TIER_CONFIG]
+        ][]
+      ).map(([key, config]) => {
+        if (!activeTiers.includes(key)) return null;
+        const perPerson = tiers[key];
+        return (
+          <div
+            key={key}
+            className={`p-3 rounded-lg border ${colorClasses[config.color]}`}
+          >
+            <div className="flex justify-between items-center">
+              <div>
+                <span className="font-medium text-sm">{config.label}</span>
+                <span className="text-xs ml-2 opacity-60">
+                  ({config.sublabel})
                 </span>
               </div>
+              <span className="font-bold">${perPerson.toLocaleString()}/mo</span>
             </div>
-          );
-        }
-      )}
+          </div>
+        );
+      })}
     </div>
   );
 }

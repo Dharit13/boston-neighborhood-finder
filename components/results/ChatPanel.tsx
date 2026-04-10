@@ -45,6 +45,14 @@ function persist(messages: ChatMessage[]) {
   }
 }
 
+function stripMarkdown(text: string): string {
+  // Defensive: model is instructed to output plain text, but sometimes leaks
+  // **bold**, `code`, or leading #/- list markers. Strip them on render.
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/`([^`]+)`/g, "$1");
+}
+
 function formatRetry(retryAfterSeconds: number): string {
   const mins = Math.max(1, Math.round(retryAfterSeconds / 60));
   return `You've hit the hourly chat limit. Please try again in ${mins} minute${mins === 1 ? "" : "s"}.`;
@@ -258,7 +266,7 @@ export default function ChatPanel({ userInput, recommendations }: Props) {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 w-96 max-w-[calc(100vw-3rem)] h-[560px] max-h-[calc(100vh-3rem)] flex flex-col rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl">
+    <div className="fixed bottom-6 right-6 z-50 w-96 max-w-[calc(100vw-3rem)] h-[560px] max-h-[calc(100vh-3rem)] flex flex-col rounded-xl border border-white/10 bg-slate-900/90 backdrop-blur-xl shadow-2xl">
       <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
         <div>
           <h3 className="text-white font-semibold text-sm">Ask the assistant</h3>
@@ -320,7 +328,7 @@ export default function ChatPanel({ userInput, recommendations }: Props) {
                   : "bg-white/10 border border-white/10 text-white"
               }`}
             >
-              {m.content}
+              {m.role === "assistant" ? stripMarkdown(m.content) : m.content}
               {streaming && i === messages.length - 1 && m.role === "assistant" && (
                 <span className="inline-block w-1 h-3 ml-0.5 bg-white/70 animate-pulse" />
               )}

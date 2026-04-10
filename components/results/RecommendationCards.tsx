@@ -1,56 +1,59 @@
-import type { TieredRecommendation, MbtaLine } from "@/lib/types";
+import type { TieredRecommendation, MbtaLine, UserInput } from "@/lib/types";
 
 const MBTA_COLORS: Record<MbtaLine, string> = {
-  red: "bg-red-500",
-  green: "bg-green-600",
-  blue: "bg-blue-600",
-  orange: "bg-orange-500",
-  silver: "bg-gray-400",
-  bus: "bg-yellow-500",
-  ferry: "bg-cyan-500",
+  red: "#da291c",
+  green: "#00843d",
+  blue: "#003da5",
+  orange: "#ed8b00",
+  silver: "#7c878e",
+  bus: "#f5b400",
+  ferry: "#00b4d8",
 };
 
 interface Props {
   recommendations: TieredRecommendation[];
   onSelect: (id: string) => void;
+  livingArrangement: UserInput["livingArrangement"];
 }
 
-const COLOR_MAP: Record<string, { bg: string; border: string; badge: string }> = {
+const COLOR_MAP: Record<string, { border: string; badge: string }> = {
   green: {
-    bg: "bg-green-50",
-    border: "border-green-200 hover:border-green-400",
-    badge: "bg-green-100 text-green-800",
+    border: "border-emerald-500/30 hover:border-emerald-500/60",
+    badge: "bg-emerald-500/20 text-white",
   },
   blue: {
-    bg: "bg-blue-50",
-    border: "border-blue-200 hover:border-blue-400",
-    badge: "bg-blue-100 text-blue-800",
+    border: "border-blue-500/30 hover:border-blue-500/60",
+    badge: "bg-blue-500/20 text-white",
   },
   orange: {
-    bg: "bg-orange-50",
-    border: "border-orange-200 hover:border-orange-400",
-    badge: "bg-orange-100 text-orange-800",
+    border: "border-amber-500/30 hover:border-amber-500/60",
+    badge: "bg-amber-500/20 text-white",
   },
 };
 
 export default function RecommendationCards({
   recommendations,
   onSelect,
+  livingArrangement,
 }: Props) {
   if (recommendations.length === 0) return null;
 
+  const rentLabel =
+    livingArrangement === "own-room" || livingArrangement === "shared-room"
+      ? "Rent (per person)"
+      : "Rent";
+
   return (
     <div>
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">
-        Our Top Picks for You
-      </h2>
-      <div className={`grid gap-4 ${
-        recommendations.length === 1
-          ? "grid-cols-1 max-w-md"
-          : recommendations.length === 2
-          ? "grid-cols-1 sm:grid-cols-2"
-          : "grid-cols-1 sm:grid-cols-3"
-      }`}>
+      <div
+        className={`grid gap-4 ${
+          recommendations.length === 1
+            ? "grid-cols-1 max-w-md"
+            : recommendations.length === 2
+            ? "grid-cols-1 sm:grid-cols-2"
+            : "grid-cols-1 sm:grid-cols-3"
+        }`}
+      >
         {recommendations.map((rec) => {
           const colors = COLOR_MAP[rec.color] || COLOR_MAP.blue;
           const n = rec.neighborhood;
@@ -58,36 +61,36 @@ export default function RecommendationCards({
             <button
               key={n.neighborhood.id}
               onClick={() => onSelect(n.neighborhood.id)}
-              className={`text-left p-5 rounded-xl border-2 ${colors.border} ${colors.bg} transition-all`}
+              className={`text-left p-5 rounded-xl border-2 ${colors.border} bg-white/5 backdrop-blur-xl transition-all hover:bg-white/10`}
             >
               <span
-                className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${colors.badge} mb-2`}
+                className={`inline-block px-2.5 py-1 rounded-md text-xs font-medium ${colors.badge} mb-3`}
               >
                 {rec.label}
               </span>
-              <h3 className="text-xl font-bold text-gray-900">
+              <h3 className="text-xl font-bold text-white">
                 {n.neighborhood.name}
               </h3>
-              <div className="mt-3 space-y-1 text-sm text-gray-700">
+              <div className="mt-3 space-y-1.5 text-sm">
                 <div className="flex justify-between">
-                  <span>Match Score</span>
-                  <span className="font-semibold">
+                  <span className="text-white">Match Score</span>
+                  <span className="font-semibold text-white">
                     {Math.round(n.matchScore)}%
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Rent (per person)</span>
-                  <span className="font-semibold">
+                  <span className="text-white">{rentLabel}</span>
+                  <span className="font-semibold text-white">
                     ${n.perPersonRent.toLocaleString()}/mo
                   </span>
                 </div>
                 {n.commuteMinutes !== null && (
                   <div className="flex justify-between">
-                    <span>Commute</span>
-                    <span className="font-semibold">
+                    <span className="text-white">Commute</span>
+                    <span className="font-semibold text-white">
                       {n.commuteMinutes} min
                       {n.commuteRoute && (
-                        <span className="font-normal text-gray-500 ml-1">
+                        <span className="font-normal text-white ml-1">
                           ({n.commuteRoute})
                         </span>
                       )}
@@ -95,65 +98,49 @@ export default function RecommendationCards({
                   </div>
                 )}
                 <div className="flex justify-between">
-                  <span>Safety</span>
-                  <span className="font-semibold">{n.scores.safety}/100</span>
+                  <span className="text-white">Safety</span>
+                  <span className="font-semibold text-white">
+                    {n.scores.safety}/100
+                  </span>
                 </div>
-                {/* Transit — stations and bus routes */}
-                <div className="pt-1 border-t border-gray-200 mt-1">
-                  <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                {/* Transit */}
+                <div className="pt-2 border-t border-white/10 mt-2">
+                  <span className="text-xs font-medium text-white uppercase tracking-wide">
                     Transit
                   </span>
-                  {/* T Stations */}
                   {n.neighborhood.mbtaStations.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-1">
-                      {n.neighborhood.mbtaStations
-                        .filter((s) => s.line !== "ferry")
-                        .map((s) => (
+                      {n.neighborhood.mbtaStations.map((s) => (
                           <span
                             key={`${s.line}-${s.name}`}
-                            className="inline-flex items-center gap-1 text-xs bg-gray-100 rounded px-1.5 py-0.5"
+                            className="inline-flex items-center gap-1 text-xs bg-white/10 rounded px-1.5 py-0.5 text-white"
                           >
                             <span
-                              className={`w-2 h-2 rounded-full ${MBTA_COLORS[s.line]}`}
+                              className="w-2 h-2 rounded-full flex-shrink-0"
+                              style={{
+                                backgroundColor: MBTA_COLORS[s.line],
+                              }}
                             />
                             {s.name}
                           </span>
                         ))}
                     </div>
                   )}
-                  {/* Bus Routes */}
                   {n.neighborhood.busRoutes.length > 0 && (
-                    <div className="text-xs text-gray-500 mt-1">
+                    <div className="text-xs text-white mt-1">
                       <span className="inline-flex items-center gap-1">
-                        <span className={`w-2 h-2 rounded-full ${MBTA_COLORS.bus}`} />
+                        <span
+                          className="w-2 h-2 rounded-full"
+                          style={{ backgroundColor: MBTA_COLORS.bus }}
+                        />
                         Bus {n.neighborhood.busRoutes.join(", ")}
                       </span>
                     </div>
                   )}
-                  {/* Ferry */}
-                  {n.neighborhood.mbtaStations
-                    .filter((s) => s.line === "ferry")
-                    .map((s) => (
-                      <div key={s.name} className="text-xs text-gray-500 mt-1">
-                        <span className="inline-flex items-center gap-1">
-                          <span className={`w-2 h-2 rounded-full ${MBTA_COLORS.ferry}`} />
-                          {s.name}
-                        </span>
-                      </div>
-                    ))}
                 </div>
-                {/* Walking */}
-                {n.commuteRoute && n.commuteRoute.includes("walk") && (
-                  <div className="flex justify-between">
-                    <span>Walk</span>
-                    <span className="font-semibold text-xs">
-                      {n.commuteRoute.match(/(\d+)\s*min\s*walk/)?.[0] || "Available"}
-                    </span>
-                  </div>
-                )}
               </div>
               {rec.tradeoffVsPrev && (
-                <p className="mt-3 text-xs text-gray-500 italic">
+                <p className="mt-3 text-xs text-white italic">
                   vs previous: {rec.tradeoffVsPrev}
                 </p>
               )}

@@ -4,58 +4,57 @@
     "name": "Back Bay",
     "region": "boston",
     "description": "Classic Boston elegance with brownstone-lined streets, Newbury Street shopping, and a polished professional vibe. One of the most walkable neighborhoods in the country.",
-    "localTips": "Broker fees are standard (1 month). Street parking nearly impossible \u2014 budget for a garage ($300-450/mo). Most buildings are older brownstones with radiator heat. Laundry in-unit is rare in older buildings.",
+    "localTips": "Broker fees are standard (1 month). Street parking nearly impossible — budget for a garage ($300-450/mo). Most buildings are older brownstones with radiator heat. Laundry in-unit is rare in older buildings.",
     "rent": {
       "studio": [
-        2200,
-        2500
+        2475,
+        3025
       ],
       "oneBr": [
-        2800,
-        3300
+        2970,
+        3630
       ],
       "twoBr": [
-        3800,
-        4500
-      ],
-      "threeBr": [
-        5000,
-        6500
+        4050,
+        4950
       ]
     },
-    "safety": 82,
+    "safety": 61,
     "safetyTrend": "stable",
-    "walkScore": 97,
-    "transitScore": 89,
-    "bikeScore": 82,
+    "walkScore": 100,
+    "transitScore": 66,
+    "bikeScore": 100,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 2,
       "urbanVsSuburban": 1,
       "trendyVsFamily": 2,
-      "communityVsPrivacy": 3
+      "communityVsPrivacy": 2
     },
-    "communityScore": 68,
+    "communityScore": 78,
     "amenities": {
-      "restaurants": 180,
-      "nightlife": 45,
-      "gyms": 25,
-      "grocery": 8,
-      "parks": 5
+      "restaurants": 60,
+      "nightlife": 20,
+      "gyms": 20,
+      "grocery": 4,
+      "parks": 20
     },
     "mbtaLines": [
+      "bus",
       "green",
-      "orange",
-      "bus"
+      "orange"
     ],
-    "parkingCost": 375,
     "centroid": {
       "lat": 42.3503,
       "lng": -71.081
     },
     "mbtaStations": [
       {
-        "line": "green",
-        "name": "Copley"
+        "line": "orange",
+        "name": "Massachusetts Avenue"
+      },
+      {
+        "line": "orange",
+        "name": "Back Bay"
       },
       {
         "line": "green",
@@ -63,69 +62,79 @@
       },
       {
         "line": "green",
+        "name": "Copley"
+      },
+      {
+        "line": "green",
         "name": "Hynes Convention Center"
       },
       {
-        "line": "orange",
-        "name": "Back Bay"
+        "line": "green",
+        "name": "Symphony"
+      },
+      {
+        "line": "green",
+        "name": "Prudential"
       }
     ],
     "busRoutes": [
-      "9",
       "10",
       "39",
-      "55"
-    ]
+      "501",
+      "504",
+      "55",
+      "57",
+      "9"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": false
   },
   {
     "id": "beacon-hill",
     "name": "Beacon Hill",
     "region": "boston",
     "description": "Historic gaslit streets and brick sidewalks make this Boston's most picturesque neighborhood. Quiet, affluent, and surprisingly residential despite being steps from downtown.",
-    "localTips": "Extremely limited parking \u2014 many residents don't own cars. Cobblestone streets are charming but rough on bikes. Most units are in converted historic homes. Sept 1 lease cycle dominates.",
+    "localTips": "Extremely limited parking — many residents don't own cars. Cobblestone streets are charming but rough on bikes. Most units are in converted historic homes. Sept 1 lease cycle dominates.",
     "rent": {
       "studio": [
-        2100,
-        2400
+        2205,
+        2695
       ],
       "oneBr": [
-        2600,
-        3100
+        2710,
+        3312
       ],
       "twoBr": [
-        3500,
-        4200
-      ],
-      "threeBr": [
-        4800,
-        6000
+        4050,
+        4950
       ]
     },
-    "safety": 85,
+    "safety": 73,
     "safetyTrend": "stable",
-    "walkScore": 96,
-    "transitScore": 85,
-    "bikeScore": 72,
+    "walkScore": 100,
+    "transitScore": 50,
+    "bikeScore": 100,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 4,
-      "urbanVsSuburban": 1,
-      "trendyVsFamily": 3,
-      "communityVsPrivacy": 4
+      "nightlifeVsQuiet": 3,
+      "urbanVsSuburban": 2,
+      "trendyVsFamily": 4,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 72,
+    "communityScore": 76,
     "amenities": {
-      "restaurants": 65,
-      "nightlife": 12,
-      "gyms": 8,
-      "grocery": 4,
-      "parks": 4
+      "restaurants": 60,
+      "nightlife": 20,
+      "gyms": 14,
+      "grocery": 2,
+      "parks": 20
     },
     "mbtaLines": [
-      "red",
       "blue",
-      "bus"
+      "bus",
+      "green",
+      "orange",
+      "red"
     ],
-    "parkingCost": 350,
     "centroid": {
       "lat": 42.3588,
       "lng": -71.0707
@@ -140,64 +149,84 @@
         "name": "Park Street"
       },
       {
+        "line": "green",
+        "name": "Park Street"
+      },
+      {
+        "line": "red",
+        "name": "Downtown Crossing"
+      },
+      {
+        "line": "orange",
+        "name": "Downtown Crossing"
+      },
+      {
+        "line": "orange",
+        "name": "Chinatown"
+      },
+      {
+        "line": "green",
+        "name": "Boylston"
+      },
+      {
+        "line": "green",
+        "name": "Arlington"
+      },
+      {
         "line": "blue",
         "name": "Bowdoin"
       }
     ],
     "busRoutes": [
-      "43",
-      "55"
-    ]
+      "43"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": false
   },
   {
     "id": "south-end",
     "name": "South End",
     "region": "boston",
     "description": "Boston's trendiest dining scene with Victorian brownstones, art galleries, and a diverse, progressive community. The restaurant row on Tremont Street is legendary.",
-    "localTips": "Broker fees common. Street parking via resident permit ($25/yr) but competitive. Many converted condos. Strong dog owner community \u2014 Peters Park has an off-leash area. Sept 1 cycle.",
+    "localTips": "Broker fees common. Street parking via resident permit ($25/yr) but competitive. Many converted condos. Strong dog owner community — Peters Park has an off-leash area. Sept 1 cycle.",
     "rent": {
       "studio": [
-        2100,
-        2400
+        2250,
+        2750
       ],
       "oneBr": [
-        2700,
-        3200
+        2876,
+        3515
       ],
       "twoBr": [
         3600,
-        4300
-      ],
-      "threeBr": [
-        4500,
-        5800
+        4400
       ]
     },
-    "safety": 72,
+    "safety": 30,
     "safetyTrend": "improving",
-    "walkScore": 95,
-    "transitScore": 82,
-    "bikeScore": 80,
+    "walkScore": 100,
+    "transitScore": 68,
+    "bikeScore": 100,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 2,
-      "urbanVsSuburban": 1,
-      "trendyVsFamily": 2,
-      "communityVsPrivacy": 2
+      "urbanVsSuburban": 2,
+      "trendyVsFamily": 3,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 78,
+    "communityScore": 92,
     "amenities": {
-      "restaurants": 200,
-      "nightlife": 40,
+      "restaurants": 60,
+      "nightlife": 20,
       "gyms": 20,
-      "grocery": 7,
-      "parks": 6
+      "grocery": 3,
+      "parks": 20
     },
     "mbtaLines": [
-      "orange",
       "bus",
-      "silver"
+      "green",
+      "orange"
     ],
-    "parkingCost": 300,
     "centroid": {
       "lat": 42.3421,
       "lng": -71.0733
@@ -205,28 +234,34 @@
     "mbtaStations": [
       {
         "line": "orange",
-        "name": "Back Bay"
+        "name": "Massachusetts Avenue"
       },
       {
         "line": "orange",
-        "name": "Massachusetts Ave"
+        "name": "Back Bay"
       },
       {
-        "line": "silver",
-        "name": "East Berkeley St"
+        "line": "green",
+        "name": "Symphony"
       },
       {
-        "line": "silver",
-        "name": "Worcester Sq"
+        "line": "green",
+        "name": "Prudential"
       }
     ],
     "busRoutes": [
-      "1",
-      "8",
       "10",
+      "15",
       "43",
-      "47"
-    ]
+      "47",
+      "708",
+      "749",
+      "751",
+      "8",
+      "9"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": false
   },
   {
     "id": "south-boston",
@@ -236,47 +271,41 @@
     "localTips": "Broker fees standard. Parking competitive but doable with resident permit. Many triple-deckers with roommate-friendly layouts. The St. Patrick's Day parade is a neighborhood institution. Watch for flood zone in lower areas.",
     "rent": {
       "studio": [
-        1900,
-        2200
+        2218,
+        2712
       ],
       "oneBr": [
-        2400,
-        2800
+        2610,
+        3190
       ],
       "twoBr": [
-        3000,
-        3600
-      ],
-      "threeBr": [
-        3800,
-        4500
+        3420,
+        4180
       ]
     },
-    "safety": 75,
+    "safety": 69,
     "safetyTrend": "stable",
-    "walkScore": 85,
-    "transitScore": 65,
-    "bikeScore": 72,
+    "walkScore": 100,
+    "transitScore": 66,
+    "bikeScore": 88,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 2,
       "urbanVsSuburban": 2,
       "trendyVsFamily": 2,
-      "communityVsPrivacy": 3
+      "communityVsPrivacy": 2
     },
-    "communityScore": 70,
+    "communityScore": 48,
     "amenities": {
-      "restaurants": 120,
-      "nightlife": 35,
-      "gyms": 15,
-      "grocery": 6,
-      "parks": 5
+      "restaurants": 49,
+      "nightlife": 20,
+      "gyms": 18,
+      "grocery": 3,
+      "parks": 6
     },
     "mbtaLines": [
-      "red",
       "bus",
-      "silver"
+      "red"
     ],
-    "parkingCost": 200,
     "centroid": {
       "lat": 42.3381,
       "lng": -71.0476
@@ -291,142 +320,134 @@
         "name": "Andrew"
       },
       {
-        "line": "silver",
-        "name": "Courthouse"
-      },
-      {
-        "line": "silver",
-        "name": "World Trade Center"
+        "line": "red",
+        "name": "JFK/UMass"
       }
     ],
     "busRoutes": [
-      "7",
-      "9",
       "10",
-      "11"
-    ]
+      "11",
+      "9"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "seaport",
     "name": "Seaport",
     "region": "boston",
     "description": "Boston's newest neighborhood with gleaming high-rises, upscale dining, and waterfront living. Tech companies and startups dominate. Feels more like a new city than old Boston.",
-    "localTips": "Most expensive area. Almost all new luxury construction \u2014 expect amenities but generic architecture. Very limited grocery options. Wind off the harbor is brutal in winter. Limited MBTA access (Silver Line only).",
+    "localTips": "Most expensive area. Almost all new luxury construction — expect amenities but generic architecture. Very limited grocery options. Wind off the harbor is brutal in winter. Limited MBTA access (Silver Line only).",
     "rent": {
       "studio": [
-        2500,
-        2900
+        2970,
+        3630
       ],
       "oneBr": [
-        3000,
-        3600
+        3886,
+        4750
       ],
       "twoBr": [
-        4200,
-        5000
-      ],
-      "threeBr": [
-        5500,
-        7000
+        5399,
+        6599
       ]
     },
-    "safety": 90,
+    "safety": 93,
     "safetyTrend": "stable",
-    "walkScore": 82,
-    "transitScore": 55,
-    "bikeScore": 68,
+    "walkScore": 100,
+    "transitScore": 45,
+    "bikeScore": 100,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 2,
       "urbanVsSuburban": 1,
-      "trendyVsFamily": 2,
+      "trendyVsFamily": 1,
       "communityVsPrivacy": 4
     },
-    "communityScore": 45,
+    "communityScore": 42,
     "amenities": {
-      "restaurants": 100,
-      "nightlife": 25,
-      "gyms": 12,
-      "grocery": 3,
-      "parks": 4
+      "restaurants": 60,
+      "nightlife": 20,
+      "gyms": 7,
+      "grocery": 1,
+      "parks": 20
     },
     "mbtaLines": [
       "bus",
-      "silver"
+      "ferry",
+      "red"
     ],
-    "parkingCost": 350,
     "centroid": {
       "lat": 42.3489,
       "lng": -71.042
     },
     "mbtaStations": [
       {
-        "line": "silver",
-        "name": "Courthouse"
+        "line": "red",
+        "name": "Broadway"
       },
       {
-        "line": "silver",
-        "name": "World Trade Center"
+        "line": "ferry",
+        "name": "Rowes Wharf"
       },
       {
-        "line": "silver",
-        "name": "Silver Line Way"
+        "line": "ferry",
+        "name": "Seaport/Fan Pier"
       }
     ],
     "busRoutes": [
+      "4",
       "7",
-      "4"
-    ]
+      "741",
+      "742",
+      "743"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": false
   },
   {
     "id": "east-boston",
     "name": "East Boston",
     "region": "boston",
     "description": "Rapidly gentrifying waterfront neighborhood with stunning harbor views, a vibrant Latin American community, and some of the best affordable ethnic food in the city.",
-    "localTips": "Blue Line access is excellent. Logan Airport noise is real \u2014 check flight paths before signing a lease. Amazing empanadas and pupusas. Piers Park has the best skyline views. Waterfront trail is growing.",
+    "localTips": "Blue Line access is excellent. Logan Airport noise is real — check flight paths before signing a lease. Amazing empanadas and pupusas. Piers Park has the best skyline views. Waterfront trail is growing.",
     "rent": {
       "studio": [
-        1600,
-        1900
+        2030,
+        2482
       ],
       "oneBr": [
-        2000,
-        2400
+        2142,
+        2618
       ],
       "twoBr": [
-        2600,
-        3100
-      ],
-      "threeBr": [
-        3200,
-        3800
+        2655,
+        3245
       ]
     },
-    "safety": 62,
+    "safety": 81,
     "safetyTrend": "improving",
-    "walkScore": 80,
-    "transitScore": 70,
-    "bikeScore": 62,
+    "walkScore": 100,
+    "transitScore": 80,
+    "bikeScore": 100,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 3,
+      "nightlifeVsQuiet": 2,
       "urbanVsSuburban": 2,
-      "trendyVsFamily": 3,
-      "communityVsPrivacy": 2
+      "trendyVsFamily": 2,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 72,
+    "communityScore": 71,
     "amenities": {
-      "restaurants": 80,
-      "nightlife": 15,
-      "gyms": 8,
-      "grocery": 10,
-      "parks": 6
+      "restaurants": 60,
+      "nightlife": 16,
+      "gyms": 6,
+      "grocery": 7,
+      "parks": 20
     },
     "mbtaLines": [
       "blue",
-      "ferry",
       "bus",
-      "silver"
+      "ferry"
     ],
-    "parkingCost": 100,
     "centroid": {
       "lat": 42.3702,
       "lng": -71.0389
@@ -442,143 +463,170 @@
       },
       {
         "line": "blue",
+        "name": "Wood Island"
+      },
+      {
+        "line": "blue",
         "name": "Orient Heights"
       },
       {
-        "line": "silver",
-        "name": "Chelsea"
+        "line": "blue",
+        "name": "Suffolk Downs"
       },
       {
         "line": "ferry",
-        "name": "East Boston Ferry"
+        "name": "Logan Airport Ferry Terminal"
+      },
+      {
+        "line": "ferry",
+        "name": "Lewis Mall Wharf"
       }
     ],
     "busRoutes": [
-      "112",
       "114",
       "116",
-      "117",
       "120",
       "121"
-    ]
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "north-end",
     "name": "North End",
     "region": "boston",
-    "description": "Boston's Little Italy \u2014 narrow streets packed with Italian restaurants, bakeries, and old-world charm. Tiny apartments in a tight-knit community with unbeatable dining.",
-    "localTips": "Smallest apartments in Boston \u2014 studios are genuinely tiny. Almost no parking (waitlist for resident permits can be years). Noise from restaurants/tourists on weekends. Hanover Street is the main strip. Mike's vs Modern Pastry is a real debate.",
+    "description": "Boston's Little Italy — narrow streets packed with Italian restaurants, bakeries, and old-world charm. Tiny apartments in a tight-knit community with unbeatable dining.",
+    "localTips": "Smallest apartments in Boston — studios are genuinely tiny. Almost no parking (waitlist for resident permits can be years). Noise from restaurants/tourists on weekends. Hanover Street is the main strip. Mike's vs Modern Pastry is a real debate.",
     "rent": {
       "studio": [
-        1900,
-        2200
+        2048,
+        2502
       ],
       "oneBr": [
-        2400,
-        2900
+        2430,
+        2970
       ],
       "twoBr": [
-        3200,
-        3800
-      ],
-      "threeBr": [
-        4000,
-        5000
+        3150,
+        3850
       ]
     },
-    "safety": 88,
+    "safety": 64,
     "safetyTrend": "stable",
-    "walkScore": 99,
-    "transitScore": 80,
-    "bikeScore": 70,
+    "walkScore": 100,
+    "transitScore": 38,
+    "bikeScore": 100,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 2,
+      "nightlifeVsQuiet": 1,
       "urbanVsSuburban": 1,
-      "trendyVsFamily": 3,
-      "communityVsPrivacy": 2
+      "trendyVsFamily": 2,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 80,
+    "communityScore": 92,
     "amenities": {
-      "restaurants": 150,
+      "restaurants": 60,
       "nightlife": 20,
-      "gyms": 5,
-      "grocery": 5,
-      "parks": 3
+      "gyms": 20,
+      "grocery": 3,
+      "parks": 20
     },
     "mbtaLines": [
+      "blue",
+      "bus",
+      "ferry",
       "green",
-      "orange",
-      "bus"
+      "orange"
     ],
-    "parkingCost": 350,
     "centroid": {
       "lat": 42.3647,
       "lng": -71.0542
     },
     "mbtaStations": [
       {
+        "line": "orange",
+        "name": "Haymarket"
+      },
+      {
         "line": "green",
         "name": "Haymarket"
       },
       {
         "line": "orange",
-        "name": "Haymarket"
+        "name": "North Station"
+      },
+      {
+        "line": "green",
+        "name": "North Station"
+      },
+      {
+        "line": "blue",
+        "name": "Aquarium"
+      },
+      {
+        "line": "ferry",
+        "name": "Long Wharf (North)"
       }
     ],
     "busRoutes": [
+      "111",
+      "116",
+      "15",
+      "39",
       "4",
+      "426",
+      "428",
+      "450",
+      "57",
+      "92",
       "93"
-    ]
+    ],
+    "collegeArea": false,
+    "parkingFriendly": false
   },
   {
     "id": "charlestown",
     "name": "Charlestown",
     "region": "boston",
     "description": "Historic neighborhood across the harbor with the Bunker Hill Monument, Navy Yard, and a mix of longtime residents and young professionals. Waterfront access and community feel.",
-    "localTips": "Parking is tight but doable with permit. Orange Line at Sullivan Sq or bus 93. Ferry from Navy Yard to Long Wharf is a fantastic commute option. Gentrifying \u2014 mix of old and new. Good brunch scene emerging.",
+    "localTips": "Parking is tight but doable with permit. Orange Line at Sullivan Sq or bus 93. Ferry from Navy Yard to Long Wharf is a fantastic commute option. Gentrifying — mix of old and new. Good brunch scene emerging.",
     "rent": {
       "studio": [
-        2000,
-        2300
+        2250,
+        2750
       ],
       "oneBr": [
-        2500,
-        3000
+        2683,
+        3279
       ],
       "twoBr": [
-        3200,
-        3900
-      ],
-      "threeBr": [
-        4000,
-        5000
+        3240,
+        3960
       ]
     },
-    "safety": 73,
+    "safety": 88,
     "safetyTrend": "improving",
-    "walkScore": 82,
-    "transitScore": 60,
-    "bikeScore": 68,
+    "walkScore": 78,
+    "transitScore": 33,
+    "bikeScore": 100,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 3,
-      "urbanVsSuburban": 2,
-      "trendyVsFamily": 3,
-      "communityVsPrivacy": 3
+      "nightlifeVsQuiet": 5,
+      "urbanVsSuburban": 5,
+      "trendyVsFamily": 5,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 74,
+    "communityScore": 85,
     "amenities": {
-      "restaurants": 50,
-      "nightlife": 10,
-      "gyms": 8,
-      "grocery": 4,
-      "parks": 5
+      "restaurants": 24,
+      "nightlife": 11,
+      "gyms": 9,
+      "grocery": 1,
+      "parks": 20
     },
     "mbtaLines": [
-      "orange",
+      "bus",
       "ferry",
-      "bus"
+      "orange"
     ],
-    "parkingCost": 200,
     "centroid": {
       "lat": 42.3782,
       "lng": -71.0602
@@ -589,63 +637,64 @@
         "name": "Community College"
       },
       {
+        "line": "orange",
+        "name": "Sullivan Square"
+      },
+      {
         "line": "ferry",
-        "name": "Charlestown Navy Yard Ferry"
+        "name": "Charlestown Navy Yard"
       }
     ],
     "busRoutes": [
       "92",
       "93"
-    ]
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "allston",
     "name": "Allston",
     "region": "boston",
     "description": "Boston's college-town-within-a-city. BU students, cheap eats, dive bars, live music, and the chaotic energy of Allston Christmas (Sept 1 moving day). Gritty, fun, affordable.",
-    "localTips": "Sept 1 moving day is insane \u2014 furniture on sidewalks everywhere ('Allston Christmas'). Lots of roommate situations in triple-deckers. Great Asian and Korean food on Harvard Ave. Green Line B branch is slow but works. Parking is manageable.",
+    "localTips": "Sept 1 moving day is insane — furniture on sidewalks everywhere ('Allston Christmas'). Lots of roommate situations in triple-deckers. Great Asian and Korean food on Harvard Ave. Green Line B branch is slow but works. Parking is manageable.",
     "rent": {
       "studio": [
-        1600,
-        1900
+        1845,
+        2255
       ],
       "oneBr": [
-        2000,
-        2400
+        2156,
+        2634
       ],
       "twoBr": [
-        2500,
-        3000
-      ],
-      "threeBr": [
-        3000,
-        3600
+        2696,
+        3295
       ]
     },
-    "safety": 65,
+    "safety": 82,
     "safetyTrend": "stable",
-    "walkScore": 87,
-    "transitScore": 72,
-    "bikeScore": 80,
+    "walkScore": 100,
+    "transitScore": 47,
+    "bikeScore": 70,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 1,
+      "nightlifeVsQuiet": 2,
       "urbanVsSuburban": 2,
-      "trendyVsFamily": 1,
-      "communityVsPrivacy": 2
+      "trendyVsFamily": 2,
+      "communityVsPrivacy": 4
     },
-    "communityScore": 62,
+    "communityScore": 41,
     "amenities": {
-      "restaurants": 110,
-      "nightlife": 30,
-      "gyms": 12,
-      "grocery": 8,
-      "parks": 4
+      "restaurants": 60,
+      "nightlife": 12,
+      "gyms": 18,
+      "grocery": 4,
+      "parks": 0
     },
     "mbtaLines": [
-      "green",
-      "bus"
+      "bus",
+      "green"
     ],
-    "parkingCost": 100,
     "centroid": {
       "lat": 42.3539,
       "lng": -71.1337
@@ -653,22 +702,41 @@
     "mbtaStations": [
       {
         "line": "green",
-        "name": "Allston St"
+        "name": "Amory Street"
       },
       {
         "line": "green",
-        "name": "Warren St"
+        "name": "Babcock Street"
       },
       {
         "line": "green",
-        "name": "Griggs St"
+        "name": "Packard's Corner"
+      },
+      {
+        "line": "green",
+        "name": "Harvard Avenue"
+      },
+      {
+        "line": "green",
+        "name": "Griggs Street"
+      },
+      {
+        "line": "green",
+        "name": "Allston Street"
+      },
+      {
+        "line": "green",
+        "name": "Warren Street"
       }
     ],
     "busRoutes": [
+      "501",
       "57",
       "64",
       "66"
-    ]
+    ],
+    "collegeArea": true,
+    "parkingFriendly": true
   },
   {
     "id": "brighton",
@@ -678,46 +746,41 @@
     "localTips": "Better value than Allston with less chaos. Cleveland Circle area has Green Line C and D access. Oak Square has a strong community feel. More laundry in-unit options than Allston. Broker fees less common than downtown.",
     "rent": {
       "studio": [
-        1600,
-        1800
+        1886,
+        2304
       ],
       "oneBr": [
-        1900,
-        2300
+        2200,
+        2690
       ],
       "twoBr": [
-        2400,
-        2900
-      ],
-      "threeBr": [
-        2900,
-        3500
+        2700,
+        3300
       ]
     },
-    "safety": 70,
+    "safety": 93,
     "safetyTrend": "stable",
-    "walkScore": 82,
-    "transitScore": 65,
-    "bikeScore": 70,
+    "walkScore": 72,
+    "transitScore": 49,
+    "bikeScore": 83,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 3,
-      "urbanVsSuburban": 3,
-      "trendyVsFamily": 3,
-      "communityVsPrivacy": 3
+      "nightlifeVsQuiet": 5,
+      "urbanVsSuburban": 4,
+      "trendyVsFamily": 5,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 65,
+    "communityScore": 57,
     "amenities": {
-      "restaurants": 60,
-      "nightlife": 12,
-      "gyms": 10,
-      "grocery": 6,
-      "parks": 5
+      "restaurants": 37,
+      "nightlife": 3,
+      "gyms": 2,
+      "grocery": 0,
+      "parks": 11
     },
     "mbtaLines": [
-      "green",
-      "bus"
+      "bus",
+      "green"
     ],
-    "parkingCost": 100,
     "centroid": {
       "lat": 42.3464,
       "lng": -71.1627
@@ -725,80 +788,136 @@
     "mbtaStations": [
       {
         "line": "green",
+        "name": "Allston Street"
+      },
+      {
+        "line": "green",
+        "name": "Warren Street"
+      },
+      {
+        "line": "green",
+        "name": "Washington Street"
+      },
+      {
+        "line": "green",
+        "name": "Sutherland Road"
+      },
+      {
+        "line": "green",
+        "name": "Chiswick Road"
+      },
+      {
+        "line": "green",
+        "name": "Chestnut Hill Avenue"
+      },
+      {
+        "line": "green",
+        "name": "South Street"
+      },
+      {
+        "line": "green",
         "name": "Boston College"
       },
       {
         "line": "green",
-        "name": "Chestnut Hill Ave"
+        "name": "Cleveland Circle"
       },
       {
         "line": "green",
-        "name": "South St"
+        "name": "Englewood Avenue"
+      },
+      {
+        "line": "green",
+        "name": "Reservoir"
       }
     ],
     "busRoutes": [
-      "57",
-      "64",
-      "65",
-      "86"
-    ]
+      "501",
+      "57"
+    ],
+    "collegeArea": true,
+    "parkingFriendly": true
   },
   {
     "id": "fenway-kenmore",
     "name": "Fenway/Kenmore",
     "region": "boston",
     "description": "Home of Fenway Park, the MFA, and a huge student population from Northeastern, Berklee, and BU. Lively on game days, walkable, and well-connected by the Green Line.",
-    "localTips": "Game day parking restrictions are strict \u2014 check Red Sox schedule before moving. Incredible museum access (MFA, Gardner). Lansdowne Street nightlife. Student-heavy so turnover is high. Kenmore has better transit than deep Fenway.",
+    "localTips": "Game day parking restrictions are strict — check Red Sox schedule before moving. Incredible museum access (MFA, Gardner). Lansdowne Street nightlife. Student-heavy so turnover is high. Kenmore has better transit than deep Fenway.",
     "rent": {
       "studio": [
-        2000,
-        2300
+        2172,
+        2654
       ],
       "oneBr": [
-        2500,
-        3000
+        2632,
+        3218
       ],
       "twoBr": [
-        3300,
-        4000
-      ],
-      "threeBr": [
-        4200,
-        5200
+        3365,
+        4113
       ]
     },
-    "safety": 70,
+    "safety": 84,
     "safetyTrend": "stable",
-    "walkScore": 95,
-    "transitScore": 80,
-    "bikeScore": 82,
+    "walkScore": 100,
+    "transitScore": 51,
+    "bikeScore": 100,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 1,
       "urbanVsSuburban": 1,
       "trendyVsFamily": 1,
-      "communityVsPrivacy": 3
+      "communityVsPrivacy": 2
     },
-    "communityScore": 58,
+    "communityScore": 62,
     "amenities": {
-      "restaurants": 130,
-      "nightlife": 35,
-      "gyms": 15,
-      "grocery": 5,
-      "parks": 6
+      "restaurants": 60,
+      "nightlife": 20,
+      "gyms": 12,
+      "grocery": 2,
+      "parks": 20
     },
     "mbtaLines": [
+      "bus",
       "green",
-      "bus"
+      "orange"
     ],
-    "parkingCost": 250,
     "centroid": {
       "lat": 42.3467,
       "lng": -71.0972
     },
     "mbtaStations": [
       {
+        "line": "orange",
+        "name": "Ruggles"
+      },
+      {
+        "line": "orange",
+        "name": "Massachusetts Avenue"
+      },
+      {
+        "line": "green",
+        "name": "Hynes Convention Center"
+      },
+      {
         "line": "green",
         "name": "Kenmore"
+      },
+      {
+        "line": "green",
+        "name": "Blandford Street"
+      },
+      {
+        "line": "green",
+        "name": "Boston University East"
+      },
+      {
+        "line": "green",
+        "name": "Boston University Central"
+      },
+      {
+        "line": "green",
+        "name": "Saint Mary's Street"
       },
       {
         "line": "green",
@@ -807,217 +926,79 @@
       {
         "line": "green",
         "name": "Longwood Medical Area"
+      },
+      {
+        "line": "green",
+        "name": "Museum of Fine Arts"
+      },
+      {
+        "line": "green",
+        "name": "Northeastern University"
+      },
+      {
+        "line": "green",
+        "name": "Symphony"
       }
     ],
     "busRoutes": [
-      "8",
-      "47",
+      "19",
       "55",
+      "57",
       "60",
-      "65"
-    ]
+      "65",
+      "8",
+      "9"
+    ],
+    "collegeArea": true,
+    "parkingFriendly": false
   },
   {
     "id": "mission-hill",
     "name": "Mission Hill",
     "region": "boston",
     "description": "Diverse student-and-hospital-worker neighborhood near the Longwood Medical Area. Affordable for its location, with a strong local identity and improving amenities.",
-    "localTips": "Close to Longwood hospitals \u2014 great for medical workers. Green Line E branch access. Tremont Street has good local restaurants. Hilly terrain (hence the name). More affordable than neighboring Fenway.",
+    "localTips": "Close to Longwood hospitals — great for medical workers. Green Line E branch access. Tremont Street has good local restaurants. Hilly terrain (hence the name). More affordable than neighboring Fenway.",
     "rent": {
       "studio": [
-        1500,
-        1800
+        2205,
+        2695
       ],
       "oneBr": [
-        1900,
-        2300
+        2565,
+        3135
       ],
       "twoBr": [
-        2400,
-        2900
-      ],
-      "threeBr": [
-        2900,
-        3500
+        3420,
+        4180
       ]
     },
-    "safety": 55,
+    "safety": 82,
     "safetyTrend": "improving",
-    "walkScore": 90,
-    "transitScore": 70,
-    "bikeScore": 68,
+    "walkScore": 95,
+    "transitScore": 47,
+    "bikeScore": 100,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 3,
-      "urbanVsSuburban": 2,
-      "trendyVsFamily": 2,
-      "communityVsPrivacy": 2
+      "nightlifeVsQuiet": 4,
+      "urbanVsSuburban": 3,
+      "trendyVsFamily": 4,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 65,
+    "communityScore": 88,
     "amenities": {
-      "restaurants": 40,
-      "nightlife": 8,
-      "gyms": 6,
-      "grocery": 5,
-      "parks": 3
+      "restaurants": 52,
+      "nightlife": 7,
+      "gyms": 2,
+      "grocery": 1,
+      "parks": 20
     },
     "mbtaLines": [
+      "bus",
       "green",
-      "bus"
+      "orange"
     ],
-    "parkingCost": 100,
     "centroid": {
       "lat": 42.331,
       "lng": -71.106
-    },
-    "mbtaStations": [
-      {
-        "line": "green",
-        "name": "Brigham Circle"
-      },
-      {
-        "line": "green",
-        "name": "Fenwood Rd"
-      },
-      {
-        "line": "green",
-        "name": "Mission Park"
-      }
-    ],
-    "busRoutes": [
-      "14",
-      "39",
-      "66"
-    ]
-  },
-  {
-    "id": "jamaica-plain",
-    "name": "Jamaica Plain",
-    "region": "boston",
-    "description": "JP is Boston's progressive, artsy heart. Jamaica Pond, the Arnold Arboretum, fantastic breweries, and a strong sense of community. Great for young families and creatives alike.",
-    "localTips": "Centre Street is the main drag \u2014 amazing restaurants and local shops. Jamaica Pond is a gem for running/walking. Orange Line access at several stops. Farmer's market is a community institution. More spacious apartments than downtown.",
-    "rent": {
-      "studio": [
-        1700,
-        2000
-      ],
-      "oneBr": [
-        2100,
-        2500
-      ],
-      "twoBr": [
-        2700,
-        3200
-      ],
-      "threeBr": [
-        3300,
-        4000
-      ]
-    },
-    "safety": 68,
-    "safetyTrend": "improving",
-    "walkScore": 82,
-    "transitScore": 72,
-    "bikeScore": 78,
-    "lifestyleProfile": {
-      "nightlifeVsQuiet": 3,
-      "urbanVsSuburban": 3,
-      "trendyVsFamily": 3,
-      "communityVsPrivacy": 1
-    },
-    "communityScore": 85,
-    "amenities": {
-      "restaurants": 80,
-      "nightlife": 15,
-      "gyms": 10,
-      "grocery": 6,
-      "parks": 10
-    },
-    "mbtaLines": [
-      "orange",
-      "green",
-      "bus"
-    ],
-    "parkingCost": 75,
-    "centroid": {
-      "lat": 42.3097,
-      "lng": -71.1151
-    },
-    "mbtaStations": [
-      {
-        "line": "orange",
-        "name": "Jackson Square"
-      },
-      {
-        "line": "orange",
-        "name": "Stony Brook"
-      },
-      {
-        "line": "orange",
-        "name": "Green Street"
-      },
-      {
-        "line": "green",
-        "name": "Heath Street"
-      }
-    ],
-    "busRoutes": [
-      "39",
-      "41",
-      "48"
-    ]
-  },
-  {
-    "id": "roxbury",
-    "name": "Roxbury",
-    "region": "boston",
-    "description": "The cultural heart of Black Boston with rich history, growing arts scene, and strong community roots. Nubian Square is the commercial center. Rapidly developing but retaining its identity.",
-    "localTips": "Orange Line at Ruggles and Roxbury Crossing. Silver Line SL4/SL5 to downtown. Dudley/Nubian Square has new development. Some of the most affordable rents near downtown. Strong church and community organization network.",
-    "rent": {
-      "studio": [
-        1300,
-        1600
-      ],
-      "oneBr": [
-        1600,
-        2000
-      ],
-      "twoBr": [
-        2000,
-        2500
-      ],
-      "threeBr": [
-        2400,
-        3000
-      ]
-    },
-    "safety": 42,
-    "safetyTrend": "improving",
-    "walkScore": 82,
-    "transitScore": 68,
-    "bikeScore": 72,
-    "lifestyleProfile": {
-      "nightlifeVsQuiet": 3,
-      "urbanVsSuburban": 2,
-      "trendyVsFamily": 3,
-      "communityVsPrivacy": 1
-    },
-    "communityScore": 75,
-    "amenities": {
-      "restaurants": 45,
-      "nightlife": 8,
-      "gyms": 6,
-      "grocery": 5,
-      "parks": 4
-    },
-    "mbtaLines": [
-      "orange",
-      "bus",
-      "silver"
-    ],
-    "parkingCost": 50,
-    "centroid": {
-      "lat": 42.3278,
-      "lng": -71.0871
     },
     "mbtaStations": [
       {
@@ -1029,77 +1010,278 @@
         "name": "Ruggles"
       },
       {
-        "line": "silver",
-        "name": "Dudley Square"
+        "line": "green",
+        "name": "Heath Street"
+      },
+      {
+        "line": "green",
+        "name": "Back of the Hill"
+      },
+      {
+        "line": "green",
+        "name": "Riverway"
+      },
+      {
+        "line": "green",
+        "name": "Mission Park"
+      },
+      {
+        "line": "green",
+        "name": "Fenwood Road"
+      },
+      {
+        "line": "green",
+        "name": "Brigham Circle"
+      },
+      {
+        "line": "green",
+        "name": "Longwood Medical Area"
+      },
+      {
+        "line": "green",
+        "name": "Museum of Fine Arts"
+      }
+    ],
+    "busRoutes": [
+      "14",
+      "35",
+      "39",
+      "66"
+    ],
+    "collegeArea": true,
+    "parkingFriendly": true
+  },
+  {
+    "id": "jamaica-plain",
+    "name": "Jamaica Plain",
+    "region": "boston",
+    "description": "JP is Boston's progressive, artsy heart. Jamaica Pond, the Arnold Arboretum, fantastic breweries, and a strong sense of community. Great for young families and creatives alike.",
+    "localTips": "Centre Street is the main drag — amazing restaurants and local shops. Jamaica Pond is a gem for running/walking. Orange Line access at several stops. Farmer's market is a community institution. More spacious apartments than downtown.",
+    "rent": {
+      "studio": [
+        1732,
+        2118
+      ],
+      "oneBr": [
+        2115,
+        2585
+      ],
+      "twoBr": [
+        2790,
+        3410
+      ]
+    },
+    "safety": 91,
+    "safetyTrend": "improving",
+    "walkScore": 100,
+    "transitScore": 64,
+    "bikeScore": 100,
+    "lifestyleProfile": {
+      "nightlifeVsQuiet": 3,
+      "urbanVsSuburban": 2,
+      "trendyVsFamily": 4,
+      "communityVsPrivacy": 1
+    },
+    "communityScore": 77,
+    "amenities": {
+      "restaurants": 30,
+      "nightlife": 7,
+      "gyms": 10,
+      "grocery": 2,
+      "parks": 20
+    },
+    "mbtaLines": [
+      "bus",
+      "green",
+      "orange"
+    ],
+    "centroid": {
+      "lat": 42.3097,
+      "lng": -71.1151
+    },
+    "mbtaStations": [
+      {
+        "line": "orange",
+        "name": "Forest Hills"
+      },
+      {
+        "line": "orange",
+        "name": "Green Street"
+      },
+      {
+        "line": "orange",
+        "name": "Stony Brook"
+      },
+      {
+        "line": "orange",
+        "name": "Jackson Square"
+      },
+      {
+        "line": "green",
+        "name": "Heath Street"
+      },
+      {
+        "line": "green",
+        "name": "Back of the Hill"
+      },
+      {
+        "line": "green",
+        "name": "Riverway"
+      }
+    ],
+    "busRoutes": [
+      "35",
+      "38",
+      "39",
+      "41"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
+  },
+  {
+    "id": "roxbury",
+    "name": "Roxbury",
+    "region": "boston",
+    "description": "The cultural heart of Black Boston with rich history, growing arts scene, and strong community roots. Nubian Square is the commercial center. Rapidly developing but retaining its identity.",
+    "localTips": "Orange Line at Ruggles and Roxbury Crossing. Silver Line SL4/SL5 to downtown. Dudley/Nubian Square has new development. Some of the most affordable rents near downtown. Strong church and community organization network.",
+    "rent": {
+      "studio": [
+        1890,
+        2310
+      ],
+      "oneBr": [
+        2070,
+        2530
+      ],
+      "twoBr": [
+        2617,
+        3199
+      ]
+    },
+    "safety": 60,
+    "safetyTrend": "improving",
+    "walkScore": 94,
+    "transitScore": 56,
+    "bikeScore": 100,
+    "lifestyleProfile": {
+      "nightlifeVsQuiet": 4,
+      "urbanVsSuburban": 3,
+      "trendyVsFamily": 4,
+      "communityVsPrivacy": 1
+    },
+    "communityScore": 83,
+    "amenities": {
+      "restaurants": 35,
+      "nightlife": 3,
+      "gyms": 2,
+      "grocery": 1,
+      "parks": 20
+    },
+    "mbtaLines": [
+      "bus",
+      "green",
+      "orange"
+    ],
+    "centroid": {
+      "lat": 42.3278,
+      "lng": -71.0871
+    },
+    "mbtaStations": [
+      {
+        "line": "orange",
+        "name": "Jackson Square"
+      },
+      {
+        "line": "orange",
+        "name": "Roxbury Crossing"
+      },
+      {
+        "line": "orange",
+        "name": "Ruggles"
+      },
+      {
+        "line": "orange",
+        "name": "Massachusetts Avenue"
+      },
+      {
+        "line": "green",
+        "name": "Symphony"
       }
     ],
     "busRoutes": [
       "1",
-      "8",
+      "10",
       "14",
       "15",
+      "171",
       "19",
       "23",
       "28",
       "41",
+      "42",
       "44",
       "45",
-      "66"
-    ]
+      "47",
+      "66",
+      "749",
+      "751",
+      "8"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "dorchester-north",
     "name": "Dorchester North",
     "region": "boston",
     "description": "Boston's largest and most diverse neighborhood. North Dorchester (Savin Hill, Jones Hill) has gentrified significantly with Red Line access, waterfront, and a growing restaurant scene.",
-    "localTips": "Savin Hill and Fields Corner have great Red Line access. Vietnamese food on Dot Ave is outstanding. Columbia Point has UMass Boston and the JFK Library. Neighborhood varies block-by-block \u2014 visit first.",
+    "localTips": "Savin Hill and Fields Corner have great Red Line access. Vietnamese food on Dot Ave is outstanding. Columbia Point has UMass Boston and the JFK Library. Neighborhood varies block-by-block — visit first.",
     "rent": {
       "studio": [
-        1500,
-        1800
+        2116,
+        2586
       ],
       "oneBr": [
-        1800,
-        2200
+        2295,
+        2805
       ],
       "twoBr": [
-        2300,
-        2800
-      ],
-      "threeBr": [
-        2700,
-        3300
+        2790,
+        3410
       ]
     },
-    "safety": 50,
+    "safety": 72,
     "safetyTrend": "improving",
-    "walkScore": 78,
-    "transitScore": 65,
-    "bikeScore": 65,
+    "walkScore": 90,
+    "transitScore": 51,
+    "bikeScore": 100,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 3,
-      "urbanVsSuburban": 3,
-      "trendyVsFamily": 3,
-      "communityVsPrivacy": 2
+      "nightlifeVsQuiet": 5,
+      "urbanVsSuburban": 4,
+      "trendyVsFamily": 5,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 70,
+    "communityScore": 90,
     "amenities": {
-      "restaurants": 60,
-      "nightlife": 10,
-      "gyms": 8,
-      "grocery": 8,
-      "parks": 6
+      "restaurants": 44,
+      "nightlife": 3,
+      "gyms": 4,
+      "grocery": 4,
+      "parks": 20
     },
     "mbtaLines": [
-      "red",
-      "bus"
+      "bus",
+      "red"
     ],
-    "parkingCost": 50,
     "centroid": {
       "lat": 42.3145,
       "lng": -71.065
     },
     "mbtaStations": [
+      {
+        "line": "red",
+        "name": "Andrew"
+      },
       {
         "line": "red",
         "name": "JFK/UMass"
@@ -1111,16 +1293,40 @@
       {
         "line": "red",
         "name": "Fields Corner"
+      },
+      {
+        "line": "red",
+        "name": "Shawmut"
+      },
+      {
+        "line": "red",
+        "name": "Ashmont"
+      },
+      {
+        "line": "red",
+        "name": "Cedar Grove"
+      },
+      {
+        "line": "red",
+        "name": "Butler"
+      },
+      {
+        "line": "red",
+        "name": "Milton"
+      },
+      {
+        "line": "red",
+        "name": "Central Avenue"
       }
     ],
     "busRoutes": [
-      "8",
       "15",
+      "16",
       "17",
-      "18",
-      "201",
-      "202"
-    ]
+      "41"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "dorchester-south",
@@ -1130,51 +1336,58 @@
     "localTips": "Ashmont has Red Line terminus + Mattapan Trolley connection. Lower Mills area (Ashmont) is a hidden gem with great restaurants. More spacious housing stock. Peabody Square is the Ashmont commercial area. Strong community gardens network.",
     "rent": {
       "studio": [
-        1300,
-        1600
+        1908,
+        2332
       ],
       "oneBr": [
-        1600,
-        2000
+        2061,
+        2519
       ],
       "twoBr": [
-        2100,
-        2600
-      ],
-      "threeBr": [
-        2500,
-        3100
+        2475,
+        3025
       ]
     },
-    "safety": 45,
+    "safety": 73,
     "safetyTrend": "improving",
-    "walkScore": 72,
-    "transitScore": 58,
-    "bikeScore": 60,
+    "walkScore": 92,
+    "transitScore": 51,
+    "bikeScore": 100,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 4,
-      "urbanVsSuburban": 3,
-      "trendyVsFamily": 4,
-      "communityVsPrivacy": 2
+      "nightlifeVsQuiet": 5,
+      "urbanVsSuburban": 4,
+      "trendyVsFamily": 5,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 72,
+    "communityScore": 70,
     "amenities": {
-      "restaurants": 35,
-      "nightlife": 5,
-      "gyms": 5,
+      "restaurants": 24,
+      "nightlife": 3,
+      "gyms": 8,
       "grocery": 6,
-      "parks": 5
+      "parks": 16
     },
     "mbtaLines": [
-      "red",
-      "bus"
+      "bus",
+      "red"
     ],
-    "parkingCost": 25,
     "centroid": {
       "lat": 42.2936,
       "lng": -71.0686
     },
     "mbtaStations": [
+      {
+        "line": "red",
+        "name": "Andrew"
+      },
+      {
+        "line": "red",
+        "name": "JFK/UMass"
+      },
+      {
+        "line": "red",
+        "name": "Savin Hill"
+      },
       {
         "line": "red",
         "name": "Fields Corner"
@@ -1186,128 +1399,137 @@
       {
         "line": "red",
         "name": "Ashmont"
+      },
+      {
+        "line": "red",
+        "name": "Cedar Grove"
+      },
+      {
+        "line": "red",
+        "name": "Butler"
+      },
+      {
+        "line": "red",
+        "name": "Milton"
+      },
+      {
+        "line": "red",
+        "name": "Central Avenue"
       }
     ],
     "busRoutes": [
-      "18",
-      "21",
       "22",
-      "26",
-      "29",
-      "215",
-      "217"
-    ]
+      "23",
+      "26"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "roslindale",
     "name": "Roslindale",
     "region": "boston",
     "description": "A village within the city. Roslindale Square has a walkable center with independent shops, restaurants, and a beloved farmers market. Growing family destination with a strong community.",
-    "localTips": "Commuter Rail at Roslindale Village (faster than driving). Bus connections to Forest Hills Orange Line. Adams Park farmers market (Saturdays). More house-like living \u2014 single/two-family homes. Amazing value compared to JP next door.",
+    "localTips": "Commuter Rail at Roslindale Village (faster than driving). Bus connections to Forest Hills Orange Line. Adams Park farmers market (Saturdays). More house-like living — single/two-family homes. Amazing value compared to JP next door.",
     "rent": {
       "studio": [
-        1400,
-        1700
+        1817,
+        2221
       ],
       "oneBr": [
-        1700,
-        2100
+        2182,
+        2668
       ],
       "twoBr": [
-        2100,
-        2600
-      ],
-      "threeBr": [
-        2500,
-        3100
+        2520,
+        3080
       ]
     },
-    "safety": 65,
+    "safety": 91,
     "safetyTrend": "stable",
-    "walkScore": 72,
-    "transitScore": 48,
-    "bikeScore": 58,
+    "walkScore": 100,
+    "transitScore": 10,
+    "bikeScore": 100,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 4,
-      "urbanVsSuburban": 4,
-      "trendyVsFamily": 4,
-      "communityVsPrivacy": 1
+      "nightlifeVsQuiet": 3,
+      "urbanVsSuburban": 2,
+      "trendyVsFamily": 3,
+      "communityVsPrivacy": 2
     },
-    "communityScore": 82,
+    "communityScore": 53,
     "amenities": {
-      "restaurants": 30,
-      "nightlife": 5,
-      "gyms": 4,
-      "grocery": 4,
-      "parks": 6
+      "restaurants": 32,
+      "nightlife": 6,
+      "gyms": 6,
+      "grocery": 2,
+      "parks": 12
     },
     "mbtaLines": [
       "bus"
     ],
-    "parkingCost": 0,
     "centroid": {
       "lat": 42.2871,
       "lng": -71.1268
     },
     "mbtaStations": [],
     "busRoutes": [
+      "14",
       "30",
       "34",
+      "34E",
       "35",
       "36",
       "37",
+      "39",
       "40",
       "50",
       "51"
-    ]
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "hyde-park",
     "name": "Hyde Park",
     "region": "boston",
     "description": "Boston's southernmost neighborhood with a suburban feel. Diverse, affordable, family-oriented with Commuter Rail access. Feels more like a small town than a city neighborhood.",
-    "localTips": "Commuter Rail on Providence/Stoughton and Fairmount lines. Cleary Square is the main commercial area. Most suburban feel in Boston \u2014 yards, driveways, quiet streets. Much more affordable but longer commute downtown.",
+    "localTips": "Commuter Rail on Providence/Stoughton and Fairmount lines. Cleary Square is the main commercial area. Most suburban feel in Boston — yards, driveways, quiet streets. Much more affordable but longer commute downtown.",
     "rent": {
       "studio": [
-        1300,
-        1600
+        2002,
+        2448
       ],
       "oneBr": [
-        1600,
-        1900
+        1868,
+        2282
       ],
       "twoBr": [
-        2000,
-        2400
-      ],
-      "threeBr": [
-        2300,
-        2800
+        2430,
+        2970
       ]
     },
-    "safety": 55,
+    "safety": 79,
     "safetyTrend": "stable",
-    "walkScore": 62,
-    "transitScore": 40,
-    "bikeScore": 48,
+    "walkScore": 91,
+    "transitScore": 6,
+    "bikeScore": 88,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 5,
-      "urbanVsSuburban": 5,
-      "trendyVsFamily": 5,
+      "urbanVsSuburban": 3,
+      "trendyVsFamily": 4,
       "communityVsPrivacy": 2
     },
-    "communityScore": 68,
+    "communityScore": 47,
     "amenities": {
-      "restaurants": 20,
-      "nightlife": 3,
-      "gyms": 3,
-      "grocery": 4,
-      "parks": 5
+      "restaurants": 28,
+      "nightlife": 4,
+      "gyms": 4,
+      "grocery": 2,
+      "parks": 8
     },
     "mbtaLines": [
       "bus"
     ],
-    "parkingCost": 0,
     "centroid": {
       "lat": 42.2565,
       "lng": -71.1266
@@ -1316,8 +1538,11 @@
     "busRoutes": [
       "32",
       "33",
+      "39",
       "50"
-    ]
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "mattapan",
@@ -1327,46 +1552,41 @@
     "localTips": "Mattapan Trolley connects to Ashmont Red Line. Blue Hill Ave is the main corridor (bus 28). Most affordable neighborhood in Boston proper. Strong Haitian and Caribbean food scene. Community gardens thriving.",
     "rent": {
       "studio": [
-        1200,
-        1500
+        1997,
+        2441
       ],
       "oneBr": [
-        1500,
-        1800
+        1845,
+        2255
       ],
       "twoBr": [
-        1900,
-        2300
-      ],
-      "threeBr": [
-        2200,
-        2700
+        2385,
+        2915
       ]
     },
-    "safety": 38,
+    "safety": 63,
     "safetyTrend": "stable",
-    "walkScore": 68,
-    "transitScore": 45,
-    "bikeScore": 50,
+    "walkScore": 53,
+    "transitScore": 27,
+    "bikeScore": 67,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 4,
-      "urbanVsSuburban": 4,
+      "nightlifeVsQuiet": 5,
+      "urbanVsSuburban": 5,
       "trendyVsFamily": 5,
-      "communityVsPrivacy": 1
+      "communityVsPrivacy": 3
     },
-    "communityScore": 70,
+    "communityScore": 43,
     "amenities": {
-      "restaurants": 25,
-      "nightlife": 3,
-      "gyms": 3,
-      "grocery": 5,
-      "parks": 4
+      "restaurants": 16,
+      "nightlife": 0,
+      "gyms": 0,
+      "grocery": 0,
+      "parks": 10
     },
     "mbtaLines": [
-      "red",
-      "bus"
+      "bus",
+      "red"
     ],
-    "parkingCost": 0,
     "centroid": {
       "lat": 42.277,
       "lng": -71.0944
@@ -1374,18 +1594,32 @@
     "mbtaStations": [
       {
         "line": "red",
-        "name": "Mattapan (Trolley)"
+        "name": "Milton"
+      },
+      {
+        "line": "red",
+        "name": "Central Avenue"
+      },
+      {
+        "line": "red",
+        "name": "Valley Road"
+      },
+      {
+        "line": "red",
+        "name": "Capen Street"
+      },
+      {
+        "line": "red",
+        "name": "Mattapan"
       }
     ],
     "busRoutes": [
-      "24",
-      "26",
-      "27",
       "28",
       "29",
-      "30",
-      "33"
-    ]
+      "31"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "west-roxbury",
@@ -1395,45 +1629,40 @@
     "localTips": "Commuter Rail (Needham Line) at Highland. Bus to Forest Hills Orange Line. Centre Street has local shops and restaurants. Basically suburban living with a Boston address. Rowe's Quarry is a hidden swimming spot (unofficial).",
     "rent": {
       "studio": [
-        1500,
-        1800
+        1620,
+        1980
       ],
       "oneBr": [
-        1800,
-        2200
+        2205,
+        2695
       ],
       "twoBr": [
-        2200,
-        2700
-      ],
-      "threeBr": [
-        2700,
-        3300
+        2653,
+        3243
       ]
     },
-    "safety": 80,
+    "safety": 95,
     "safetyTrend": "stable",
-    "walkScore": 62,
-    "transitScore": 38,
-    "bikeScore": 52,
+    "walkScore": 79,
+    "transitScore": 8,
+    "bikeScore": 64,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 5,
-      "urbanVsSuburban": 5,
-      "trendyVsFamily": 5,
-      "communityVsPrivacy": 3
+      "urbanVsSuburban": 4,
+      "trendyVsFamily": 4,
+      "communityVsPrivacy": 4
     },
-    "communityScore": 75,
+    "communityScore": 36,
     "amenities": {
-      "restaurants": 25,
-      "nightlife": 3,
-      "gyms": 5,
-      "grocery": 4,
-      "parks": 6
+      "restaurants": 15,
+      "nightlife": 2,
+      "gyms": 6,
+      "grocery": 1,
+      "parks": 3
     },
     "mbtaLines": [
       "bus"
     ],
-    "parkingCost": 0,
     "centroid": {
       "lat": 42.2798,
       "lng": -71.1594
@@ -1442,9 +1671,10 @@
     "busRoutes": [
       "35",
       "36",
-      "37",
-      "52"
-    ]
+      "37"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "cambridge-harvard",
@@ -1454,46 +1684,41 @@
     "localTips": "Red Line at Harvard. Extremely walkable. Bike-friendly with separated lanes. Rent is high but the experience is unique. Brattle Theatre for indie films. Out Towner restaurant row on Mass Ave and Brattle St.",
     "rent": {
       "studio": [
-        2100,
-        2400
+        2362,
+        2888
       ],
       "oneBr": [
-        2600,
-        3100
+        2700,
+        3300
       ],
       "twoBr": [
-        3400,
-        4100
-      ],
-      "threeBr": [
-        4200,
-        5200
+        3465,
+        4235
       ]
     },
-    "safety": 85,
+    "safety": 43,
     "safetyTrend": "stable",
-    "walkScore": 96,
-    "transitScore": 85,
-    "bikeScore": 90,
+    "walkScore": 100,
+    "transitScore": 27,
+    "bikeScore": 100,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 2,
+      "nightlifeVsQuiet": 1,
       "urbanVsSuburban": 1,
-      "trendyVsFamily": 2,
-      "communityVsPrivacy": 2
+      "trendyVsFamily": 3,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 82,
+    "communityScore": 85,
     "amenities": {
-      "restaurants": 140,
-      "nightlife": 25,
-      "gyms": 12,
-      "grocery": 6,
-      "parks": 5
+      "restaurants": 60,
+      "nightlife": 20,
+      "gyms": 9,
+      "grocery": 1,
+      "parks": 20
     },
     "mbtaLines": [
-      "red",
-      "bus"
+      "bus",
+      "red"
     ],
-    "parkingCost": 300,
     "centroid": {
       "lat": 42.3736,
       "lng": -71.119
@@ -1506,62 +1731,66 @@
     ],
     "busRoutes": [
       "1",
+      "109",
       "66",
+      "68",
+      "69",
       "71",
-      "72",
       "73",
+      "74",
+      "75",
       "77",
+      "78",
+      "83",
+      "86",
       "96"
-    ]
+    ],
+    "collegeArea": true,
+    "parkingFriendly": true
   },
   {
     "id": "cambridge-kendall",
     "name": "Cambridge - Kendall Square",
     "region": "inner-suburb",
     "description": "The innovation district. MIT, biotech giants, and tech startups surround you. Modern apartments, excellent transit, but still developing its restaurant/nightlife scene.",
-    "localTips": "Red Line at Kendall/MIT. Walking distance to MIT campus. Biotech/tech jobs everywhere \u2014 you might walk to work. Area has gotten much more livable with new restaurants. CambridgeSide mall nearby. Pricey but transit-rich.",
+    "localTips": "Red Line at Kendall/MIT. Walking distance to MIT campus. Biotech/tech jobs everywhere — you might walk to work. Area has gotten much more livable with new restaurants. CambridgeSide mall nearby. Pricey but transit-rich.",
     "rent": {
       "studio": [
-        2300,
-        2600
+        2795,
+        3417
       ],
       "oneBr": [
-        2800,
-        3400
+        3465,
+        4235
       ],
       "twoBr": [
-        3800,
-        4500
-      ],
-      "threeBr": [
-        4800,
-        5800
+        4727,
+        5777
       ]
     },
-    "safety": 88,
+    "safety": 43,
     "safetyTrend": "stable",
-    "walkScore": 90,
-    "transitScore": 88,
-    "bikeScore": 88,
+    "walkScore": 100,
+    "transitScore": 23,
+    "bikeScore": 100,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 3,
-      "urbanVsSuburban": 1,
-      "trendyVsFamily": 2,
-      "communityVsPrivacy": 4
+      "urbanVsSuburban": 2,
+      "trendyVsFamily": 4,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 60,
+    "communityScore": 52,
     "amenities": {
-      "restaurants": 80,
-      "nightlife": 15,
-      "gyms": 10,
-      "grocery": 4,
-      "parks": 3
+      "restaurants": 60,
+      "nightlife": 19,
+      "gyms": 12,
+      "grocery": 1,
+      "parks": 20
     },
     "mbtaLines": [
-      "red",
-      "bus"
+      "bus",
+      "red"
     ],
-    "parkingCost": 300,
     "centroid": {
       "lat": 42.3629,
       "lng": -71.0901
@@ -1575,57 +1804,55 @@
     "busRoutes": [
       "64",
       "68",
+      "747",
       "85"
-    ]
+    ],
+    "collegeArea": true,
+    "parkingFriendly": true
   },
   {
     "id": "cambridge-central",
     "name": "Cambridge - Central Square",
     "region": "inner-suburb",
     "description": "Gritty, diverse, and full of character. Best live music scene in the area, eclectic dining, and a real neighborhood feel between Harvard and MIT. Rapidly gentrifying but still has edge.",
-    "localTips": "Red Line at Central. Mass Ave is the spine \u2014 restaurants, bars, music venues. Middle East/Sonia is legendary for live music. More affordable than Harvard or Kendall. Great ethnic food diversity.",
+    "localTips": "Red Line at Central. Mass Ave is the spine — restaurants, bars, music venues. Middle East/Sonia is legendary for live music. More affordable than Harvard or Kendall. Great ethnic food diversity.",
     "rent": {
       "studio": [
-        1900,
-        2200
+        2070,
+        2530
       ],
       "oneBr": [
-        2400,
-        2800
+        2700,
+        3300
       ],
       "twoBr": [
-        3100,
-        3700
-      ],
-      "threeBr": [
-        3800,
-        4600
+        3388,
+        4142
       ]
     },
-    "safety": 72,
+    "safety": 43,
     "safetyTrend": "stable",
-    "walkScore": 95,
-    "transitScore": 85,
-    "bikeScore": 90,
+    "walkScore": 100,
+    "transitScore": 27,
+    "bikeScore": 100,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 1,
+      "nightlifeVsQuiet": 2,
       "urbanVsSuburban": 1,
       "trendyVsFamily": 2,
-      "communityVsPrivacy": 2
+      "communityVsPrivacy": 1
     },
-    "communityScore": 75,
+    "communityScore": 97,
     "amenities": {
-      "restaurants": 120,
-      "nightlife": 30,
-      "gyms": 10,
-      "grocery": 5,
-      "parks": 3
+      "restaurants": 60,
+      "nightlife": 20,
+      "gyms": 16,
+      "grocery": 3,
+      "parks": 20
     },
     "mbtaLines": [
-      "red",
-      "bus"
+      "bus",
+      "red"
     ],
-    "parkingCost": 250,
     "centroid": {
       "lat": 42.3653,
       "lng": -71.1037
@@ -1640,59 +1867,57 @@
       "1",
       "47",
       "64",
+      "68",
       "70",
       "83",
       "91"
-    ]
+    ],
+    "collegeArea": true,
+    "parkingFriendly": true
   },
   {
     "id": "cambridge-porter",
     "name": "Cambridge - Porter Square",
     "region": "inner-suburb",
     "description": "Quieter residential area between Harvard and Davis squares. Good local restaurants, the Porter Exchange (Japanese food hall), and a more relaxed pace than its neighbors.",
-    "localTips": "Red Line at Porter (deepest station \u2014 long escalator ride). Lesley University area. Porter Exchange in the old Sears building has great Japanese food. Mass Ave connects to Harvard and Davis. Good balance of access and calm.",
+    "localTips": "Red Line at Porter (deepest station — long escalator ride). Lesley University area. Porter Exchange in the old Sears building has great Japanese food. Mass Ave connects to Harvard and Davis. Good balance of access and calm.",
     "rent": {
       "studio": [
-        1800,
-        2100
+        2426,
+        2965
       ],
       "oneBr": [
-        2200,
-        2700
+        2790,
+        3410
       ],
       "twoBr": [
-        2900,
-        3500
-      ],
-      "threeBr": [
-        3500,
-        4300
+        3240,
+        3960
       ]
     },
-    "safety": 82,
+    "safety": 43,
     "safetyTrend": "stable",
-    "walkScore": 88,
-    "transitScore": 78,
-    "bikeScore": 85,
+    "walkScore": 63,
+    "transitScore": 23,
+    "bikeScore": 77,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 4,
-      "urbanVsSuburban": 2,
-      "trendyVsFamily": 3,
-      "communityVsPrivacy": 3
+      "nightlifeVsQuiet": 5,
+      "urbanVsSuburban": 5,
+      "trendyVsFamily": 5,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 78,
+    "communityScore": 81,
     "amenities": {
-      "restaurants": 50,
-      "nightlife": 8,
-      "gyms": 6,
-      "grocery": 5,
-      "parks": 4
+      "restaurants": 38,
+      "nightlife": 6,
+      "gyms": 3,
+      "grocery": 2,
+      "parks": 11
     },
     "mbtaLines": [
-      "red",
-      "bus"
+      "bus",
+      "red"
     ],
-    "parkingCost": 200,
     "centroid": {
       "lat": 42.3884,
       "lng": -71.1285
@@ -1704,118 +1929,117 @@
       }
     ],
     "busRoutes": [
-      "77",
-      "83",
-      "96"
-    ]
+      "83"
+    ],
+    "collegeArea": true,
+    "parkingFriendly": true
   },
   {
     "id": "cambridge-inman",
     "name": "Cambridge - Inman Square",
     "region": "inner-suburb",
     "description": "Hidden gem between Central and Union squares. Excellent restaurant scene (some of the best in Cambridge), residential streets, and a strong local community feel without the student crowds.",
-    "localTips": "No direct T access \u2014 bus or walk to Central (Red) or Green Line GLX. This is actually a plus \u2014 it keeps the neighborhood quieter. Outstanding dining (Oleana, Puritan, 1369 Coffee House). Real neighborhood feel.",
+    "localTips": "No direct T access — bus or walk to Central (Red) or Green Line GLX. This is actually a plus — it keeps the neighborhood quieter. Outstanding dining (Oleana, Puritan, 1369 Coffee House). Real neighborhood feel.",
     "rent": {
       "studio": [
-        1900,
-        2200
+        2070,
+        2530
       ],
       "oneBr": [
-        2300,
-        2800
+        2700,
+        3300
       ],
       "twoBr": [
-        3000,
-        3600
-      ],
-      "threeBr": [
-        3700,
-        4500
+        3388,
+        4142
       ]
     },
-    "safety": 80,
+    "safety": 43,
     "safetyTrend": "stable",
-    "walkScore": 90,
-    "transitScore": 65,
-    "bikeScore": 88,
+    "walkScore": 100,
+    "transitScore": 8,
+    "bikeScore": 100,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 3,
+      "nightlifeVsQuiet": 2,
       "urbanVsSuburban": 2,
-      "trendyVsFamily": 2,
-      "communityVsPrivacy": 2
+      "trendyVsFamily": 4,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 80,
+    "communityScore": 97,
     "amenities": {
       "restaurants": 60,
-      "nightlife": 12,
-      "gyms": 5,
-      "grocery": 4,
-      "parks": 3
+      "nightlife": 20,
+      "gyms": 17,
+      "grocery": 6,
+      "parks": 16
     },
     "mbtaLines": [
-      "bus"
+      "bus",
+      "green"
     ],
-    "parkingCost": 150,
     "centroid": {
       "lat": 42.3738,
       "lng": -71.1001
     },
-    "mbtaStations": [],
+    "mbtaStations": [
+      {
+        "line": "green",
+        "name": "Union Square"
+      }
+    ],
     "busRoutes": [
+      "64",
+      "68",
       "69",
       "83",
-      "85",
       "91"
-    ]
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "somerville-davis",
     "name": "Somerville - Davis Square",
     "region": "inner-suburb",
-    "description": "The quintessential 'hip' square \u2014 independent shops, comedy at the Somerville Theatre, great bars, and a strong community identity. Red Line access makes it one of the most desirable squares outside Boston.",
+    "description": "The quintessential 'hip' square — independent shops, comedy at the Somerville Theatre, great bars, and a strong community identity. Red Line access makes it one of the most desirable squares outside Boston.",
     "localTips": "Red Line at Davis. Somerville Theatre is a treasure. Incredible bar/restaurant scene (Painted Burro, Five Horses, Spoke). Bike path (Community Path) connects to Alewife. Tufts students nearby but less overwhelming than Allston.",
     "rent": {
       "studio": [
-        1800,
-        2100
+        2160,
+        2640
       ],
       "oneBr": [
-        2200,
-        2700
+        2520,
+        3080
       ],
       "twoBr": [
-        2900,
-        3500
-      ],
-      "threeBr": [
-        3400,
-        4200
+        3105,
+        3795
       ]
     },
-    "safety": 78,
+    "safety": 74,
     "safetyTrend": "stable",
-    "walkScore": 88,
-    "transitScore": 75,
-    "bikeScore": 85,
+    "walkScore": 100,
+    "transitScore": 27,
+    "bikeScore": 100,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 2,
       "urbanVsSuburban": 2,
-      "trendyVsFamily": 2,
-      "communityVsPrivacy": 2
+      "trendyVsFamily": 4,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 82,
+    "communityScore": 90,
     "amenities": {
-      "restaurants": 80,
-      "nightlife": 22,
-      "gyms": 8,
-      "grocery": 5,
-      "parks": 4
+      "restaurants": 60,
+      "nightlife": 18,
+      "gyms": 6,
+      "grocery": 1,
+      "parks": 20
     },
     "mbtaLines": [
-      "red",
-      "bus"
+      "bus",
+      "red"
     ],
-    "parkingCost": 150,
     "centroid": {
       "lat": 42.3967,
       "lng": -71.1225
@@ -1827,62 +2051,60 @@
       }
     ],
     "busRoutes": [
+      "77",
       "87",
       "88",
       "89",
       "90",
       "94",
       "96"
-    ]
+    ],
+    "collegeArea": true,
+    "parkingFriendly": true
   },
   {
     "id": "somerville-union",
     "name": "Somerville - Union Square",
     "region": "inner-suburb",
     "description": "Formerly underserved by transit, Union Square has exploded since the Green Line Extension opened. Excellent restaurants, farmers market, and a creative community vibe.",
-    "localTips": "Green Line Extension at Union Square \u2014 game changer. Bow Market is a one-of-a-kind food/shop collective. Strong independent restaurant scene. Farmers market is one of the best in the area. Gentrifying fast \u2014 rents rising.",
+    "localTips": "Green Line Extension at Union Square — game changer. Bow Market is a one-of-a-kind food/shop collective. Strong independent restaurant scene. Farmers market is one of the best in the area. Gentrifying fast — rents rising.",
     "rent": {
       "studio": [
-        1800,
-        2100
+        2126,
+        2598
       ],
       "oneBr": [
-        2200,
-        2600
+        2430,
+        2970
       ],
       "twoBr": [
-        2800,
-        3400
-      ],
-      "threeBr": [
-        3300,
-        4000
+        3150,
+        3850
       ]
     },
-    "safety": 75,
+    "safety": 74,
     "safetyTrend": "improving",
-    "walkScore": 88,
-    "transitScore": 72,
-    "bikeScore": 85,
+    "walkScore": 100,
+    "transitScore": 25,
+    "bikeScore": 100,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 2,
-      "urbanVsSuburban": 2,
-      "trendyVsFamily": 2,
+      "urbanVsSuburban": 1,
+      "trendyVsFamily": 3,
       "communityVsPrivacy": 1
     },
-    "communityScore": 85,
+    "communityScore": 97,
     "amenities": {
-      "restaurants": 65,
-      "nightlife": 15,
-      "gyms": 6,
-      "grocery": 5,
-      "parks": 3
+      "restaurants": 60,
+      "nightlife": 20,
+      "gyms": 14,
+      "grocery": 3,
+      "parks": 18
     },
     "mbtaLines": [
-      "green",
-      "bus"
+      "bus",
+      "green"
     ],
-    "parkingCost": 125,
     "centroid": {
       "lat": 42.3795,
       "lng": -71.093
@@ -1891,63 +2113,68 @@
       {
         "line": "green",
         "name": "Union Square"
+      },
+      {
+        "line": "green",
+        "name": "East Somerville"
       }
     ],
     "busRoutes": [
+      "109",
+      "747",
+      "80",
       "85",
-      "86",
       "87",
+      "88",
+      "90",
       "91"
-    ]
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "somerville-assembly",
     "name": "Somerville - Assembly Row",
     "region": "inner-suburb",
-    "description": "Brand-new mixed-use development on the Mystic River. Shopping, restaurants, movie theater, and modern apartments. Orange Line access. Feels like a planned community \u2014 polished but still finding its soul.",
-    "localTips": "Orange Line at Assembly. Very new \u2014 most buildings less than 10 years old. LEGO Discovery Center, AMC theater, outlet shops. Good for people who want new construction. Less neighborhood character than Davis or Union. Windy by the river.",
+    "description": "Brand-new mixed-use development on the Mystic River. Shopping, restaurants, movie theater, and modern apartments. Orange Line access. Feels like a planned community — polished but still finding its soul.",
+    "localTips": "Orange Line at Assembly. Very new — most buildings less than 10 years old. LEGO Discovery Center, AMC theater, outlet shops. Good for people who want new construction. Less neighborhood character than Davis or Union. Windy by the river.",
     "rent": {
       "studio": [
-        2000,
-        2300
+        2025,
+        2475
       ],
       "oneBr": [
-        2500,
-        3000
+        2430,
+        2970
       ],
       "twoBr": [
-        3200,
-        3800
-      ],
-      "threeBr": [
-        3800,
-        4600
+        2880,
+        3520
       ]
     },
-    "safety": 82,
+    "safety": 74,
     "safetyTrend": "stable",
-    "walkScore": 78,
-    "transitScore": 70,
-    "bikeScore": 65,
+    "walkScore": 100,
+    "transitScore": 23,
+    "bikeScore": 100,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 3,
       "urbanVsSuburban": 2,
       "trendyVsFamily": 2,
-      "communityVsPrivacy": 4
+      "communityVsPrivacy": 1
     },
-    "communityScore": 50,
+    "communityScore": 45,
     "amenities": {
-      "restaurants": 40,
-      "nightlife": 8,
-      "gyms": 6,
+      "restaurants": 49,
+      "nightlife": 15,
+      "gyms": 10,
       "grocery": 3,
-      "parks": 3
+      "parks": 16
     },
     "mbtaLines": [
-      "orange",
-      "bus"
+      "bus",
+      "orange"
     ],
-    "parkingCost": 200,
     "centroid": {
       "lat": 42.3932,
       "lng": -71.0772
@@ -1959,10 +2186,11 @@
       }
     ],
     "busRoutes": [
-      "90",
-      "95",
-      "101"
-    ]
+      "85",
+      "90"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "somerville-east",
@@ -1972,46 +2200,41 @@
     "localTips": "Green Line Extension at East Somerville. Broadway is the main street. Great Brazilian food. More affordable than Davis or Union but catching up. Close to Assembly Row shopping.",
     "rent": {
       "studio": [
-        1600,
-        1900
+        2025,
+        2475
       ],
       "oneBr": [
-        2000,
-        2400
+        2430,
+        2970
       ],
       "twoBr": [
-        2500,
-        3100
-      ],
-      "threeBr": [
-        3000,
-        3600
+        2880,
+        3520
       ]
     },
-    "safety": 68,
+    "safety": 74,
     "safetyTrend": "improving",
-    "walkScore": 82,
-    "transitScore": 68,
-    "bikeScore": 75,
+    "walkScore": 80,
+    "transitScore": 23,
+    "bikeScore": 100,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 3,
-      "urbanVsSuburban": 2,
-      "trendyVsFamily": 3,
-      "communityVsPrivacy": 2
+      "nightlifeVsQuiet": 5,
+      "urbanVsSuburban": 5,
+      "trendyVsFamily": 5,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 70,
+    "communityScore": 81,
     "amenities": {
-      "restaurants": 35,
-      "nightlife": 6,
-      "gyms": 4,
-      "grocery": 5,
-      "parks": 3
+      "restaurants": 49,
+      "nightlife": 13,
+      "gyms": 10,
+      "grocery": 1,
+      "parks": 17
     },
     "mbtaLines": [
-      "green",
-      "bus"
+      "bus",
+      "green"
     ],
-    "parkingCost": 75,
     "centroid": {
       "lat": 42.383,
       "lng": -71.087
@@ -2023,59 +2246,60 @@
       }
     ],
     "busRoutes": [
-      "86",
-      "87",
+      "109",
+      "747",
+      "80",
+      "85",
+      "88",
+      "90",
       "91"
-    ]
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "brookline",
     "name": "Brookline",
     "region": "inner-suburb",
     "description": "Affluent, family-friendly enclave surrounded by Boston. Excellent schools, Coolidge Corner's vibrant retail, and multiple Green Line branches. The best of suburban living with urban access.",
-    "localTips": "Green Line C branch (Coolidge Corner) and D branch (Brookline Village to Reservoir). Coolidge Corner Theatre is beloved. Top public schools \u2014 huge draw for families. Higher rents but you get a lot. Town meeting government \u2014 very civically engaged.",
+    "localTips": "Green Line C branch (Coolidge Corner) and D branch (Brookline Village to Reservoir). Coolidge Corner Theatre is beloved. Top public schools — huge draw for families. Higher rents but you get a lot. Town meeting government — very civically engaged.",
     "rent": {
       "studio": [
-        1800,
-        2100
+        2115,
+        2585
       ],
       "oneBr": [
-        2200,
-        2700
+        2610,
+        3190
       ],
       "twoBr": [
-        2900,
-        3500
-      ],
-      "threeBr": [
-        3500,
-        4300
+        3150,
+        3850
       ]
     },
     "safety": 88,
     "safetyTrend": "stable",
-    "walkScore": 85,
-    "transitScore": 72,
-    "bikeScore": 78,
+    "walkScore": 100,
+    "transitScore": 59,
+    "bikeScore": 94,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 4,
-      "urbanVsSuburban": 3,
-      "trendyVsFamily": 4,
-      "communityVsPrivacy": 2
+      "nightlifeVsQuiet": 3,
+      "urbanVsSuburban": 2,
+      "trendyVsFamily": 3,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 85,
+    "communityScore": 75,
     "amenities": {
-      "restaurants": 90,
-      "nightlife": 12,
-      "gyms": 12,
-      "grocery": 8,
+      "restaurants": 60,
+      "nightlife": 10,
+      "gyms": 19,
+      "grocery": 3,
       "parks": 8
     },
     "mbtaLines": [
-      "green",
-      "bus"
+      "bus",
+      "green"
     ],
-    "parkingCost": 150,
     "centroid": {
       "lat": 42.3418,
       "lng": -71.1217
@@ -2083,11 +2307,67 @@
     "mbtaStations": [
       {
         "line": "green",
-        "name": "Brookline Village"
+        "name": "Boston University East"
       },
       {
         "line": "green",
-        "name": "Brookline Hills"
+        "name": "Boston University Central"
+      },
+      {
+        "line": "green",
+        "name": "Amory Street"
+      },
+      {
+        "line": "green",
+        "name": "Babcock Street"
+      },
+      {
+        "line": "green",
+        "name": "Packard's Corner"
+      },
+      {
+        "line": "green",
+        "name": "Harvard Avenue"
+      },
+      {
+        "line": "green",
+        "name": "Griggs Street"
+      },
+      {
+        "line": "green",
+        "name": "Sutherland Road"
+      },
+      {
+        "line": "green",
+        "name": "Cleveland Circle"
+      },
+      {
+        "line": "green",
+        "name": "Englewood Avenue"
+      },
+      {
+        "line": "green",
+        "name": "Dean Road"
+      },
+      {
+        "line": "green",
+        "name": "Tappan Street"
+      },
+      {
+        "line": "green",
+        "name": "Washington Square"
+      },
+      {
+        "line": "green",
+        "name": "Fairbanks Street"
+      },
+      {
+        "line": "green",
+        "name": "Brandon Hall"
+      },
+      {
+        "line": "green",
+        "name": "Summit Avenue"
       },
       {
         "line": "green",
@@ -2095,76 +2375,133 @@
       },
       {
         "line": "green",
-        "name": "Washington Square"
+        "name": "Saint Paul Street"
+      },
+      {
+        "line": "green",
+        "name": "Kent Street"
+      },
+      {
+        "line": "green",
+        "name": "Hawes Street"
+      },
+      {
+        "line": "green",
+        "name": "Saint Mary's Street"
+      },
+      {
+        "line": "green",
+        "name": "Chestnut Hill"
+      },
+      {
+        "line": "green",
+        "name": "Reservoir"
+      },
+      {
+        "line": "green",
+        "name": "Beaconsfield"
+      },
+      {
+        "line": "green",
+        "name": "Brookline Hills"
+      },
+      {
+        "line": "green",
+        "name": "Brookline Village"
+      },
+      {
+        "line": "green",
+        "name": "Longwood"
+      },
+      {
+        "line": "green",
+        "name": "Fenway"
+      },
+      {
+        "line": "green",
+        "name": "Back of the Hill"
+      },
+      {
+        "line": "green",
+        "name": "Riverway"
+      },
+      {
+        "line": "green",
+        "name": "Mission Park"
       }
     ],
     "busRoutes": [
-      "65",
-      "66",
-      "51"
-    ]
+      "66"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "everett",
     "name": "Everett",
     "region": "outer-ring",
     "description": "Working-class city north of Boston undergoing transformation with the Encore casino and new development. Affordable, diverse, with improving infrastructure but limited rail transit.",
-    "localTips": "No direct T station \u2014 rely on buses (97, 99, 104, 109, 110) to Orange Line or bus to downtown. Encore casino has brought investment but also traffic. Broadway is the main drag. Much more affordable than Somerville next door.",
+    "localTips": "No direct T station — rely on buses (97, 99, 104, 109, 110) to Orange Line or bus to downtown. Encore casino has brought investment but also traffic. Broadway is the main drag. Much more affordable than Somerville next door.",
     "rent": {
       "studio": [
-        1500,
-        1800
+        2182,
+        2668
       ],
       "oneBr": [
-        1800,
-        2200
+        1890,
+        2310
       ],
       "twoBr": [
-        2300,
-        2800
-      ],
-      "threeBr": [
-        2700,
-        3300
+        2340,
+        2860
       ]
     },
-    "safety": 58,
+    "safety": 68,
     "safetyTrend": "stable",
-    "walkScore": 78,
-    "transitScore": 48,
-    "bikeScore": 55,
+    "walkScore": 100,
+    "transitScore": 10,
+    "bikeScore": 85,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 3,
-      "urbanVsSuburban": 3,
-      "trendyVsFamily": 4,
+      "urbanVsSuburban": 2,
+      "trendyVsFamily": 3,
       "communityVsPrivacy": 2
     },
-    "communityScore": 60,
+    "communityScore": 53,
     "amenities": {
-      "restaurants": 40,
-      "nightlife": 8,
-      "gyms": 5,
-      "grocery": 6,
-      "parks": 3
+      "restaurants": 60,
+      "nightlife": 12,
+      "gyms": 4,
+      "grocery": 3,
+      "parks": 5
     },
     "mbtaLines": [
-      "bus"
+      "bus",
+      "orange"
     ],
-    "parkingCost": 0,
     "centroid": {
       "lat": 42.4084,
       "lng": -71.0537
     },
-    "mbtaStations": [],
+    "mbtaStations": [
+      {
+        "line": "orange",
+        "name": "Assembly"
+      },
+      {
+        "line": "orange",
+        "name": "Wellington"
+      }
+    ],
     "busRoutes": [
-      "97",
-      "99",
       "104",
-      "105",
-      "106",
       "109",
-      "110"
-    ]
+      "110",
+      "112",
+      "97"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "malden",
@@ -2174,46 +2511,41 @@
     "localTips": "Orange Line at Malden Center and Oak Grove. Malden Center is walkable and improving. Excellent Chinese and East Asian food scene. Much more affordable than Somerville. Free street parking in most areas.",
     "rent": {
       "studio": [
-        1500,
-        1700
+        1945,
+        2377
       ],
       "oneBr": [
-        1800,
-        2200
+        1935,
+        2365
       ],
       "twoBr": [
-        2200,
-        2700
-      ],
-      "threeBr": [
-        2600,
-        3200
+        2340,
+        2860
       ]
     },
-    "safety": 65,
+    "safety": 75,
     "safetyTrend": "stable",
-    "walkScore": 78,
-    "transitScore": 62,
-    "bikeScore": 55,
+    "walkScore": 100,
+    "transitScore": 27,
+    "bikeScore": 91,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 4,
-      "urbanVsSuburban": 3,
-      "trendyVsFamily": 4,
-      "communityVsPrivacy": 3
+      "urbanVsSuburban": 2,
+      "trendyVsFamily": 3,
+      "communityVsPrivacy": 1
     },
-    "communityScore": 62,
+    "communityScore": 59,
     "amenities": {
-      "restaurants": 50,
-      "nightlife": 8,
-      "gyms": 6,
-      "grocery": 7,
-      "parks": 4
+      "restaurants": 60,
+      "nightlife": 7,
+      "gyms": 7,
+      "grocery": 2,
+      "parks": 7
     },
     "mbtaLines": [
-      "orange",
-      "bus"
+      "bus",
+      "orange"
     ],
-    "parkingCost": 0,
     "centroid": {
       "lat": 42.4268,
       "lng": -71.066
@@ -2222,17 +2554,25 @@
       {
         "line": "orange",
         "name": "Malden Center"
+      },
+      {
+        "line": "orange",
+        "name": "Oak Grove"
       }
     ],
     "busRoutes": [
-      "97",
-      "99",
-      "101",
       "104",
       "105",
       "106",
-      "108"
-    ]
+      "108",
+      "131",
+      "137",
+      "411",
+      "430",
+      "99"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "medford",
@@ -2242,139 +2582,128 @@
     "localTips": "Green Line Extension at Medford/Tufts and Ball Square. Orange Line at Wellington. Medford Square has local shops. The Mystic River path is great for biking/running. Mix of students (near Tufts) and families.",
     "rent": {
       "studio": [
-        1500,
-        1800
+        1800,
+        2200
       ],
       "oneBr": [
-        1900,
-        2300
+        2025,
+        2475
       ],
       "twoBr": [
-        2400,
-        2900
-      ],
-      "threeBr": [
-        2800,
-        3400
+        2610,
+        3190
       ]
     },
-    "safety": 75,
+    "safety": 79,
     "safetyTrend": "stable",
-    "walkScore": 70,
-    "transitScore": 55,
-    "bikeScore": 62,
+    "walkScore": 100,
+    "transitScore": 44,
+    "bikeScore": 100,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 4,
       "urbanVsSuburban": 3,
       "trendyVsFamily": 4,
-      "communityVsPrivacy": 3
+      "communityVsPrivacy": 2
     },
-    "communityScore": 68,
+    "communityScore": 52,
     "amenities": {
-      "restaurants": 35,
-      "nightlife": 5,
-      "gyms": 5,
-      "grocery": 5,
-      "parks": 5
+      "restaurants": 26,
+      "nightlife": 3,
+      "gyms": 8,
+      "grocery": 0,
+      "parks": 11
     },
     "mbtaLines": [
+      "bus",
       "green",
-      "orange",
-      "bus"
+      "orange"
     ],
-    "parkingCost": 0,
     "centroid": {
       "lat": 42.4184,
       "lng": -71.1062
     },
     "mbtaStations": [
       {
-        "line": "green",
-        "name": "Medford/Tufts"
-      },
-      {
         "line": "orange",
         "name": "Wellington"
+      },
+      {
+        "line": "green",
+        "name": "Ball Square"
+      },
+      {
+        "line": "green",
+        "name": "Medford/Tufts"
       }
     ],
     "busRoutes": [
+      "101",
+      "134",
+      "354",
       "94",
       "95",
-      "96",
-      "101",
-      "325",
-      "326"
-    ]
+      "96"
+    ],
+    "collegeArea": true,
+    "parkingFriendly": true
   },
   {
     "id": "chelsea",
     "name": "Chelsea",
     "region": "outer-ring",
-    "description": "One of the most diverse small cities in America. Latin American culture is strong \u2014 incredible food and community. Silver Line access to downtown. Rapidly developing while maintaining its character.",
-    "localTips": "Silver Line SL3 to South Station. Bus 111 to Haymarket is fast and frequent. Commuter Rail at Chelsea station. Very affordable. Amazing Latin American food \u2014 particularly Salvadoran and Colombian. Chelsea Walk is a nice waterfront path.",
+    "description": "One of the most diverse small cities in America. Latin American culture is strong — incredible food and community. Silver Line access to downtown. Rapidly developing while maintaining its character.",
+    "localTips": "Silver Line SL3 to South Station. Bus 111 to Haymarket is fast and frequent. Commuter Rail at Chelsea station. Very affordable. Amazing Latin American food — particularly Salvadoran and Colombian. Chelsea Walk is a nice waterfront path.",
     "rent": {
       "studio": [
-        1400,
-        1600
+        1958,
+        2392
       ],
       "oneBr": [
-        1700,
-        2000
+        2100,
+        2566
       ],
       "twoBr": [
-        2100,
-        2500
-      ],
-      "threeBr": [
-        2400,
-        2900
+        2475,
+        3025
       ]
     },
-    "safety": 48,
+    "safety": 30,
     "safetyTrend": "improving",
-    "walkScore": 82,
-    "transitScore": 58,
-    "bikeScore": 55,
+    "walkScore": 100,
+    "transitScore": 34,
+    "bikeScore": 100,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 3,
+      "nightlifeVsQuiet": 4,
       "urbanVsSuburban": 2,
-      "trendyVsFamily": 4,
+      "trendyVsFamily": 3,
       "communityVsPrivacy": 1
     },
-    "communityScore": 68,
+    "communityScore": 65,
     "amenities": {
-      "restaurants": 45,
-      "nightlife": 6,
-      "gyms": 4,
-      "grocery": 8,
-      "parks": 3
+      "restaurants": 59,
+      "nightlife": 8,
+      "gyms": 1,
+      "grocery": 5,
+      "parks": 15
     },
     "mbtaLines": [
-      "bus",
-      "ferry"
+      "bus"
     ],
-    "parkingCost": 0,
     "centroid": {
       "lat": 42.3918,
       "lng": -71.0328
     },
-    "mbtaStations": [
-      {
-        "line": "silver",
-        "name": "Chelsea"
-      },
-      {
-        "line": "ferry",
-        "name": "Chelsea Commuter Ferry"
-      }
-    ],
+    "mbtaStations": [],
     "busRoutes": [
+      "104",
       "111",
       "112",
       "114",
       "116",
-      "117"
-    ]
+      "743"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "revere",
@@ -2384,46 +2713,41 @@
     "localTips": "Blue Line at Wonderland, Revere Beach, Beachmont. The beach is genuinely great in summer. Revere Beach Blvd has new luxury buildings. Kelly's Roast Beef is an institution. More affordable than East Boston with similar Blue Line access.",
     "rent": {
       "studio": [
-        1400,
-        1600
+        2002,
+        2448
       ],
       "oneBr": [
-        1700,
-        2100
+        2025,
+        2475
       ],
       "twoBr": [
-        2100,
-        2600
-      ],
-      "threeBr": [
-        2500,
-        3000
+        2520,
+        3080
       ]
     },
-    "safety": 58,
+    "safety": 59,
     "safetyTrend": "stable",
-    "walkScore": 72,
-    "transitScore": 58,
-    "bikeScore": 48,
+    "walkScore": 84,
+    "transitScore": 47,
+    "bikeScore": 71,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 3,
+      "nightlifeVsQuiet": 4,
       "urbanVsSuburban": 3,
       "trendyVsFamily": 4,
       "communityVsPrivacy": 3
     },
-    "communityScore": 58,
+    "communityScore": 34,
     "amenities": {
-      "restaurants": 40,
-      "nightlife": 8,
-      "gyms": 5,
-      "grocery": 6,
-      "parks": 5
+      "restaurants": 25,
+      "nightlife": 2,
+      "gyms": 2,
+      "grocery": 0,
+      "parks": 4
     },
     "mbtaLines": [
       "blue",
       "bus"
     ],
-    "parkingCost": 0,
     "centroid": {
       "lat": 42.4084,
       "lng": -71.012
@@ -2431,7 +2755,7 @@
     "mbtaStations": [
       {
         "line": "blue",
-        "name": "Wonderland"
+        "name": "Beachmont"
       },
       {
         "line": "blue",
@@ -2439,14 +2763,17 @@
       },
       {
         "line": "blue",
-        "name": "Beachmont"
+        "name": "Wonderland"
       }
     ],
     "busRoutes": [
       "110",
       "116",
-      "117"
-    ]
+      "119",
+      "411"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "quincy",
@@ -2456,51 +2783,55 @@
     "localTips": "Red Line at North Quincy, Wollaston, Quincy Center, Quincy Adams. Four T stops is excellent coverage. Amazing Asian food (especially Chinese) near Quincy Center. Wollaston Beach is underrated. More space for your money than Boston.",
     "rent": {
       "studio": [
-        1500,
-        1800
+        1880,
+        2298
       ],
       "oneBr": [
-        1900,
-        2300
+        1890,
+        2310
       ],
       "twoBr": [
-        2400,
-        2900
-      ],
-      "threeBr": [
-        2800,
-        3400
+        2430,
+        2970
       ]
     },
-    "safety": 72,
+    "safety": 58,
     "safetyTrend": "stable",
-    "walkScore": 72,
-    "transitScore": 60,
-    "bikeScore": 52,
+    "walkScore": 99,
+    "transitScore": 63,
+    "bikeScore": 100,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 4,
       "urbanVsSuburban": 3,
       "trendyVsFamily": 4,
-      "communityVsPrivacy": 3
+      "communityVsPrivacy": 1
     },
-    "communityScore": 65,
+    "communityScore": 51,
     "amenities": {
-      "restaurants": 70,
-      "nightlife": 10,
-      "gyms": 10,
-      "grocery": 8,
-      "parks": 6
+      "restaurants": 43,
+      "nightlife": 13,
+      "gyms": 9,
+      "grocery": 1,
+      "parks": 11
     },
     "mbtaLines": [
-      "red",
-      "bus"
+      "bus",
+      "ferry",
+      "red"
     ],
-    "parkingCost": 0,
     "centroid": {
       "lat": 42.2529,
       "lng": -71.0023
     },
     "mbtaStations": [
+      {
+        "line": "red",
+        "name": "North Quincy"
+      },
+      {
+        "line": "red",
+        "name": "Wollaston"
+      },
       {
         "line": "red",
         "name": "Quincy Center"
@@ -2510,72 +2841,70 @@
         "name": "Quincy Adams"
       },
       {
-        "line": "red",
-        "name": "North Quincy"
-      },
-      {
-        "line": "red",
-        "name": "Wollaston"
+        "line": "ferry",
+        "name": "Quincy"
       }
     ],
     "busRoutes": [
       "210",
       "211",
-      "212",
-      "214",
       "215",
       "216",
-      "217"
-    ]
+      "217",
+      "220",
+      "222",
+      "225",
+      "230",
+      "236",
+      "238",
+      "245"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "milton",
     "name": "Milton",
     "region": "outer-ring",
     "description": "Affluent, leafy town south of Boston with the Blue Hills Reservation for hiking and the Mattapan Trolley at its northern edge. Excellent schools, quiet streets, and a small-town feel.",
-    "localTips": "Mattapan Trolley connects to Red Line at Ashmont. Commuter Rail on the Greenbush Line. Blue Hills has great hiking minutes away. Milton Academy area is beautiful. More suburban than most of our list \u2014 car helpful.",
+    "localTips": "Mattapan Trolley connects to Red Line at Ashmont. Commuter Rail on the Greenbush Line. Blue Hills has great hiking minutes away. Milton Academy area is beautiful. More suburban than most of our list — car helpful.",
     "rent": {
       "studio": [
-        1600,
-        1900
+        1485,
+        1815
       ],
       "oneBr": [
-        2000,
-        2400
+        1530,
+        1870
       ],
       "twoBr": [
-        2500,
-        3000
-      ],
-      "threeBr": [
-        3000,
-        3600
+        2385,
+        2915
       ]
     },
-    "safety": 85,
+    "safety": 95,
     "safetyTrend": "stable",
-    "walkScore": 48,
-    "transitScore": 35,
+    "walkScore": 55,
+    "transitScore": 23,
     "bikeScore": 42,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 5,
       "urbanVsSuburban": 5,
-      "trendyVsFamily": 5,
-      "communityVsPrivacy": 3
+      "trendyVsFamily": 3,
+      "communityVsPrivacy": 5
     },
-    "communityScore": 78,
+    "communityScore": 6,
     "amenities": {
-      "restaurants": 20,
-      "nightlife": 2,
-      "gyms": 4,
-      "grocery": 4,
-      "parks": 8
+      "restaurants": 2,
+      "nightlife": 0,
+      "gyms": 1,
+      "grocery": 0,
+      "parks": 1
     },
     "mbtaLines": [
-      "red",
-      "bus"
+      "bus",
+      "red"
     ],
-    "parkingCost": 0,
     "centroid": {
       "lat": 42.2496,
       "lng": -71.0662
@@ -2583,183 +2912,187 @@
     "mbtaStations": [
       {
         "line": "red",
-        "name": "Milton (Mattapan Trolley)"
+        "name": "Milton"
+      },
+      {
+        "line": "red",
+        "name": "Central Avenue"
+      },
+      {
+        "line": "red",
+        "name": "Valley Road"
+      },
+      {
+        "line": "red",
+        "name": "Capen Street"
+      },
+      {
+        "line": "red",
+        "name": "Mattapan"
       }
     ],
     "busRoutes": [
-      "217",
       "240",
       "245"
-    ]
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "watertown",
     "name": "Watertown",
     "region": "outer-ring",
     "description": "Established suburban town with a growing food scene, Armenian community heritage, and the Charles River path. No T access but good bus connections. Arsenal Yards is a new retail/dining hub.",
-    "localTips": "No T station \u2014 bus 57 to Kenmore Green Line, bus 71 to Harvard Red Line. Car very helpful. Arsenal Yards has new restaurants and Target. Strong Armenian community (great bakeries). Charles River path access for biking/running. More affordable than Cambridge/Brighton.",
+    "localTips": "No T station — bus 57 to Kenmore Green Line, bus 71 to Harvard Red Line. Car very helpful. Arsenal Yards has new restaurants and Target. Strong Armenian community (great bakeries). Charles River path access for biking/running. More affordable than Cambridge/Brighton.",
     "rent": {
       "studio": [
-        1600,
-        1900
+        2012,
+        2458
       ],
       "oneBr": [
-        2000,
-        2400
+        2138,
+        2612
       ],
       "twoBr": [
-        2500,
-        3000
-      ],
-      "threeBr": [
-        3000,
-        3600
+        2565,
+        3135
       ]
     },
-    "safety": 82,
+    "safety": 63,
     "safetyTrend": "stable",
-    "walkScore": 72,
-    "transitScore": 45,
-    "bikeScore": 68,
+    "walkScore": 65,
+    "transitScore": 10,
+    "bikeScore": 67,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 4,
-      "urbanVsSuburban": 4,
-      "trendyVsFamily": 4,
-      "communityVsPrivacy": 3
+      "nightlifeVsQuiet": 5,
+      "urbanVsSuburban": 5,
+      "trendyVsFamily": 5,
+      "communityVsPrivacy": 2
     },
-    "communityScore": 72,
+    "communityScore": 62,
     "amenities": {
-      "restaurants": 50,
-      "nightlife": 6,
-      "gyms": 8,
-      "grocery": 6,
-      "parks": 5
+      "restaurants": 29,
+      "nightlife": 2,
+      "gyms": 6,
+      "grocery": 0,
+      "parks": 7
     },
     "mbtaLines": [
       "bus"
     ],
-    "parkingCost": 0,
     "centroid": {
       "lat": 42.3709,
       "lng": -71.1828
     },
     "mbtaStations": [],
     "busRoutes": [
-      "52",
-      "57",
-      "59",
-      "70",
       "71"
-    ]
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "waltham",
     "name": "Waltham",
     "region": "outer-ring",
     "description": "Watch City (historic watch factories) with Brandeis University, Moody Street's restaurant row, and Commuter Rail access. More suburban but Moody Street has genuine urban energy.",
-    "localTips": "Commuter Rail (Fitchburg Line) at Waltham station. Bus 70 to Central Sq Cambridge. Moody Street is the highlight \u2014 diverse restaurants, bars, and shops. Brandeis gives it some college-town feel. Car recommended for most of the city.",
+    "localTips": "Commuter Rail (Fitchburg Line) at Waltham station. Bus 70 to Central Sq Cambridge. Moody Street is the highlight — diverse restaurants, bars, and shops. Brandeis gives it some college-town feel. Car recommended for most of the city.",
     "rent": {
       "studio": [
-        1500,
-        1800
+        2070,
+        2530
       ],
       "oneBr": [
-        1900,
-        2300
+        2042,
+        2496
       ],
       "twoBr": [
-        2400,
-        2900
-      ],
-      "threeBr": [
-        2800,
-        3400
+        2655,
+        3245
       ]
     },
-    "safety": 75,
+    "safety": 80,
     "safetyTrend": "stable",
-    "walkScore": 65,
-    "transitScore": 40,
-    "bikeScore": 55,
+    "walkScore": 100,
+    "transitScore": 10,
+    "bikeScore": 88,
     "lifestyleProfile": {
-      "nightlifeVsQuiet": 3,
-      "urbanVsSuburban": 4,
+      "nightlifeVsQuiet": 5,
+      "urbanVsSuburban": 3,
       "trendyVsFamily": 4,
-      "communityVsPrivacy": 3
+      "communityVsPrivacy": 2
     },
-    "communityScore": 65,
+    "communityScore": 45,
     "amenities": {
-      "restaurants": 60,
-      "nightlife": 12,
-      "gyms": 8,
-      "grocery": 6,
-      "parks": 5
+      "restaurants": 52,
+      "nightlife": 7,
+      "gyms": 11,
+      "grocery": 4,
+      "parks": 6
     },
     "mbtaLines": [
       "bus"
     ],
-    "parkingCost": 0,
     "centroid": {
       "lat": 42.3765,
       "lng": -71.2356
     },
     "mbtaStations": [],
     "busRoutes": [
-      "70",
-      "170",
+      "505",
       "553",
       "554",
-      "556"
-    ]
+      "556",
+      "558",
+      "61",
+      "70"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
   },
   {
     "id": "newton",
     "name": "Newton",
     "region": "outer-ring",
-    "description": "Wealthy garden city with 13 distinct villages, top-ranked schools, and Green Line D branch access. The gold standard of Boston suburbs \u2014 you pay a premium for schools, safety, and space.",
+    "description": "Wealthy garden city with 13 distinct villages, top-ranked schools, and Green Line D branch access. The gold standard of Boston suburbs — you pay a premium for schools, safety, and space.",
     "localTips": "Green Line D branch has multiple Newton stops (Chestnut Hill to Riverside). Newton Centre has a walkable village center. Excellent schools are the #1 draw. Car needed for most daily life despite T access. Newton-Wellesley Hospital area has good dining.",
     "rent": {
       "studio": [
-        1700,
-        2000
+        1980,
+        2420
       ],
       "oneBr": [
-        2100,
-        2500
+        2160,
+        2640
       ],
       "twoBr": [
-        2700,
-        3300
-      ],
-      "threeBr": [
-        3300,
-        4000
+        2696,
+        3295
       ]
     },
-    "safety": 92,
+    "safety": 89,
     "safetyTrend": "stable",
-    "walkScore": 55,
-    "transitScore": 45,
-    "bikeScore": 52,
+    "walkScore": 54,
+    "transitScore": 61,
+    "bikeScore": 65,
     "lifestyleProfile": {
       "nightlifeVsQuiet": 5,
       "urbanVsSuburban": 5,
       "trendyVsFamily": 5,
-      "communityVsPrivacy": 3
+      "communityVsPrivacy": 2
     },
-    "communityScore": 80,
+    "communityScore": 24,
     "amenities": {
-      "restaurants": 40,
-      "nightlife": 5,
-      "gyms": 10,
-      "grocery": 8,
-      "parks": 10
+      "restaurants": 6,
+      "nightlife": 0,
+      "gyms": 2,
+      "grocery": 0,
+      "parks": 9
     },
     "mbtaLines": [
-      "green",
-      "bus"
+      "bus",
+      "green"
     ],
-    "parkingCost": 0,
     "centroid": {
       "lat": 42.337,
       "lng": -71.2092
@@ -2767,11 +3100,19 @@
     "mbtaStations": [
       {
         "line": "green",
-        "name": "Newton Centre"
+        "name": "Boston College"
       },
       {
         "line": "green",
-        "name": "Newton Highlands"
+        "name": "Riverside"
+      },
+      {
+        "line": "green",
+        "name": "Woodland"
+      },
+      {
+        "line": "green",
+        "name": "Waban"
       },
       {
         "line": "green",
@@ -2779,14 +3120,507 @@
       },
       {
         "line": "green",
-        "name": "Waban"
+        "name": "Newton Highlands"
+      },
+      {
+        "line": "green",
+        "name": "Newton Centre"
+      },
+      {
+        "line": "green",
+        "name": "Chestnut Hill"
       }
     ],
     "busRoutes": [
-      "52",
-      "553",
-      "554",
-      "556"
-    ]
+      "59"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": true
+  },
+  {
+    "id": "financial-district",
+    "name": "Financial District",
+    "region": "boston",
+    "description": "Boston's business core with sleek high-rises, historic landmarks, and a buzzing weekday energy. Increasingly residential with luxury apartments and easy access to everything downtown.",
+    "localTips": "Quieter on weekends — most restaurants cater to the lunch crowd. Look for apartments in converted office buildings for larger floor plans. Extremely walkable to South Station, Faneuil Hall, and the waterfront.",
+    "rent": {
+      "studio": [
+        2588,
+        3164
+      ],
+      "oneBr": [
+        3046,
+        3724
+      ],
+      "twoBr": [
+        3958,
+        4838
+      ]
+    },
+    "safety": 47,
+    "safetyTrend": "stable",
+    "walkScore": 100,
+    "transitScore": 100,
+    "bikeScore": 100,
+    "lifestyleProfile": {
+      "nightlifeVsQuiet": 2,
+      "urbanVsSuburban": 1,
+      "trendyVsFamily": 2,
+      "communityVsPrivacy": 3
+    },
+    "communityScore": 48,
+    "amenities": {
+      "restaurants": 60,
+      "nightlife": 20,
+      "gyms": 20,
+      "grocery": 4,
+      "parks": 20
+    },
+    "mbtaLines": [
+      "blue",
+      "bus",
+      "ferry",
+      "green",
+      "orange",
+      "red"
+    ],
+    "centroid": {
+      "lat": 42.3557,
+      "lng": -71.0553
+    },
+    "mbtaStations": [
+      {
+        "line": "red",
+        "name": "Park Street"
+      },
+      {
+        "line": "green",
+        "name": "Park Street"
+      },
+      {
+        "line": "red",
+        "name": "Downtown Crossing"
+      },
+      {
+        "line": "orange",
+        "name": "Downtown Crossing"
+      },
+      {
+        "line": "red",
+        "name": "South Station"
+      },
+      {
+        "line": "orange",
+        "name": "Tufts Medical Center"
+      },
+      {
+        "line": "orange",
+        "name": "Chinatown"
+      },
+      {
+        "line": "orange",
+        "name": "State"
+      },
+      {
+        "line": "blue",
+        "name": "State"
+      },
+      {
+        "line": "orange",
+        "name": "Haymarket"
+      },
+      {
+        "line": "green",
+        "name": "Haymarket"
+      },
+      {
+        "line": "green",
+        "name": "Government Center"
+      },
+      {
+        "line": "blue",
+        "name": "Government Center"
+      },
+      {
+        "line": "green",
+        "name": "Boylston"
+      },
+      {
+        "line": "green",
+        "name": "Arlington"
+      },
+      {
+        "line": "blue",
+        "name": "Bowdoin"
+      },
+      {
+        "line": "blue",
+        "name": "Aquarium"
+      },
+      {
+        "line": "ferry",
+        "name": "Long Wharf (South)"
+      },
+      {
+        "line": "ferry",
+        "name": "Rowes Wharf"
+      },
+      {
+        "line": "ferry",
+        "name": "Long Wharf (North)"
+      },
+      {
+        "line": "ferry",
+        "name": "Central Wharf (South)"
+      }
+    ],
+    "busRoutes": [
+      "11",
+      "116",
+      "15",
+      "354",
+      "39",
+      "4",
+      "501",
+      "504",
+      "505",
+      "57",
+      "7",
+      "741",
+      "742",
+      "743",
+      "751",
+      "92",
+      "93"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": false
+  },
+  {
+    "id": "west-end",
+    "name": "West End",
+    "region": "boston",
+    "description": "A compact, centrally located neighborhood between Beacon Hill and North Station. Modern high-rises with river views, walking distance to TD Garden and Massachusetts General Hospital.",
+    "localTips": "Most housing is in large apartment complexes — expect modern amenities but less character than neighboring Beacon Hill. Great access to the Esplanade for running/biking along the river.",
+    "rent": {
+      "studio": [
+        2160,
+        2640
+      ],
+      "oneBr": [
+        2520,
+        3080
+      ],
+      "twoBr": [
+        3240,
+        3960
+      ]
+    },
+    "safety": 58,
+    "safetyTrend": "stable",
+    "walkScore": 100,
+    "transitScore": 67,
+    "bikeScore": 100,
+    "lifestyleProfile": {
+      "nightlifeVsQuiet": 3,
+      "urbanVsSuburban": 1,
+      "trendyVsFamily": 3,
+      "communityVsPrivacy": 2
+    },
+    "communityScore": 58,
+    "amenities": {
+      "restaurants": 60,
+      "nightlife": 20,
+      "gyms": 18,
+      "grocery": 3,
+      "parks": 20
+    },
+    "mbtaLines": [
+      "blue",
+      "bus",
+      "green",
+      "orange",
+      "red"
+    ],
+    "centroid": {
+      "lat": 42.3634,
+      "lng": -71.0661
+    },
+    "mbtaStations": [
+      {
+        "line": "red",
+        "name": "Charles/MGH"
+      },
+      {
+        "line": "orange",
+        "name": "Haymarket"
+      },
+      {
+        "line": "green",
+        "name": "Haymarket"
+      },
+      {
+        "line": "orange",
+        "name": "North Station"
+      },
+      {
+        "line": "green",
+        "name": "North Station"
+      },
+      {
+        "line": "green",
+        "name": "Science Park/West End"
+      },
+      {
+        "line": "blue",
+        "name": "Bowdoin"
+      }
+    ],
+    "busRoutes": [
+      "4"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": false
+  },
+  {
+    "id": "downtown-crossing",
+    "name": "Downtown Crossing",
+    "region": "boston",
+    "description": "The retail and transit heart of Boston. Pedestrian-friendly streets, major shopping, and surrounded by every T line. A true urban center with a mix of historic buildings and modern towers.",
+    "localTips": "The Millennium Tower and other luxury buildings have transformed this area. Very noisy and busy — not for light sleepers. Unbeatable transit access from any direction.",
+    "rent": {
+      "studio": [
+        2501,
+        3057
+      ],
+      "oneBr": [
+        2593,
+        3169
+      ],
+      "twoBr": [
+        3802,
+        4648
+      ]
+    },
+    "safety": 39,
+    "safetyTrend": "stable",
+    "walkScore": 100,
+    "transitScore": 100,
+    "bikeScore": 100,
+    "lifestyleProfile": {
+      "nightlifeVsQuiet": 1,
+      "urbanVsSuburban": 1,
+      "trendyVsFamily": 3,
+      "communityVsPrivacy": 3
+    },
+    "communityScore": 42,
+    "amenities": {
+      "restaurants": 60,
+      "nightlife": 20,
+      "gyms": 20,
+      "grocery": 4,
+      "parks": 20
+    },
+    "mbtaLines": [
+      "blue",
+      "bus",
+      "ferry",
+      "green",
+      "orange",
+      "red"
+    ],
+    "centroid": {
+      "lat": 42.3556,
+      "lng": -71.0596
+    },
+    "mbtaStations": [
+      {
+        "line": "red",
+        "name": "Park Street"
+      },
+      {
+        "line": "green",
+        "name": "Park Street"
+      },
+      {
+        "line": "red",
+        "name": "Downtown Crossing"
+      },
+      {
+        "line": "orange",
+        "name": "Downtown Crossing"
+      },
+      {
+        "line": "red",
+        "name": "South Station"
+      },
+      {
+        "line": "orange",
+        "name": "Tufts Medical Center"
+      },
+      {
+        "line": "orange",
+        "name": "Chinatown"
+      },
+      {
+        "line": "orange",
+        "name": "State"
+      },
+      {
+        "line": "blue",
+        "name": "State"
+      },
+      {
+        "line": "orange",
+        "name": "Haymarket"
+      },
+      {
+        "line": "green",
+        "name": "Haymarket"
+      },
+      {
+        "line": "green",
+        "name": "Government Center"
+      },
+      {
+        "line": "blue",
+        "name": "Government Center"
+      },
+      {
+        "line": "green",
+        "name": "Boylston"
+      },
+      {
+        "line": "green",
+        "name": "Arlington"
+      },
+      {
+        "line": "blue",
+        "name": "Bowdoin"
+      },
+      {
+        "line": "blue",
+        "name": "Aquarium"
+      },
+      {
+        "line": "ferry",
+        "name": "Long Wharf (South)"
+      },
+      {
+        "line": "ferry",
+        "name": "Rowes Wharf"
+      },
+      {
+        "line": "ferry",
+        "name": "Long Wharf (North)"
+      },
+      {
+        "line": "ferry",
+        "name": "Central Wharf (South)"
+      }
+    ],
+    "busRoutes": [
+      "11",
+      "116",
+      "15",
+      "354",
+      "39",
+      "4",
+      "43",
+      "501",
+      "504",
+      "505",
+      "57",
+      "7",
+      "749",
+      "751",
+      "92",
+      "93"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": false
+  },
+  {
+    "id": "chinatown-leather-district",
+    "name": "Chinatown / Leather District",
+    "region": "boston",
+    "description": "Boston's vibrant cultural hub with incredible food, late-night dining, and a tight-knit community. The adjacent Leather District offers loft-style living in converted warehouses near South Station.",
+    "localTips": "Some of the best late-night food in Boston. The Leather District side is quieter with more residential feel. Very close to South Station for commuter rail access. Street parking is nonexistent.",
+    "rent": {
+      "studio": [
+        2797,
+        3419
+      ],
+      "oneBr": [
+        2475,
+        3025
+      ],
+      "twoBr": [
+        3555,
+        4345
+      ]
+    },
+    "safety": 54,
+    "safetyTrend": "improving",
+    "walkScore": 100,
+    "transitScore": 69,
+    "bikeScore": 100,
+    "lifestyleProfile": {
+      "nightlifeVsQuiet": 1,
+      "urbanVsSuburban": 1,
+      "trendyVsFamily": 2,
+      "communityVsPrivacy": 1
+    },
+    "communityScore": 78,
+    "amenities": {
+      "restaurants": 60,
+      "nightlife": 20,
+      "gyms": 20,
+      "grocery": 3,
+      "parks": 20
+    },
+    "mbtaLines": [
+      "bus",
+      "green",
+      "orange",
+      "red"
+    ],
+    "centroid": {
+      "lat": 42.3513,
+      "lng": -71.0603
+    },
+    "mbtaStations": [
+      {
+        "line": "red",
+        "name": "South Station"
+      },
+      {
+        "line": "orange",
+        "name": "Tufts Medical Center"
+      },
+      {
+        "line": "orange",
+        "name": "Chinatown"
+      },
+      {
+        "line": "green",
+        "name": "Boylston"
+      }
+    ],
+    "busRoutes": [
+      "11",
+      "15",
+      "39",
+      "43",
+      "501",
+      "504",
+      "505",
+      "57",
+      "7",
+      "749",
+      "751"
+    ],
+    "collegeArea": false,
+    "parkingFriendly": false
   }
 ]

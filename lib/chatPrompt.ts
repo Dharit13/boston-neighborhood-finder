@@ -1,4 +1,4 @@
-import type { Neighborhood, UserInput } from "@/lib/types";
+import type { Neighborhood, SliderValues, UserInput } from "@/lib/types";
 
 export const GUARDRAILS = `You are a friendly assistant for the Boston Neighborhood Finder app. You help users understand and compare 44 specific Boston-area neighborhoods using the data provided below.
 
@@ -50,6 +50,25 @@ export interface BuildSystemPromptParams {
   recommendations: RecommendationSummary[] | null;
 }
 
+function describePreferences(sliders: SliderValues): string {
+  const descriptors: string[] = [];
+
+  if (sliders.nightlifeVsQuiet <= 2) descriptors.push("nightlife and a lively social scene");
+  else if (sliders.nightlifeVsQuiet >= 4) descriptors.push("quiet, low-key evenings");
+
+  if (sliders.urbanVsSuburban <= 2) descriptors.push("dense urban living");
+  else if (sliders.urbanVsSuburban >= 4) descriptors.push("suburban, more residential feel");
+
+  if (sliders.trendyVsFamily <= 2) descriptors.push("trendy, hip spots");
+  else if (sliders.trendyVsFamily >= 4) descriptors.push("family-friendly areas");
+
+  if (sliders.communityVsPrivacy <= 2) descriptors.push("a tight-knit community vibe");
+  else if (sliders.communityVsPrivacy >= 4) descriptors.push("more privacy and anonymity");
+
+  if (descriptors.length === 0) return "balanced across lifestyle dimensions (no strong preference)";
+  return descriptors.join("; ");
+}
+
 function formatPrefs(userPrefs: UserInput | null): string {
   if (!userPrefs) return "Not yet provided";
   const {
@@ -70,7 +89,7 @@ function formatPrefs(userPrefs: UserInput | null): string {
     `- Max rent: $${maxRent}/mo`,
     `- Office days/week: ${officeDays}`,
     `- MBTA preference: ${mbta}`,
-    `- Sliders: nightlifeVsQuiet=${sliders.nightlifeVsQuiet}, urbanVsSuburban=${sliders.urbanVsSuburban}, trendyVsFamily=${sliders.trendyVsFamily}, communityVsPrivacy=${sliders.communityVsPrivacy}`,
+    `- Lifestyle preferences: ${describePreferences(sliders)}`,
   ].join("\n");
 }
 
@@ -90,6 +109,7 @@ export function buildSystemPrompt(params: BuildSystemPromptParams): string {
     GUARDRAILS,
     "",
     "USER'S PREFERENCES (from the wizard — may be null if they haven't finished it):",
+    "(These are derived from a lifestyle preset the user picked — refer to them naturally as preferences, never as numeric ratings, scales, or slider values.)",
     formatPrefs(userPrefs),
     "",
     "TOP RECOMMENDATIONS FOR THIS USER (our algorithm's picks — may be null):",

@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
-import { parseYahooRss } from "@/lib/news";
+import { parseRss } from "@/lib/news";
 
-const YAHOO_RSS_URL = "https://news.search.yahoo.com/rss?p=Boston";
+const NEWS_RSS_URL =
+  "https://news.google.com/rss/search?q=Boston&hl=en-US&gl=US&ceid=US:en";
 const REVALIDATE_SECONDS = 900; // 15 min
 
 export async function GET() {
   try {
-    const res = await fetch(YAHOO_RSS_URL, {
+    const res = await fetch(NEWS_RSS_URL, {
       next: { revalidate: REVALIDATE_SECONDS },
       headers: { "User-Agent": "neighborhood-finder/1.0" },
     });
@@ -15,7 +16,7 @@ export async function GET() {
       return NextResponse.json({ error: "unavailable" });
     }
     const xml = await res.text();
-    const items = parseYahooRss(xml);
+    const items = parseRss(xml);
     return NextResponse.json(items);
   } catch (err) {
     console.error("[api/news] fetch failed", err);

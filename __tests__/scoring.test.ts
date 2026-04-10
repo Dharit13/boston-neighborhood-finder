@@ -9,29 +9,23 @@ import {
 import type {
   DimensionScores,
   ScoringWeights,
-  LifestyleProfile,
 } from "@/lib/types";
 
 describe("scoreBudget", () => {
   it("returns 100 when rent is at or below budget", () => {
-    expect(scoreBudget(1500, 2000, false, 0)).toBe(100);
+    expect(scoreBudget(1500, 2000)).toBe(100);
   });
 
   it("returns 100 when rent equals budget", () => {
-    expect(scoreBudget(2000, 2000, false, 0)).toBe(100);
+    expect(scoreBudget(2000, 2000)).toBe(100);
   });
 
   it("scales down linearly when rent exceeds budget", () => {
-    expect(scoreBudget(2500, 2000, false, 0)).toBe(75);
+    expect(scoreBudget(2500, 2000)).toBe(75);
   });
 
   it("returns 0 when rent is double the budget", () => {
-    expect(scoreBudget(4000, 2000, false, 0)).toBe(0);
-  });
-
-  it("adds parking cost when user has car", () => {
-    expect(scoreBudget(1800, 2000, true, 200)).toBe(100);
-    expect(scoreBudget(2000, 2000, true, 200)).toBe(90);
+    expect(scoreBudget(4000, 2000)).toBe(0);
   });
 });
 

@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Boston Neighborhood Finder
 
-## Getting Started
+A Next.js web app that helps people figure out where to live in the Greater Boston area. You answer a few questions about your budget, commute, and lifestyle, and it ranks 44 neighborhoods by how well they fit — grounded in real rent data, MBTA transit coverage, crime statistics, and walkability scores.
 
-First, run the development server:
+It also includes a Claude-powered chat assistant that can answer follow-up questions about specific neighborhoods, grounded in the same dataset.
+
+## Features
+
+- **Four-step wizard** — collects income, living arrangement, commute, and lifestyle preferences
+- **TOPSIS-based ranking** across five weighted dimensions (budget, commute, safety, lifestyle, community)
+- **Three budget tiers** — Saver (45% of income), Balanced (60%), Stretched (user max); each tier gets its own top pick
+- **Real commute times** via Google Maps Directions (transit + walking) when the user provides an office address
+- **AI explanations** — Claude Haiku generates per-neighborhood summaries and a top-3 overview
+- **Neighborhood chat** — multi-turn conversation about any of the 44 neighborhoods, with Fair Housing guardrails and prompt-injection protection
+- **Live Boston news** from Google News RSS and **live MBTA service alerts** for the user's preferred lines
+- **Side-by-side comparison** of up to three neighborhoods
+- **Interactive map** with recommendation pins and an optional office marker
+
+## Tech stack
+
+- **Framework:** Next.js 16 (App Router, Turbopack), React 19, TypeScript 5
+- **Styling:** Tailwind CSS 4, Framer Motion
+- **AI:** Anthropic Claude Haiku via the official SDK
+- **Rate limiting:** Upstash Redis sliding window (10 req/hr per IP for AI routes)
+- **Maps:** Google Maps JavaScript API + Directions API
+- **Data parsing:** fast-xml-parser for RSS
+- **Testing:** Jest + Testing Library (78 tests covering scoring, weights, budget, rate-limit, news, chat prompt, MBTA alerts)
+
+## Getting started
+
+### 1. Clone and install
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/<your-fork>/boston-neighborhood-finder.git
+cd boston-neighborhood-finder/neighbourhood_finder
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Bring your own API keys
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copy the example env file and fill in your own keys:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cp .env.local.example .env.local
+```
 
-## Learn More
+You will need to create accounts on the providers below. None of them come with the repository — **you are responsible for getting and paying for your own credentials.**
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | Provider | Purpose | Cost |
+|---|---|---|---|
+| `ANTHROPIC_API_KEY` | [Anthropic Console](https://console.anthropic.com/settings/keys) | Claude Haiku for AI summaries, overview, and chat | Pay per token (Haiku is cheap) |
+| `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` | [Google Cloud Console](https://console.cloud.google.com/google/maps-apis/credentials) | Client-side map rendering | Free tier covers most personal use |
+| `GOOGLE_MAPS_API_KEY` | Same as above, different key | Server-side Directions API for commute routing | Free tier covers most personal use |
+| `UPSTASH_REDIS_REST_URL` | [Upstash Console](https://console.upstash.com/redis) | Rate limiting for AI routes | Free tier is plenty |
+| `UPSTASH_REDIS_REST_TOKEN` | Same as above | Same as above | — |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Upstash credentials are optional.** If you leave them blank, the rate limiter falls back to "allow everything" mode, which is fine for local development but **not safe for production** — an anonymous user could rack up unbounded Anthropic charges on your account.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+For Google Maps, create two separate keys if you can: one restricted to HTTP referrers for the client-side key, and one restricted to server IP for the Directions API key.
 
-## Deploy on Vercel
+### 3. Run it
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run dev      # dev server on http://localhost:3000
+npm run build    # production build
+npm test         # run the Jest suite (78 tests)
+npm run lint     # ESLint (currently clean)
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Documentation
+
+- [ARCHITECTURE.md](./ARCHITECTURE.md) — how the app is structured, the scoring algorithm, and the full data flow from wizard to recommendations
+- [DATA_SOURCES.md](./DATA_SOURCES.md) — every external data source, where it comes from, how to attribute it, and whether it's pre-computed or fetched live
+- [docs/superpowers/specs/](./docs/superpowers/specs/) — design specs for major features
+- [docs/superpowers/plans/](./docs/superpowers/plans/) — implementation plans for those features
+
+## Project layout (at a glance)
+
+```
+neighbourhood_finder/
+├── app/                    # Next.js App Router pages and API routes
+│   ├── page.tsx            # Wizard landing
+│   ├── results/page.tsx    # Scoring + recommendations UI
+│   └── api/                # /commute, /news, /mbta-alerts, /ai-*, /chat
+├── components/
+│   ├── wizard/             # Four wizard steps + container
+│   ├── results/            # Recommendation cards, map, profile, chat, news, alerts
+│   └── ui/                 # Shared visual bits (sliders, effects)
+├── lib/                    # Scoring, weights, budget, commute, rate limit, chat prompt
+├── scripts/                # Data pipeline (MBTA, crime, rent, Places)
+├── public/data/            # Pre-computed neighborhoods.json + Zillow snapshots
+├── __tests__/              # Jest unit tests
+└── docs/                   # Specs and plans
+```
+
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for the full breakdown.
+
+## Disclaimers
+
+- **Fair Housing compliance is non-negotiable.** The chat assistant is instructed to refuse any request that involves steering based on protected characteristics (race, religion, familial status, disability, etc.). See the guardrails in [lib/chatPrompt.ts](./lib/chatPrompt.ts). If you fork this, **keep those guardrails.**
+- **Rent figures are snapshots, not real-time.** The neighborhood rent ranges in [public/data/neighborhoods.json](./public/data/neighborhoods.json) come from a dated snapshot — check [DATA_SOURCES.md](./DATA_SOURCES.md) for provenance and re-run the pipeline if you want fresher numbers.
+- **This is a research/portfolio project, not housing advice.** Don't make lease decisions solely based on what this app tells you.
+
+## Credits
+
+- The pixel-trail and gooey-filter visual effects under [components/ui/](./components/ui/) are adapted from **[Fancy Components](https://fancycomponents.dev)** by Daniel Petho ([github.com/danielpetho/fancy](https://github.com/danielpetho/fancy), MIT).
+- All other external data sources are documented in [DATA_SOURCES.md](./DATA_SOURCES.md).
+
+## License
+
+MIT — see [LICENSE](./LICENSE).
+
+## Contributing
+
+Issues and PRs welcome. This is a personal/portfolio project, so response times may vary.

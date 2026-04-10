@@ -36,6 +36,14 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Zillow raw data — see DATA_SOURCES.md legal warning.
+# The derived neighborhoods.json is fine to commit; raw scrapes are not.
+public/data/2022/
+public/data/2023/
+public/data/2024/
+public/data/zillow-*.csv
+public/data/neighborhoods.backup.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

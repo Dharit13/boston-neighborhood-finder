@@ -13,13 +13,12 @@ export default function RecommendationOverview({
   userInput,
 }: Props) {
   const [overview, setOverview] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (recommendations.length === 0) return;
 
-    setLoading(true);
-    setOverview(null);
+    let cancelled = false;
 
     const recData = recommendations.map((rec) => ({
       name: rec.neighborhood.neighborhood.name,
@@ -48,28 +47,38 @@ export default function RecommendationOverview({
     })
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
+        if (cancelled) return;
         if (data?.overview) setOverview(data.overview);
       })
       .catch(() => {})
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [recommendations, userInput]);
 
+  if (recommendations.length === 0) return null;
   if (!loading && !overview) return null;
 
   return (
-    <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-5">
+    <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-5">
       <div className="flex items-start gap-3">
         <span className="text-2xl flex-shrink-0">🏘️</span>
         <div>
-          <h2 className="text-base font-semibold text-gray-900 mb-1">
+          <h2 className="text-base font-semibold text-white mb-1">
             Why These Neighborhoods?
           </h2>
           {loading ? (
-            <p className="text-sm text-blue-600 animate-pulse">
+            <p className="text-sm text-white animate-pulse">
               Analyzing your top picks...
             </p>
           ) : (
-            <p className="text-sm text-gray-700 leading-relaxed">{overview}</p>
+            <p className="text-sm text-white leading-relaxed">
+              {overview?.replace(/\*\*/g, "")}
+            </p>
           )}
         </div>
       </div>

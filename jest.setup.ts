@@ -1,14 +1,22 @@
 // Polyfill Request for jsdom environment if not available
-if (!globalThis.Request) {
-  globalThis.Request = class Request {
-    url: string;
-    headers: any;
+interface PolyfillHeaders {
+  get(key: string): string | null;
+}
 
-    constructor(url: string, init?: any) {
+interface PolyfillRequestInit {
+  headers?: Record<string, string>;
+}
+
+if (!globalThis.Request) {
+  class PolyfillRequest {
+    url: string;
+    headers: PolyfillHeaders;
+
+    constructor(url: string, init?: PolyfillRequestInit) {
       this.url = url;
       const headerEntries: [string, string][] = [];
       if (init?.headers) {
-        Object.entries(init.headers as Record<string, string>).forEach(([k, v]) => {
+        Object.entries(init.headers).forEach(([k, v]) => {
           headerEntries.push([k.toLowerCase(), v]);
         });
       }
@@ -19,5 +27,7 @@ if (!globalThis.Request) {
         },
       };
     }
-  } as any;
+  }
+  (globalThis as unknown as { Request: typeof PolyfillRequest }).Request =
+    PolyfillRequest;
 }

@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { CommuteResult, CommuteStep } from "@/lib/types";
 
-function parseRoute(route: any): { durationMinutes: number; routeSummary: string; steps: CommuteStep[] } {
-  const leg = route.legs[0];
-  const durationMinutes = Math.round(leg.duration.value / 60);
-
-  const steps: CommuteStep[] = leg.steps.map(
-    (step: {
+interface GoogleRoute {
+  legs: Array<{
+    duration: { value: number };
+    steps: Array<{
       travel_mode: string;
       html_instructions: string;
       duration: { value: number };
@@ -17,7 +15,16 @@ function parseRoute(route: any): { durationMinutes: number; routeSummary: string
           color?: string;
         };
       };
-    }) => ({
+    }>;
+  }>;
+}
+
+function parseRoute(route: GoogleRoute): { durationMinutes: number; routeSummary: string; steps: CommuteStep[] } {
+  const leg = route.legs[0];
+  const durationMinutes = Math.round(leg.duration.value / 60);
+
+  const steps: CommuteStep[] = leg.steps.map(
+    (step) => ({
       mode: step.travel_mode as "WALKING" | "TRANSIT",
       instruction: step.html_instructions.replace(/<[^>]*>/g, ""),
       durationMinutes: Math.round(step.duration.value / 60),
@@ -89,10 +96,10 @@ export async function POST(request: NextRequest) {
     }
     // If no transit route found, use the fastest one anyway
     if (!transitRoute) {
-      const fastest = transitRes.routes.reduce(
-        (best: any, r: any) =>
+      const fastest = (transitRes.routes as GoogleRoute[]).reduce(
+        (best, r) =>
           r.legs[0].duration.value < best.legs[0].duration.value ? r : best,
-        transitRes.routes[0]
+        transitRes.routes[0] as GoogleRoute
       );
       transitRoute = parseRoute(fastest);
     }

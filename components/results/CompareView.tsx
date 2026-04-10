@@ -1,8 +1,8 @@
-import type { ScoredNeighborhood, MbtaLine } from "@/lib/types";
+import type { ScoredNeighborhood, MbtaLine, UserInput } from "@/lib/types";
 
 interface Props {
   items: ScoredNeighborhood[];
-  monthlyIncome: number;
+  livingArrangement: UserInput["livingArrangement"];
   onRemove: (id: string) => void;
 }
 
@@ -30,14 +30,23 @@ function CellHighlight({
   const best = higherIsBetter ? Math.max(...nums) : Math.min(...nums);
   if (values[index] === best) {
     return (
-      <span className="ml-1 text-xs text-green-600 font-medium">Best</span>
+      <span className="ml-1 text-xs text-emerald-400 font-medium">Best</span>
     );
   }
   return null;
 }
 
-export default function CompareView({ items, monthlyIncome, onRemove }: Props) {
+export default function CompareView({
+  items,
+  livingArrangement,
+  onRemove,
+}: Props) {
   if (items.length < 2) return null;
+
+  const rentLabel =
+    livingArrangement === "own-room" || livingArrangement === "shared-room"
+      ? "Rent (per person)"
+      : "Rent";
 
   const rows: {
     label: string;
@@ -52,7 +61,7 @@ export default function CompareView({ items, monthlyIncome, onRemove }: Props) {
       higherIsBetter: true,
     },
     {
-      label: "Rent (per person)",
+      label: rentLabel,
       values: items.map((i) => `$${i.perPersonRent.toLocaleString()}/mo`),
       rawValues: items.map((i) => i.perPersonRent),
       higherIsBetter: false,
@@ -101,38 +110,30 @@ export default function CompareView({ items, monthlyIncome, onRemove }: Props) {
         i.neighborhood.mbtaLines.map((l) => MBTA_LABELS[l]).join(", ")
       ),
     },
-    {
-      label: "Parking Cost",
-      values: items.map((i) =>
-        i.neighborhood.parkingCost > 0
-          ? `$${i.neighborhood.parkingCost}/mo`
-          : "Free"
-      ),
-    },
   ];
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">
+    <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-6">
+      <h2 className="text-lg font-semibold text-white mb-4">
         Compare Neighborhoods
       </h2>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-gray-200">
-              <th className="text-left py-2 pr-4 text-gray-500 font-normal w-36">
+            <tr className="border-b border-white/10">
+              <th className="text-left py-2 pr-4 text-white font-normal w-36">
                 &nbsp;
               </th>
               {items.map((item) => (
                 <th
                   key={item.neighborhood.id}
-                  className="text-left py-2 px-3 font-semibold text-gray-900"
+                  className="text-left py-2 px-3 font-semibold text-white"
                 >
                   <div className="flex items-center justify-between">
                     {item.neighborhood.name}
                     <button
                       onClick={() => onRemove(item.neighborhood.id)}
-                      className="text-gray-400 hover:text-gray-600 ml-2"
+                      className="text-white hover:text-white ml-2"
                     >
                       &times;
                     </button>
@@ -143,10 +144,10 @@ export default function CompareView({ items, monthlyIncome, onRemove }: Props) {
           </thead>
           <tbody>
             {rows.map((row) => (
-              <tr key={row.label} className="border-b border-gray-100">
-                <td className="py-2 pr-4 text-gray-600">{row.label}</td>
+              <tr key={row.label} className="border-b border-white/5">
+                <td className="py-2 pr-4 text-white">{row.label}</td>
                 {row.values.map((value, idx) => (
-                  <td key={idx} className="py-2 px-3 font-medium text-gray-900">
+                  <td key={idx} className="py-2 px-3 font-medium text-white">
                     {value}
                     {row.rawValues && row.higherIsBetter !== undefined && (
                       <CellHighlight

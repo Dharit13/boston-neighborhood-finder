@@ -23,7 +23,6 @@ import {
 } from "@/lib/scoring";
 import {
   calculateBudgetTiers,
-  getActiveTiers,
   getRentAsPercentOfIncome,
 } from "@/lib/budget";
 import { getPerPersonRent } from "@/lib/neighborhoods";
@@ -63,11 +62,14 @@ export default function ResultsPage() {
   }, [selectedId]);
 
   useEffect(() => {
+    // sessionStorage is a client-only external store read once on mount;
+    // SSR renders a null placeholder to avoid hydration mismatch.
     const stored = sessionStorage.getItem("wizardInput");
     if (!stored) {
       router.push("/");
       return;
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setInput(JSON.parse(stored));
   }, [router]);
 
@@ -84,7 +86,6 @@ export default function ResultsPage() {
       setLoading(true);
       const weights = deriveWeights(input!.sliders, input!.officeDays > 2, input!.budgetPriority);
       const tiers = calculateBudgetTiers(input!.monthlyIncome, input!.maxRent);
-      const activeTiers = getActiveTiers(input!.monthlyIncome, input!.maxRent);
 
       let commuteMap = new Map<string, CommuteResult>();
       if (input!.officeDays > 2 && input!.officeAddress) {
@@ -350,7 +351,6 @@ export default function ResultsPage() {
               items={scored.filter((s) =>
                 compareIds.includes(s.neighborhood.id)
               )}
-              monthlyIncome={input.monthlyIncome}
               livingArrangement={input.livingArrangement}
               onRemove={(id) =>
                 setCompareIds((prev) => prev.filter((x) => x !== id))

@@ -1,7 +1,23 @@
 {
   "name": "neighbourhood_finder",
   "version": "0.1.0",
-  "private": true,
+  "description": "A Next.js app that helps people find their ideal Boston neighborhood based on budget, commute, safety, and lifestyle preferences. Includes a Claude-powered chat assistant grounded in real data.",
+  "author": "Dharit Shah <dhshah@redhat.com>",
+  "license": "MIT",
+  "keywords": [
+    "boston",
+    "neighborhood",
+    "nextjs",
+    "react",
+    "anthropic",
+    "claude",
+    "topsis"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-fork/boston-neighborhood-finder.git"
+  },
+  "homepage": "https://github.com/your-fork/boston-neighborhood-finder#readme",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -24,8 +40,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-leaflet": "^5.0.0",
-    "tailwind-merge": "^3.5.0",
-    "uuid": "^13.0.0"
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -35,7 +50,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/uuid": "^10.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.3",
     "jest": "^30.3.0",

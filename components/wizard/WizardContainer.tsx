@@ -1,14 +1,22 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import StepAboutYou from "./StepAboutYou";
 import StepHousing from "./StepHousing";
 import StepCommute from "./StepCommute";
 import StepPreferences from "./StepPreferences";
-import type { UserInput, AgeGroup, OfficeDays, MbtaLine, SliderValues } from "@/lib/types";
+import { useScreenSize } from "@/hooks/use-screen-size";
+import { PixelTrail } from "@/components/ui/pixel-trail";
+import { GooeyFilter } from "@/components/ui/gooey-filter";
+import type { UserInput, OfficeDays, SliderValues, BudgetPriority } from "@/lib/types";
 
-const STEP_LABELS = ["About You", "Housing", "Commute", "Preferences"];
+const STEPS = [
+  { label: "You", icon: "01" },
+  { label: "Housing", icon: "02" },
+  { label: "Commute", icon: "03" },
+  { label: "Vibe", icon: "04" },
+];
 
 const DEFAULT_SLIDERS: SliderValues = {
   nightlifeVsQuiet: 3,
@@ -18,21 +26,45 @@ const DEFAULT_SLIDERS: SliderValues = {
   budgetVsConvenience: 3,
 };
 
+const DEFAULT_INPUT: UserInput = {
+  ageGroup: "26-29",
+  monthlyIncome: 0,
+  roommates: 0,
+  livingArrangement: "alone" as const,
+  apartmentSize: "studio" as const,
+  maxRent: 0,
+  budgetPriority: "balanced" as BudgetPriority,
+  officeDays: 0 as OfficeDays,
+  officeAddress: null,
+  mbtaPreference: [],
+  sliders: DEFAULT_SLIDERS,
+  avoidCollegeArea: false,
+  needsParking: false,
+};
+
 export default function WizardContainer() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const screenSize = useScreenSize();
   const [step, setStep] = useState(0);
-  const [input, setInput] = useState<UserInput>({
-    ageGroup: "25-30",
-    monthlyIncome: 0,
-    hasCar: false,
-    roommates: 0,
-    livingArrangement: "alone" as const,
-    maxRent: 0,
-    officeDays: 0 as OfficeDays,
-    officeAddress: null,
-    mbtaPreference: [],
-    sliders: DEFAULT_SLIDERS,
-  });
+  const [input, setInput] = useState<UserInput>(DEFAULT_INPUT);
+
+  useEffect(() => {
+    // sessionStorage is a client-only external store; read once on mount to
+    // rehydrate prior wizard progress. SSR renders with DEFAULT_INPUT to avoid
+    // hydration mismatch.
+    const stored = sessionStorage.getItem("wizardInput");
+    if (stored) {
+      try {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setInput((prev) => ({ ...prev, ...JSON.parse(stored) }));
+      } catch {}
+    }
+    const startStep = parseInt(searchParams.get("step") || "0");
+    if (startStep >= 0 && startStep <= 3) {
+      setStep(startStep);
+    }
+  }, [searchParams]);
 
   const updateInput = (partial: Partial<UserInput>) => {
     setInput((prev) => ({ ...prev, ...partial }));
@@ -62,71 +94,119 @@ export default function WizardContainer() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
-      {/* Progress bar */}
-      <div className="flex items-center justify-between mb-8">
-        {STEP_LABELS.map((label, i) => (
-          <div key={label} className="flex items-center">
-            <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                i <= step
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-200 text-gray-500"
-              }`}
-            >
-              {i + 1}
-            </div>
-            <span
-              className={`ml-2 text-sm hidden sm:inline ${
-                i <= step ? "text-blue-600 font-medium" : "text-gray-400"
-              }`}
-            >
-              {label}
-            </span>
-            {i < 3 && (
-              <div
-                className={`w-8 sm:w-16 h-0.5 mx-2 ${
-                  i < step ? "bg-blue-600" : "bg-gray-200"
+    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-black">
+      {/* Background image */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://images.aiscribbles.com/34fe5695dbc942628e3cad9744e8ae13.png?v=60d084"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-70"
+      />
+
+      {/* Gooey pixel trail */}
+      <GooeyFilter id="wizard-gooey" strength={5} />
+      <div
+        className="absolute inset-0 z-[1]"
+        style={{ filter: "url(#wizard-gooey)" }}
+      >
+        <PixelTrail
+          pixelSize={screenSize.lessThan("md") ? 24 : 32}
+          fadeDuration={0}
+          delay={500}
+          pixelClassName="bg-white/80"
+        />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-xl mx-auto px-4 py-4">
+        {/* Title */}
+        <div className="text-center mb-4">
+          <h1 className="text-2xl font-bold text-white tracking-tight">
+            Boston Neighbourhood Finder
+          </h1>
+          <p className="text-white/70 text-xs mt-1">
+            Find your perfect neighborhood based on your budget, commute, and lifestyle.
+          </p>
+        </div>
+
+        {/* Progress */}
+        <div className="flex items-center justify-center gap-1 mb-4">
+          {STEPS.map((s, i) => (
+            <div key={s.label} className="flex items-center">
+              <button
+                onClick={() => i < step && setStep(i)}
+                disabled={i > step}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all ${
+                  i === step
+                    ? "bg-white/15 text-white border border-white/20 backdrop-blur-sm"
+                    : i < step
+                    ? "text-white/70 hover:text-white cursor-pointer"
+                    : "text-white/25 cursor-default"
                 }`}
-              />
+              >
+                <span
+                  className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
+                    i < step
+                      ? "bg-white text-black"
+                      : i === step
+                      ? "bg-white/20 text-white"
+                      : "bg-white/10 text-white/30"
+                  }`}
+                >
+                  {i < step ? "\u2713" : i + 1}
+                </span>
+                <span className="hidden sm:inline">{s.label}</span>
+              </button>
+              {i < 3 && (
+                <div
+                  className={`w-6 sm:w-10 h-px mx-1 ${
+                    i < step ? "bg-white/40" : "bg-white/10"
+                  }`}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Card */}
+        <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl overflow-hidden">
+          <div className="p-6">
+            {step === 0 && <StepAboutYou input={input} onChange={updateInput} />}
+            {step === 1 && <StepHousing input={input} onChange={updateInput} />}
+            {step === 2 && <StepCommute input={input} onChange={updateInput} />}
+            {step === 3 && (
+              <StepPreferences input={input} onChange={updateInput} />
             )}
           </div>
-        ))}
-      </div>
 
-      {/* Step content */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        {step === 0 && <StepAboutYou input={input} onChange={updateInput} />}
-        {step === 1 && <StepHousing input={input} onChange={updateInput} />}
-        {step === 2 && <StepCommute input={input} onChange={updateInput} />}
-        {step === 3 && <StepPreferences input={input} onChange={updateInput} />}
-      </div>
+          {/* Navigation */}
+          <div className="flex justify-between items-center px-6 py-4 border-t border-white/10 bg-white/[0.02]">
+            <button
+              onClick={prev}
+              disabled={step === 0}
+              className="px-5 py-2.5 rounded-lg text-sm font-medium text-white/50 border border-white/10 hover:text-white hover:border-white/25 disabled:opacity-0 disabled:pointer-events-none transition-all"
+            >
+              Back
+            </button>
+            {step < 3 ? (
+              <button
+                onClick={next}
+                disabled={!canProceed()}
+                className="px-6 py-2.5 rounded-lg text-sm font-semibold bg-white text-black hover:bg-white/90 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+              >
+                Continue
+              </button>
+            ) : (
+              <button
+                onClick={submit}
+                className="px-8 py-3 rounded-lg text-sm font-semibold bg-white text-black hover:bg-white/90 transition-all shadow-lg shadow-white/10"
+              >
+                Find My Neighborhood
+              </button>
+            )}
+          </div>
+        </div>
 
-      {/* Navigation */}
-      <div className="flex justify-between mt-6">
-        <button
-          onClick={prev}
-          disabled={step === 0}
-          className="px-6 py-2 rounded-lg border border-gray-300 text-gray-700 disabled:opacity-30 hover:bg-gray-50"
-        >
-          Back
-        </button>
-        {step < 3 ? (
-          <button
-            onClick={next}
-            disabled={!canProceed()}
-            className="px-6 py-2 rounded-lg bg-blue-600 text-white disabled:opacity-30 hover:bg-blue-700"
-          >
-            Next
-          </button>
-        ) : (
-          <button
-            onClick={submit}
-            className="px-6 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700"
-          >
-            Find My Neighborhood
-          </button>
-        )}
       </div>
     </div>
   );

@@ -35,7 +35,7 @@ function toIsoDate(pubDate: string | undefined): string {
   return d.toISOString();
 }
 
-export function parseYahooRss(xml: string): NewsItem[] {
+export function parseRss(xml: string): NewsItem[] {
   if (!xml) return [];
   let parsed: unknown;
   try {
@@ -61,8 +61,6 @@ export function parseYahooRss(xml: string): NewsItem[] {
 
   const items: NewsItem[] = [];
   for (const raw of rawItems) {
-    if (items.length >= MAX_ITEMS) break;
-
     const title = stripHtml(textOf(raw.title));
     const url = (raw.link ?? "").trim();
     if (!title || !url) continue;
@@ -78,5 +76,7 @@ export function parseYahooRss(xml: string): NewsItem[] {
     });
   }
 
-  return items;
+  items.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+
+  return items.slice(0, MAX_ITEMS);
 }

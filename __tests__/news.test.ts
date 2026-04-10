@@ -1,4 +1,4 @@
-import { parseYahooRss } from "@/lib/news";
+import { parseRss } from "@/lib/news";
 
 const wrap = (items: string) => `<?xml version="1.0"?>
 <rss version="2.0">
@@ -8,7 +8,7 @@ const wrap = (items: string) => `<?xml version="1.0"?>
   </channel>
 </rss>`;
 
-describe("parseYahooRss", () => {
+describe("parseRss", () => {
   it("returns NewsItem[] for a well-formed feed", () => {
     const xml = wrap(`
       <item>
@@ -18,7 +18,7 @@ describe("parseYahooRss", () => {
         <pubDate>Fri, 10 Apr 2026 12:00:00 GMT</pubDate>
       </item>
     `);
-    const result = parseYahooRss(xml);
+    const result = parseRss(xml);
     expect(result).toHaveLength(1);
     expect(result[0]).toEqual({
       title: "Boston mayor announces plan",
@@ -36,7 +36,7 @@ describe("parseYahooRss", () => {
         <pubDate>Fri, 10 Apr 2026 12:00:00 GMT</pubDate>
       </item>
     `).join("");
-    const result = parseYahooRss(wrap(items));
+    const result = parseRss(wrap(items));
     expect(result).toHaveLength(8);
   });
 
@@ -56,7 +56,7 @@ describe("parseYahooRss", () => {
         <pubDate>Fri, 10 Apr 2026 12:00:00 GMT</pubDate>
       </item>
     `);
-    const result = parseYahooRss(xml);
+    const result = parseRss(xml);
     expect(result).toHaveLength(1);
     expect(result[0].title).toBe("Has title");
   });
@@ -69,7 +69,7 @@ describe("parseYahooRss", () => {
         <pubDate>Fri, 10 Apr 2026 12:00:00 GMT</pubDate>
       </item>
     `);
-    const result = parseYahooRss(xml);
+    const result = parseRss(xml);
     expect(result[0].title).toBe("Bold headline");
   });
 
@@ -81,7 +81,7 @@ describe("parseYahooRss", () => {
         <pubDate>Fri, 10 Apr 2026 12:00:00 GMT</pubDate>
       </item>
     `);
-    const result = parseYahooRss(xml);
+    const result = parseRss(xml);
     expect(result[0].source).toBe("www.wbur.org");
   });
 
@@ -93,16 +93,16 @@ describe("parseYahooRss", () => {
         <pubDate>Fri, 10 Apr 2026 12:00:00 GMT</pubDate>
       </item>
     `);
-    const result = parseYahooRss(xml);
+    const result = parseRss(xml);
     expect(result[0].publishedAt).toBe("2026-04-10T12:00:00.000Z");
   });
 
   it("returns [] on malformed XML", () => {
-    expect(parseYahooRss("<<<not xml>>>")).toEqual([]);
-    expect(parseYahooRss("")).toEqual([]);
+    expect(parseRss("<<<not xml>>>")).toEqual([]);
+    expect(parseRss("")).toEqual([]);
   });
 
   it("returns [] when channel has no items", () => {
-    expect(parseYahooRss(wrap(""))).toEqual([]);
+    expect(parseRss(wrap(""))).toEqual([]);
   });
 });
