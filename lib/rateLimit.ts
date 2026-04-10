@@ -4,13 +4,13 @@ import { Redis } from "@upstash/redis";
 const url = process.env.UPSTASH_REDIS_REST_URL;
 const token = process.env.UPSTASH_REDIS_REST_TOKEN;
 
-const limiter =
+const ratelimit =
   url && token
     ? new Ratelimit({
         redis: new Redis({ url, token }),
-        limiter: Ratelimit.slidingWindow(10, "1 h"),
+        limiter: Ratelimit.slidingWindow(20, "1 h"),
         analytics: false,
-        prefix: "bnh:ai",
+        prefix: "ai-user-20-1h",
       })
     : null;
 
@@ -25,21 +25,20 @@ function warnOnce() {
 
 export interface RateLimitResult {
   ok: boolean;
-  remaining: number;
-  resetSeconds: number;
+  remaining?: number;
+  resetAt?: number;
 }
 
-export async function checkRateLimit(ip: string): Promise<RateLimitResult> {
-  if (!limiter) {
+export async function checkRateLimit(identifier: string): Promise<RateLimitResult> {
+  if (!ratelimit) {
     warnOnce();
-    return { ok: true, remaining: Number.POSITIVE_INFINITY, resetSeconds: 0 };
+    return { ok: true };
   }
-  const { success, remaining, reset } = await limiter.limit(`ip:${ip}`);
-  return {
-    ok: success,
-    remaining,
-    resetSeconds: Math.max(0, Math.ceil((reset - Date.now()) / 1000)),
-  };
+  const { success, remaining, reset } = await ratelimit.limit(identifier);
+  if (!success) {
+    return { ok: false, remaining, resetAt: reset };
+  }
+  return { ok: true, remaining };
 }
 
 export function ipFromRequest(req: Request): string {
