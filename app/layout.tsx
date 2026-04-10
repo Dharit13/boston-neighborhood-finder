@@ -39,12 +39,7 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         {children}
-        {user && !hideMenu && (
-          <UserMenu
-            email={user.email ?? ""}
-            avatarUrl={(user.user_metadata?.avatar_url as string | undefined) ?? null}
-          />
-        )}
+        {user && !hideMenu && <UserMenu email={user.email ?? ""} />}
       </body>
     </html>
   );

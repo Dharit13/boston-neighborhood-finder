@@ -5,10 +5,9 @@ import { createClient } from "@/lib/supabase/client";
 
 interface Props {
   email: string;
-  avatarUrl: string | null;
 }
 
-export default function UserMenu({ email, avatarUrl }: Props) {
+export default function UserMenu({ email }: Props) {
   const [open, setOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -42,25 +41,32 @@ export default function UserMenu({ email, avatarUrl }: Props) {
     window.location.href = "/sign-in";
   };
 
-  const initial = (email.charAt(0) || "?").toUpperCase();
-
   return (
     <div ref={menuRef} className="fixed top-4 right-4 z-50">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-10 h-10 rounded-full border border-white/15 bg-white/10 backdrop-blur-xl text-white text-sm font-semibold overflow-hidden hover:bg-white/20 hover:border-white/25 transition-all shadow-lg shadow-black/20 flex items-center justify-center"
+        className="w-10 h-10 rounded-full border border-white/20 bg-transparent text-white hover:bg-white/10 hover:border-white/40 transition-all flex items-center justify-center backdrop-blur-sm"
         aria-label="User menu"
         aria-expanded={open}
       >
-        {avatarUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={avatarUrl} alt="" className="w-full h-full object-cover" />
-        ) : (
-          initial
-        )}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-4 h-4"
+          aria-hidden="true"
+        >
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <polyline points="16 17 21 12 16 7" />
+          <line x1="21" y1="12" x2="9" y2="12" />
+        </svg>
       </button>
       {open && (
-        <div className="absolute right-0 mt-2 w-60 rounded-xl border border-white/10 bg-slate-900/70 backdrop-blur-2xl shadow-2xl overflow-hidden">
+        <div className="absolute right-0 mt-2 w-60 rounded-xl border border-white/15 bg-black/30 backdrop-blur-2xl shadow-2xl overflow-hidden">
           <div className="px-4 py-3 border-b border-white/10">
             <p className="text-[11px] uppercase tracking-wider text-white/50">
               Signed in as
