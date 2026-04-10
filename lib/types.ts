@@ -1,6 +1,6 @@
 // --- User Input Types ---
 
-export type AgeGroup = "18-24" | "25-30" | "31-40" | "41-50" | "50+";
+export type AgeGroup = "21-25" | "26-29" | "30-35";
 
 export type OfficeDays = 0 | 1 | 2 | 3 | 4 | 5;
 
@@ -14,17 +14,22 @@ export interface SliderValues {
   budgetVsConvenience: number; // 1-5 (1=budget, 5=convenience)
 }
 
+export type BudgetPriority = "save" | "balanced" | "spend";
+
 export interface UserInput {
   ageGroup: AgeGroup;
   monthlyIncome: number;
-  hasCar: boolean;
-  roommates: number; // 0, 1, 2, or 3 — total other people you live with
+  roommates: number; // 0, 1, or 2 — total other people you live with
   livingArrangement: "alone" | "couple" | "own-room" | "shared-room";
+  apartmentSize: "studio" | "1br" | "2br"; // only relevant when alone or couple
   maxRent: number;
+  budgetPriority: BudgetPriority;
   officeDays: OfficeDays;
   officeAddress: string | null;
   mbtaPreference: MbtaLine[];
   sliders: SliderValues;
+  avoidCollegeArea: boolean;
+  needsParking: boolean;
 }
 
 // --- Neighborhood Data Types ---
@@ -37,7 +42,6 @@ export interface RentRange {
   studio: [number, number]; // [low, high]
   oneBr: [number, number];
   twoBr: [number, number];
-  threeBr: [number, number];
 }
 
 export interface LifestyleProfile {
@@ -73,7 +77,8 @@ export interface Neighborhood {
   mbtaLines: MbtaLine[];
   mbtaStations: { line: MbtaLine; name: string }[];
   busRoutes: string[];
-  parkingCost: number; // monthly estimate in dollars
+  collegeArea: boolean; // true if major university presence
+  parkingFriendly: boolean; // true if street parking is reasonable (no garage needed)
   centroid: { lat: number; lng: number };
 }
 
@@ -103,6 +108,26 @@ export interface ScoredNeighborhood {
   commuteRoute: string | null;
   perPersonRent: number; // calculated for user's roommate count
   rentPercent: number; // what % of income this represents
+  overBudget: boolean; // rent exceeds user's max — not a valid match
+}
+
+// --- News & Alerts Types ---
+
+export interface NewsItem {
+  title: string;
+  url: string;
+  source: string; // e.g. "Boston Globe"
+  publishedAt: string; // ISO 8601
+}
+
+export interface MbtaAlert {
+  id: string;
+  header: string;
+  description: string;
+  severity: number; // 0-10; always >= 3 after filtering
+  effect: string; // "DELAY" | "DETOUR" | "SUSPENSION" | "SHUTTLE" | "STATION_CLOSURE" | "SERVICE_CHANGE"
+  routes: MbtaLine[]; // which of the requested lines this alert touches
+  url: string | null;
 }
 
 // --- Budget Tier Types ---
