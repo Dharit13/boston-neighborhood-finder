@@ -6,7 +6,7 @@
  * License: MIT
  */
 
-import React, { useCallback, useId, useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useId, useMemo, useRef } from "react";
 import { motion, useAnimationControls } from "framer-motion";
 
 import { cn } from "@/lib/utils";
@@ -31,14 +31,18 @@ const PixelTrail: React.FC<PixelTrailProps> = ({
   const dimensions = useDimensions(containerRef);
   const trailId = useId();
 
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
+  // Listen on window instead of capturing mousemove on our own element. The
+  // trail sits inside a `filter: url()` wrapper that spans the viewport; if
+  // we set `pointer-events-auto` here we'd swallow clicks on anything
+  // underneath (e.g. the user menu avatar) even though z-index math would
+  // suggest otherwise. Window listener + `pointer-events-none` on the div
+  // lets the effect follow the cursor without blocking UI hit testing.
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
       if (!containerRef.current) return;
-
       const rect = containerRef.current.getBoundingClientRect();
       const x = Math.floor((e.clientX - rect.left) / pixelSize);
       const y = Math.floor((e.clientY - rect.top) / pixelSize);
-
       const pixelElement = document.getElementById(
         `${trailId}-pixel-${x}-${y}`
       );
@@ -46,9 +50,10 @@ const PixelTrail: React.FC<PixelTrailProps> = ({
         const animatePixel = (pixelElement as unknown as { __animatePixel?: () => void }).__animatePixel;
         if (animatePixel) animatePixel();
       }
-    },
-    [pixelSize, trailId]
-  );
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, [pixelSize, trailId]);
 
   const columns = useMemo(
     () => Math.ceil(dimensions.width / pixelSize),
@@ -63,10 +68,9 @@ const PixelTrail: React.FC<PixelTrailProps> = ({
     <div
       ref={containerRef}
       className={cn(
-        "absolute inset-0 w-full h-full pointer-events-auto",
+        "absolute inset-0 w-full h-full pointer-events-none",
         className
       )}
-      onMouseMove={handleMouseMove}
     >
       {Array.from({ length: rows }).map((_, rowIndex) => (
         <div key={rowIndex} className="flex">
