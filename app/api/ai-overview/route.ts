@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
+import { checkRateLimit, ipFromRequest } from "@/lib/rateLimit";
 
 export async function POST(request: NextRequest) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -7,6 +8,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { error: "Anthropic API key not configured" },
       { status: 500 }
+    );
+  }
+
+  const ip = ipFromRequest(request);
+  const rl = await checkRateLimit(ip);
+  if (!rl.ok) {
+    return NextResponse.json(
+      { error: "rate_limited", retryAfterSeconds: rl.resetSeconds },
+      { status: 429, headers: { "Retry-After": String(rl.resetSeconds) } }
     );
   }
 
@@ -30,7 +40,6 @@ export async function POST(request: NextRequest) {
 USER PROFILE:
 - Age: ${userPrefs.ageGroup}
 - Income: $${userPrefs.monthlyIncome}/mo
-- Has car: ${userPrefs.hasCar ? "Yes" : "No"}
 - Roommates: ${userPrefs.roommates}
 - Max rent: $${userPrefs.maxRent}/mo
 - Office days: ${userPrefs.officeDays}/week
@@ -41,7 +50,7 @@ USER PROFILE:
 TOP 3 RECOMMENDATIONS:
 ${recSummaries}
 
-Write ONLY the 3-4 sentence overview. No headers, bullets, or preamble. Start directly with the insight.`;
+Write ONLY the 3-4 sentence overview. No headers, bullets, preamble, or markdown formatting (no **bold**, no *italics*). Use plain text only. Start directly with the insight.`;
 
   const client = new Anthropic({ apiKey });
 
