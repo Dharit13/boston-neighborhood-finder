@@ -111,6 +111,13 @@ export interface ScoredNeighborhood {
   overBudget: boolean; // rent exceeds user's max — not a valid match
 }
 
+// --- AI Chat Types ---
+
+export interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
+}
+
 // --- News & Alerts Types ---
 
 export interface NewsItem {
