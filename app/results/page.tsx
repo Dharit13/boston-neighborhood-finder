@@ -340,7 +340,6 @@ export default function ResultsPage() {
               scored={selectedNeighborhood}
               userInput={input}
               monthlyIncome={input.monthlyIncome}
-              roommates={input.roommates}
               onClose={() => setSelectedId(null)}
             />
           )}

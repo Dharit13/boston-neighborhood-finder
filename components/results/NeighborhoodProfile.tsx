@@ -9,7 +9,6 @@ interface Props {
   scored: ScoredNeighborhood;
   userInput: UserInput;
   monthlyIncome: number;
-  roommates: number;
   onClose: () => void;
 }
 
@@ -67,7 +66,6 @@ export default function NeighborhoodProfile({
   scored,
   userInput,
   monthlyIncome,
-  roommates,
   onClose,
 }: Props) {
   const n = scored.neighborhood;
@@ -75,12 +73,21 @@ export default function NeighborhoodProfile({
     scored.perPersonRent,
     monthlyIncome
   );
+  // Reset summary state when the selected neighborhood changes.
+  // Adjusting state during render is React's recommended pattern
+  // for deriving state from props — avoids the cascading renders
+  // caused by resetting state inside useEffect.
+  const [prevNeighborhoodId, setPrevNeighborhoodId] = useState(n.id);
   const [aiSummary, setAiSummary] = useState<string | null>(null);
-  const [aiLoading, setAiLoading] = useState(false);
-
-  useEffect(() => {
+  const [aiLoading, setAiLoading] = useState(true);
+  if (prevNeighborhoodId !== n.id) {
+    setPrevNeighborhoodId(n.id);
     setAiSummary(null);
     setAiLoading(true);
+  }
+
+  useEffect(() => {
+    let cancelled = false;
     fetch("/api/ai-summary", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -106,11 +113,20 @@ export default function NeighborhoodProfile({
     })
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
-        if (data?.summary) setAiSummary(data.summary);
+        if (!cancelled && data?.summary) setAiSummary(data.summary);
       })
       .catch(() => {})
-      .finally(() => setAiLoading(false));
-  }, [scored.neighborhood.id]);
+      .finally(() => {
+        if (!cancelled) setAiLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+    // Intentionally only depend on neighborhood id: we want to
+    // refetch the summary when the user picks a different neighborhood,
+    // not every time unrelated fields (userInput, scores) shift.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [n.id]);
 
   return (
     <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-6">
