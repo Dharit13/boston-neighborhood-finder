@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useAiErrorState, formatResetAt } from "./useAiErrorState";
 import type { ChatMessage, ScoredNeighborhood, UserInput } from "@/lib/types";
 
 interface Props {
@@ -53,12 +54,8 @@ function stripMarkdown(text: string): string {
     .replace(/`([^`]+)`/g, "$1");
 }
 
-function formatRetry(retryAfterSeconds: number): string {
-  const mins = Math.max(1, Math.round(retryAfterSeconds / 60));
-  return `You've hit the hourly chat limit. Please try again in ${mins} minute${mins === 1 ? "" : "s"}.`;
-}
-
 export default function ChatPanel({ userInput, recommendations }: Props) {
+  const { error, handleResponse, reauth } = useAiErrorState();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [draft, setDraft] = useState("");
@@ -160,15 +157,12 @@ export default function ChatPanel({ userInput, recommendations }: Props) {
           signal: controller.signal,
         });
 
-        if (res.status === 429) {
-          const body = (await res.json().catch(() => ({}))) as {
-            retryAfterSeconds?: number;
-          };
-          setErrorMsg(formatRetry(body.retryAfterSeconds ?? 3600));
-          setMessages((prev) => prev.slice(0, -1));
+        const ok = await handleResponse(res);
+        if (!ok) {
+          setMessages((prev) => prev.slice(0, -1)); // remove the assistant placeholder
           return;
         }
-        if (!res.ok || !res.body) {
+        if (!res.body) {
           setErrorMsg("Couldn't reach the assistant. Try again in a moment.");
           setMessages((prev) => prev.slice(0, -1));
           return;
@@ -230,7 +224,7 @@ export default function ChatPanel({ userInput, recommendations }: Props) {
         textareaRef.current?.focus();
       }
     },
-    [messages, streaming, userInput, recommendations]
+    [messages, streaming, userInput, recommendations, handleResponse]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -338,6 +332,17 @@ export default function ChatPanel({ userInput, recommendations }: Props) {
 
         {errorMsg && (
           <p className="text-xs text-red-300 italic">{errorMsg}</p>
+        )}
+        {error?.kind === "unauthorized" && (
+          <div className="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-200 text-xs rounded-lg">
+            Your session expired.{" "}
+            <button onClick={reauth} className="underline">Sign in again</button>
+          </div>
+        )}
+        {error?.kind === "rateLimited" && (
+          <div className="px-4 py-2 bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs rounded-lg">
+            You&apos;ve used all 20 of your hourly AI requests. {formatResetAt(error.resetAt)}
+          </div>
         )}
       </div>
 

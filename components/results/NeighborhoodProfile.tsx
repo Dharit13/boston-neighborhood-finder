@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { ScoredNeighborhood, MbtaLine, UserInput } from "@/lib/types";
 import { getRentAsPercentOfIncome } from "@/lib/budget";
 import MbtaAlertsPanel from "./MbtaAlertsPanel";
+import { useAiErrorState, formatResetAt } from "./useAiErrorState";
 
 interface Props {
   scored: ScoredNeighborhood;
@@ -80,45 +81,53 @@ export default function NeighborhoodProfile({
   const [prevNeighborhoodId, setPrevNeighborhoodId] = useState(n.id);
   const [aiSummary, setAiSummary] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(true);
+  const { error, setError, handleResponse, reauth } = useAiErrorState();
   if (prevNeighborhoodId !== n.id) {
     setPrevNeighborhoodId(n.id);
     setAiSummary(null);
     setAiLoading(true);
+    setError(null);
   }
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/ai-summary", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        neighborhood: {
-          name: n.name,
-          region: n.region,
-          description: n.description,
-          perPersonRent: scored.perPersonRent,
-          rentPercent,
-          matchScore: scored.matchScore,
-          safety: n.safety,
-          safetyTrend: n.safetyTrend,
-          walkScore: n.walkScore,
-          transitScore: n.transitScore,
-          communityScore: n.communityScore,
-          mbtaLines: n.mbtaLines,
-          commuteMinutes: scored.commuteMinutes,
-          commuteRoute: scored.commuteRoute,
-        },
-        userPrefs: userInput,
-      }),
-    })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data) => {
-        if (!cancelled && data?.summary) setAiSummary(data.summary);
-      })
-      .catch(() => {})
-      .finally(() => {
+    (async () => {
+      try {
+        const res = await fetch("/api/ai-summary", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            neighborhood: {
+              name: n.name,
+              region: n.region,
+              description: n.description,
+              perPersonRent: scored.perPersonRent,
+              rentPercent,
+              matchScore: scored.matchScore,
+              safety: n.safety,
+              safetyTrend: n.safetyTrend,
+              walkScore: n.walkScore,
+              transitScore: n.transitScore,
+              communityScore: n.communityScore,
+              mbtaLines: n.mbtaLines,
+              commuteMinutes: scored.commuteMinutes,
+              commuteRoute: scored.commuteRoute,
+            },
+            userPrefs: userInput,
+          }),
+        });
+        const ok = await handleResponse(res);
+        if (cancelled) return;
+        if (ok) {
+          const data = await res.json();
+          if (!cancelled && data?.summary) setAiSummary(data.summary);
+        }
+      } catch {
+        // network error — leave error state as null, stay silent
+      } finally {
         if (!cancelled) setAiLoading(false);
-      });
+      }
+    })();
     return () => {
       cancelled = true;
     };
@@ -151,7 +160,7 @@ export default function NeighborhoodProfile({
       </div>
 
       {/* AI Summary */}
-      {(aiLoading || aiSummary) && (
+      {(aiLoading || aiSummary || error) && (
         <div className="mb-6 p-4 rounded-lg border border-purple-500/30 bg-purple-500/10">
           <h3 className="text-sm font-semibold text-white mb-1">
             Why this neighborhood for you
@@ -160,6 +169,15 @@ export default function NeighborhoodProfile({
             <p className="text-sm text-white animate-pulse">
               Generating personalized summary...
             </p>
+          ) : error?.kind === "unauthorized" ? (
+            <div className="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-200 text-xs rounded-lg">
+              Your session expired.{" "}
+              <button onClick={reauth} className="underline">Sign in again</button>
+            </div>
+          ) : error?.kind === "rateLimited" ? (
+            <div className="px-4 py-2 bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs rounded-lg">
+              You&apos;ve used all 20 of your hourly AI requests. {formatResetAt(error.resetAt)}
+            </div>
           ) : (
             <p className="text-sm text-white">{aiSummary}</p>
           )}
