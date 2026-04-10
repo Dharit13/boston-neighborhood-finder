@@ -20,20 +20,18 @@ import { createServerClient } from "@supabase/ssr";
  *
  * NOTE: NextResponse.next() in Next.js 16 accepts MiddlewareResponseInit
  * where `request` is typed as { headers?: Headers } — NOT a full NextRequest.
- * We propagate updated cookies by cloning request headers and passing them
- * via NextResponse.next({ request: { headers } }).
+ * We propagate updated cookies via request.cookies.set() (the RequestCookies
+ * API), which mutates the underlying Cookie header correctly for multiple
+ * chunked values, then pass request.headers into NextResponse.next so Server
+ * Components see the refreshed session on the same request.
  */
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Clone request headers so we can propagate updated session cookies to
-  // Server Components via the forwarded request.
-  const requestHeaders = new Headers(request.headers);
-
   // Create a mutable response we can attach cookie updates to.
   let response = NextResponse.next({
     request: {
-      headers: requestHeaders,
+      headers: request.headers,
     },
   });
 
@@ -46,19 +44,19 @@ export async function proxy(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          // Write updated cookies onto the cloned request headers so that
-          // downstream Server Components can read the refreshed session.
+          // Mutate request.cookies — NextRequest's RequestCookies API updates
+          // the underlying Cookie header correctly for multiple values.
           cookiesToSet.forEach(({ name, value }) =>
-            requestHeaders.set("cookie", `${name}=${value}`)
+            request.cookies.set(name, value)
           );
-          // Recreate response with the updated request headers.
+          // Re-create the response with the (now-mutated) request headers so
+          // Server Components see the refreshed session on this same request.
           response = NextResponse.next({
             request: {
-              headers: requestHeaders,
+              headers: request.headers,
             },
           });
-          // Also write updated cookies onto the response (Set-Cookie) so the
-          // browser persists the refreshed session.
+          // Persist to the browser via Set-Cookie.
           cookiesToSet.forEach(({ name, value, options }) =>
             response.cookies.set(name, value, options)
           );
