@@ -15,13 +15,16 @@ It also includes a Claude-powered chat assistant that can answer follow-up quest
 - **Live Boston news** from Google News RSS and **live MBTA service alerts** for the user's preferred lines
 - **Side-by-side comparison** of up to three neighborhoods
 - **Interactive map** with recommendation pins and an optional office marker
+- **Full sign-in gate** (Google / GitHub OAuth via Supabase)
+- **Per-user rate limiting** on AI routes (20/hr)
+- **Public user counter** on sign-in page
 
 ## Tech stack
 
 - **Framework:** Next.js 16 (App Router, Turbopack), React 19, TypeScript 5
 - **Styling:** Tailwind CSS 4, Framer Motion
 - **AI:** Anthropic Claude Haiku via the official SDK
-- **Rate limiting:** Upstash Redis sliding window (10 req/hr per IP for AI routes)
+- **Rate limiting:** Upstash Redis sliding window (20 req/hr per user for AI routes)
 - **Maps:** Google Maps JavaScript API + Directions API
 - **Data parsing:** fast-xml-parser for RSS
 - **Testing:** Jest + Testing Library (78 tests covering scoring, weights, budget, rate-limit, news, chat prompt, MBTA alerts)
@@ -53,6 +56,8 @@ You will need to create accounts on the providers below. None of them come with 
 | `GOOGLE_MAPS_API_KEY` | Same as above, different key | Server-side Directions API for commute routing | Free tier covers most personal use |
 | `UPSTASH_REDIS_REST_URL` | [Upstash Console](https://console.upstash.com/redis) | Rate limiting for AI routes | Free tier is plenty |
 | `UPSTASH_REDIS_REST_TOKEN` | Same as above | Same as above | — |
+| `NEXT_PUBLIC_SUPABASE_URL` | [Supabase](https://supabase.com) | Project URL for auth gate | Free tier covers this |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Same | Anon public key | — |
 
 **Upstash credentials are optional.** If you leave them blank, the rate limiter falls back to "allow everything" mode, which is fine for local development but **not safe for production** — an anonymous user could rack up unbounded Anthropic charges on your account.
 

@@ -204,14 +204,14 @@ The results page picks one recommendation per tier — the top-scoring neighborh
 
 ## API routes
 
-| Route | Method | Purpose | Env vars | External API | Rate limited? | Streaming? |
-|---|---|---|---|---|---|---|
-| `/api/commute` | POST | Transit + walking route from neighborhood to office | `GOOGLE_MAPS_API_KEY` | Google Directions | No | No |
-| `/api/news` | GET | Boston news headlines (8 latest) | — | Google News RSS | No | Cached 15 min |
-| `/api/mbta-alerts` | GET | Service alerts for requested lines | — | MBTA v3 | No | Cached 3 min |
-| `/api/ai-summary` | POST | Per-neighborhood 2–3 sentence summary | `ANTHROPIC_API_KEY` | Claude Haiku | Yes (Upstash) | No |
-| `/api/ai-overview` | POST | 3–4 sentence overview of top 3 picks | `ANTHROPIC_API_KEY` | Claude Haiku | Yes (Upstash) | No |
-| `/api/chat` | POST | Multi-turn chat, grounded in the 44-neighborhood dataset | `ANTHROPIC_API_KEY` | Claude Haiku (streaming) | Yes (Upstash) | Yes (SSE) |
+| Route | Method | Purpose | Env vars | External API | Rate limited? | Streaming? | Auth required? |
+|---|---|---|---|---|---|---|---|
+| `/api/commute` | POST | Transit + walking route from neighborhood to office | `GOOGLE_MAPS_API_KEY` | Google Directions | No | No | Yes |
+| `/api/news` | GET | Boston news headlines (8 latest) | — | Google News RSS | No | Cached 15 min | Yes |
+| `/api/mbta-alerts` | GET | Service alerts for requested lines | — | MBTA v3 | No | Cached 3 min | Yes |
+| `/api/ai-summary` | POST | Per-neighborhood 2–3 sentence summary | `ANTHROPIC_API_KEY` | Claude Haiku | Yes (Upstash) | No | Yes |
+| `/api/ai-overview` | POST | 3–4 sentence overview of top 3 picks | `ANTHROPIC_API_KEY` | Claude Haiku | Yes (Upstash) | No | Yes |
+| `/api/chat` | POST | Multi-turn chat, grounded in the 44-neighborhood dataset | `ANTHROPIC_API_KEY` | Claude Haiku (streaming) | Yes (Upstash) | Yes (SSE) | Yes |
 
 ### Chat route specifics ([app/api/chat/route.ts](./app/api/chat/route.ts))
 
@@ -225,9 +225,24 @@ The `/api/chat` route is the most complex and deserves its own callout:
 
 ## Rate limiting ([lib/rateLimit.ts](./lib/rateLimit.ts))
 
-All three AI routes (`/api/ai-summary`, `/api/ai-overview`, `/api/chat`) share a single Upstash-backed sliding-window limiter: **10 requests per hour per IP**. If `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` aren't set, the limiter returns `{ ok: true }` unconditionally — convenient for local dev, dangerous in production.
+All three AI routes (`/api/ai-summary`, `/api/ai-overview`, `/api/chat`) share a single Upstash-backed sliding-window limiter: **20 requests per hour per authenticated user**. If `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` aren't set, the limiter returns `{ ok: true }` unconditionally — convenient for local dev, dangerous in production.
 
-IPs come from `x-forwarded-for`, falling back to `x-real-ip`, and finally to `"unknown"`.
+The rate-limit key is `user.id` (from the authenticated Supabase session), not the IP address.
+
+## Authentication
+
+All pages and API routes are gated behind Supabase Auth (Google + GitHub OAuth). Enforcement is a single [proxy.ts](./proxy.ts) at the project root (Next.js 16 renamed middleware to proxy):
+
+- Unauth'd visits to any page → redirect to `/sign-in?next=<path>`
+- Auth'd visits to `/sign-in` → redirect to `/`
+- `/api/*` routes → never redirected; each route calls `requireUser()` from [lib/auth.ts](./lib/auth.ts) and returns 401 JSON on failure
+- Every request refreshes the Supabase session cookie via `supabase.auth.getUser()`
+
+The sign-in page at [app/sign-in/page.tsx](./app/sign-in/page.tsx) also renders a public user count by calling the `get_total_users` Postgres function (defined with `SECURITY DEFINER` so the anon role can read `auth.users` without the service role key).
+
+The root layout at [app/layout.tsx](./app/layout.tsx) reads the current user server-side and mounts a [UserMenu](./components/UserMenu.tsx) dropdown in the top-right corner of every authenticated page.
+
+See [DATA_SOURCES.md](./DATA_SOURCES.md) for the Supabase Auth entry and the spec at [docs/superpowers/specs/2026-04-10-supabase-auth-design.md](./docs/superpowers/specs/2026-04-10-supabase-auth-design.md) for the full design.
 
 ## Data pipeline ([scripts/fetch-real-data.ts](./scripts/fetch-real-data.ts))
 

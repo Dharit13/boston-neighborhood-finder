@@ -8,6 +8,7 @@ Every piece of data this app shows comes from one of the sources below. Some are
 
 | Source | Live or pre-computed? | What it provides | Attribution needed? | License / terms |
 |---|---|---|---|---|
+| Supabase Auth | Live | Sign-in gate, session management, user count | No (service) | [Supabase ToS](https://supabase.com/terms) |
 | Anthropic Claude API | Live | Per-neighborhood summaries, overview, chat | No (service) | Commercial API, per-token |
 | Google Maps Directions API | Live | Commute routes (transit + walking) | Required ("powered by Google") | [Google Maps Platform ToS](https://cloud.google.com/maps-platform/terms) |
 | Google Maps JavaScript API | Live | Map rendering on results page | Required | Same |
@@ -22,13 +23,22 @@ Every piece of data this app shows comes from one of the sources below. Some are
 
 ## Live sources (hit at request time)
 
+### Supabase Auth
+
+- **Endpoint:** `https://<project-ref>.supabase.co/auth/v1`
+- **Used by:** [proxy.ts](./proxy.ts), [lib/supabase/server.ts](./lib/supabase/server.ts), [lib/supabase/client.ts](./lib/supabase/client.ts), [app/sign-in/page.tsx](./app/sign-in/page.tsx), [app/auth/callback/route.ts](./app/auth/callback/route.ts)
+- **Env vars:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- **Providers:** Google, GitHub (OAuth 2.0)
+- **Attribution:** Not required (service)
+- **Notes:** The app is fully gated behind sign-in. Rate limiting on AI routes is keyed on `user.id` (20 req/hour). Also provides a public user-count RPC (`get_total_users`) used for social proof on `/sign-in` — see the SQL migration at [supabase/migrations/001_get_total_users.sql](./supabase/migrations/001_get_total_users.sql).
+
 ### Anthropic Claude API
 
 - **Endpoint:** `https://api.anthropic.com/v1/messages`
 - **Model:** `claude-haiku-4-5-20251001`
 - **Used by:** [app/api/ai-summary/route.ts](./app/api/ai-summary/route.ts), [app/api/ai-overview/route.ts](./app/api/ai-overview/route.ts), [app/api/chat/route.ts](./app/api/chat/route.ts)
 - **Env var:** `ANTHROPIC_API_KEY` — [get one here](https://console.anthropic.com/settings/keys)
-- **Rate limit:** 10 requests per hour per IP (enforced by [lib/rateLimit.ts](./lib/rateLimit.ts), backed by Upstash Redis)
+- **Rate limit:** 20 requests per hour per authenticated user (enforced by [lib/rateLimit.ts](./lib/rateLimit.ts), backed by Upstash Redis, keyed on `user.id`)
 - **Notes:** Haiku is used everywhere for cost — the three AI routes are bounded at 200, 300, and 600 output tokens respectively. The chat route uses streaming (SSE). All prompts are built from the static neighborhood dataset, not from any external source.
 
 ### Google Maps Directions API
