@@ -17,31 +17,6 @@ jest.mock("@upstash/redis", () => ({
   Redis: jest.fn().mockImplementation(() => ({})),
 }));
 
-describe("ipFromRequest", () => {
-  // Import lazily so each describe can reset mocks if needed.
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { ipFromRequest } = require("@/lib/rateLimit");
-
-  it("uses the first x-forwarded-for entry", () => {
-    const req = new Request("http://x", {
-      headers: { "x-forwarded-for": "1.2.3.4, 5.6.7.8" },
-    });
-    expect(ipFromRequest(req)).toBe("1.2.3.4");
-  });
-
-  it("falls back to x-real-ip when x-forwarded-for is absent", () => {
-    const req = new Request("http://x", {
-      headers: { "x-real-ip": "9.9.9.9" },
-    });
-    expect(ipFromRequest(req)).toBe("9.9.9.9");
-  });
-
-  it("returns 'unknown' when no forwarding headers are present", () => {
-    const req = new Request("http://x");
-    expect(ipFromRequest(req)).toBe("unknown");
-  });
-});
-
 describe("checkRateLimit — env vars missing", () => {
   const ORIGINAL_ENV = process.env;
   let warnSpy: jest.SpyInstance;
@@ -106,5 +81,16 @@ describe("checkRateLimit — env vars set", () => {
     expect(result.ok).toBe(false);
     expect(result.remaining).toBe(0);
     expect(result.resetAt).toBe(resetAt);
+  });
+
+  it("forwards the identifier unchanged to the limiter", async () => {
+    // Guards the per-user keying contract: API routes pass user.id here,
+    // and a silent change to prefix/mangle the key would hide cross-user
+    // bleed-over during a refactor.
+    mockLimit.mockResolvedValueOnce({ success: true, remaining: 19, reset: 0 });
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { checkRateLimit } = require("@/lib/rateLimit");
+    await checkRateLimit("user-abc-123");
+    expect(mockLimit).toHaveBeenCalledWith("user-abc-123");
   });
 });

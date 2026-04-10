@@ -9,14 +9,31 @@ import { createClient } from "@/lib/supabase/server";
  * redirect to `next` — validated to be a same-origin relative path to
  * prevent open-redirect attacks.
  */
+
+/**
+ * Parse `next` as a URL relative to a placeholder origin. Returns the
+ * pathname+search+hash only if the resolved URL lands on the placeholder
+ * (i.e. the input was actually a relative path). Anything that resolves
+ * to a different host — including protocol-relative inputs (`//evil.com`)
+ * and tab/newline-encoded escapes (`/\t//evil.com`) — falls back to "/".
+ */
+function safeRedirectPath(next: string): string {
+  try {
+    const placeholder = "https://placeholder.invalid";
+    const url = new URL(next, placeholder);
+    if (url.origin !== placeholder) return "/";
+    return url.pathname + url.search + url.hash;
+  } catch {
+    return "/";
+  }
+}
+
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
   const next = searchParams.get("next") ?? "/";
 
-  // Open-redirect protection: only allow relative same-origin paths.
-  const safeNext =
-    next.startsWith("/") && !next.startsWith("//") ? next : "/";
+  const safeNext = safeRedirectPath(next);
 
   if (!code) {
     return NextResponse.redirect(
