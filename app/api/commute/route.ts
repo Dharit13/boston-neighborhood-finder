@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { CommuteResult, CommuteStep } from "@/lib/types";
+import { requireUser } from "@/lib/auth";
 
 interface GoogleRoute {
   legs: Array<{
@@ -44,6 +45,9 @@ function parseRoute(route: GoogleRoute): { durationMinutes: number; routeSummary
 }
 
 export async function POST(request: NextRequest) {
+  const { user, response } = await requireUser();
+  if (!user) return response;
+
   const { originLat, originLng, destination } = await request.json();
 
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;

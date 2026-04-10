@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
-import { checkRateLimit, ipFromRequest } from "@/lib/rateLimit";
+import { checkRateLimit } from "@/lib/rateLimit";
+import { requireUser } from "@/lib/auth";
 import {
   buildSystemPrompt,
   preCheck,
@@ -70,6 +71,9 @@ function refusalStream(): Response {
 }
 
 export async function POST(request: NextRequest) {
+  const { user, response } = await requireUser();
+  if (!user) return response;
+
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     return NextResponse.json(
@@ -78,13 +82,11 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const ip = ipFromRequest(request);
-  const rl = await checkRateLimit(ip);
+  const rl = await checkRateLimit(user.id);
   if (!rl.ok) {
-    const retryAfterSec = rl.resetAt ? Math.max(1, Math.ceil((rl.resetAt - Date.now()) / 1000)) : 60;
     return NextResponse.json(
-      { error: "rate_limited", retryAfterSeconds: retryAfterSec },
-      { status: 429, headers: { "Retry-After": String(retryAfterSec) } }
+      { error: "Rate limit exceeded", resetAt: rl.resetAt },
+      { status: 429 }
     );
   }
 

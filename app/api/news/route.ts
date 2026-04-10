@@ -1,11 +1,15 @@
 import { NextResponse } from "next/server";
 import { parseRss } from "@/lib/news";
+import { requireUser } from "@/lib/auth";
 
 const NEWS_RSS_URL =
   "https://news.google.com/rss/search?q=Boston&hl=en-US&gl=US&ceid=US:en";
 const REVALIDATE_SECONDS = 900; // 15 min
 
 export async function GET() {
+  const { user, response } = await requireUser();
+  if (!user) return response;
+
   try {
     const res = await fetch(NEWS_RSS_URL, {
       next: { revalidate: REVALIDATE_SECONDS },

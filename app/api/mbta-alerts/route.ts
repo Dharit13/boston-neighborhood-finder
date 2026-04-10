@@ -4,6 +4,7 @@ import {
   mapLinesToRoutes,
   filterAndNormalizeAlerts,
 } from "@/lib/mbtaAlerts";
+import { requireUser } from "@/lib/auth";
 
 const VALID_LINES: ReadonlySet<MbtaLine> = new Set<MbtaLine>([
   "red",
@@ -18,6 +19,9 @@ const VALID_LINES: ReadonlySet<MbtaLine> = new Set<MbtaLine>([
 const REVALIDATE_SECONDS = 180; // 3 min
 
 export async function GET(request: NextRequest) {
+  const { user, response } = await requireUser();
+  if (!user) return response;
+
   const linesParam = request.nextUrl.searchParams.get("lines") ?? "";
   const requestedLines = linesParam
     .split(",")
