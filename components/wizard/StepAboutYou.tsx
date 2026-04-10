@@ -46,7 +46,7 @@ export default function StepAboutYou({ input, onChange }: Props) {
 
       <div>
         <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
-          Monthly Income (after tax)
+          Monthly Household Income (after tax)
         </label>
         <div className="relative">
           <span className="absolute left-4 top-3 text-white/40 pointer-events-none">$</span>

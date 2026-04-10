@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 
 USER PREFERENCES:
 - Age group: ${userPrefs.ageGroup}
-- Monthly income: $${userPrefs.monthlyIncome}
+- Monthly household income: $${userPrefs.monthlyIncome}
 - Roommates: ${userPrefs.roommates}
 - Max rent: $${userPrefs.maxRent}/mo
 - Office days/week: ${userPrefs.officeDays}

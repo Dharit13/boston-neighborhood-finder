@@ -84,7 +84,7 @@ function formatPrefs(userPrefs: UserInput | null): string {
     mbtaPreference && mbtaPreference.length > 0 ? mbtaPreference.join(", ") : "None";
   return [
     `- Age group: ${ageGroup}`,
-    `- Monthly income: $${monthlyIncome}`,
+    `- Monthly household income: $${monthlyIncome}`,
     `- Roommates: ${roommates}`,
     `- Max rent: $${maxRent}/mo`,
     `- Office days/week: ${officeDays}`,
