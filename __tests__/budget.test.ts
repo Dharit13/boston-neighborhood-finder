@@ -1,4 +1,4 @@
-import { calculateBudgetTiers, calculatePerPersonBudget } from "@/lib/budget";
+import { calculateBudgetTiers } from "@/lib/budget";
 
 describe("calculateBudgetTiers", () => {
   it("calculates correct tiers for $5000 income with $3000 max", () => {
@@ -23,20 +23,3 @@ describe("calculateBudgetTiers", () => {
   });
 });
 
-describe("calculatePerPersonBudget", () => {
-  it("returns full amount for 0 roommates", () => {
-    expect(calculatePerPersonBudget(2500, 0)).toBe(2500);
-  });
-
-  it("splits budget for 1 roommate", () => {
-    expect(calculatePerPersonBudget(2250, 1)).toBe(1125);
-  });
-
-  it("splits budget for 2 roommates", () => {
-    expect(calculatePerPersonBudget(2250, 2)).toBe(750);
-  });
-
-  it("splits budget for 3 roommates", () => {
-    expect(calculatePerPersonBudget(2250, 3)).toBe(563); // rounded
-  });
-});

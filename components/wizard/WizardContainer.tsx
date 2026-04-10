@@ -56,8 +56,21 @@ export default function WizardContainer() {
     const stored = sessionStorage.getItem("wizardInput");
     if (stored) {
       try {
+        const parsed: Partial<UserInput> = JSON.parse(stored);
+        // Sanitize legacy roommate values. The "2 roommates" option was
+        // removed because the dataset has no 3BR rent data — stale sessions
+        // holding `roommates: 2` would silently fall back to 2BR / 3 and
+        // under-price per-person rent. Clamp to the closest valid value for
+        // the chosen arrangement.
+        if (typeof parsed.roommates === "number") {
+          if (parsed.livingArrangement === "own-room") {
+            parsed.roommates = 1;
+          } else if (parsed.livingArrangement === "shared-room") {
+            parsed.roommates = parsed.roommates === 3 ? 3 : 1;
+          }
+        }
         // eslint-disable-next-line react-hooks/set-state-in-effect
-        setInput((prev) => ({ ...prev, ...JSON.parse(stored) }));
+        setInput((prev) => ({ ...prev, ...parsed }));
       } catch {}
     }
     const startStep = parseInt(searchParams.get("step") || "0");

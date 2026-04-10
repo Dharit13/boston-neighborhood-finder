@@ -14,13 +14,6 @@ export function calculateBudgetTiers(
   };
 }
 
-export function calculatePerPersonBudget(
-  totalBudget: number,
-  roommates: number
-): number {
-  return Math.round(totalBudget / (roommates + 1));
-}
-
 export function getActiveTiers(
   monthlyIncome: number,
   maxRent: number

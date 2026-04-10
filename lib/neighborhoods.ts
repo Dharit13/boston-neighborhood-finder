@@ -54,10 +54,7 @@ function getApartmentRent(
   }
 
   const rentRange =
-    bedrooms <= 1
-      ? neighborhood.rent.oneBr
-      : neighborhood.rent.twoBr;
-
+    bedrooms <= 1 ? neighborhood.rent.oneBr : neighborhood.rent.twoBr;
   return Math.round((rentRange[0] + rentRange[1]) / 2);
 }
 

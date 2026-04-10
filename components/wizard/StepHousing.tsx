@@ -33,15 +33,30 @@ const ARRANGEMENT_OPTIONS: {
   },
 ];
 
-const ROOMMATE_OPTIONS = [
-  { value: 1, label: "1 roommate (2 people total)" },
-  { value: 2, label: "2 roommates (3 people total)" },
+// The neighborhood dataset only carries studio/1BR/2BR rents, so every
+// roommate config must fit inside a 2BR:
+//   • own-room    → 1 roommate (2BR, each person has their own room)
+//   • shared-room → 1 roommate (1BR, one shared bedroom)
+//                 → 3 roommates (2BR, two pairs sharing rooms)
+// "2 roommates" (which implied a 3BR own-room) was removed because the
+// dataset can't price a 3BR unit.
+const ROOMMATE_OPTIONS_OWN_ROOM = [
+  { value: 1, label: "1 roommate (2 people, 2BR)" },
+];
+const ROOMMATE_OPTIONS_SHARED_ROOM = [
+  { value: 1, label: "1 roommate (2 people, 1BR shared)" },
+  { value: 3, label: "3 roommates (4 people, 2BR shared)" },
 ];
 
 export default function StepHousing({ input, onChange }: Props) {
   const showRoommates =
     input.livingArrangement === "own-room" ||
     input.livingArrangement === "shared-room";
+
+  const roommateOptions =
+    input.livingArrangement === "own-room"
+      ? ROOMMATE_OPTIONS_OWN_ROOM
+      : ROOMMATE_OPTIONS_SHARED_ROOM;
 
   const handleArrangementChange = (
     arrangement: UserInput["livingArrangement"]
@@ -58,11 +73,13 @@ export default function StepHousing({ input, onChange }: Props) {
         roommates: 1,
         apartmentSize: input.apartmentSize === "studio" ? "1br" : input.apartmentSize,
       });
+    } else if (arrangement === "own-room") {
+      // own-room caps at 1 roommate (2BR) because we don't have 3BR data.
+      onChange({ livingArrangement: arrangement, roommates: 1 });
     } else {
-      onChange({
-        livingArrangement: arrangement,
-        roommates: input.roommates > 0 ? input.roommates : 1,
-      });
+      // shared-room: keep current pick if it's still valid (1 or 3), else 1.
+      const nextRoommates = input.roommates === 3 ? 3 : 1;
+      onChange({ livingArrangement: arrangement, roommates: nextRoommates });
     }
   };
 
@@ -173,7 +190,7 @@ export default function StepHousing({ input, onChange }: Props) {
             How many roommates?
           </label>
           <div className="grid grid-cols-1 gap-2">
-            {ROOMMATE_OPTIONS.map((opt) => (
+            {roommateOptions.map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => onChange({ roommates: opt.value })}
