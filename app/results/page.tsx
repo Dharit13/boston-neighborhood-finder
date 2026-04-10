@@ -17,8 +17,9 @@ import {
   scoreSafety,
   scoreLifestyle,
   scoreCommunity,
-  computeMatchScore,
+  computeMatchScoresTopsis,
   applyMbtaBonus,
+  applyAgeAdjustment,
 } from "@/lib/scoring";
 import {
   calculateBudgetTiers,
@@ -30,7 +31,11 @@ import { fetchCommuteTimes } from "@/lib/commute";
 import RecommendationOverview from "@/components/results/RecommendationOverview";
 import RecommendationCards from "@/components/results/RecommendationCards";
 import NeighborhoodProfile from "@/components/results/NeighborhoodProfile";
+import NewsPanel from "@/components/results/NewsPanel";
 import CompareView from "@/components/results/CompareView";
+import { useScreenSize } from "@/hooks/use-screen-size";
+import { PixelTrail } from "@/components/ui/pixel-trail";
+import { GooeyFilter } from "@/components/ui/gooey-filter";
 import dynamic from "next/dynamic";
 
 const NeighborhoodMap = dynamic(
@@ -40,6 +45,7 @@ const NeighborhoodMap = dynamic(
 
 export default function ResultsPage() {
   const router = useRouter();
+  const screenSize = useScreenSize();
   const [input, setInput] = useState<UserInput | null>(null);
   const [neighborhoods, setNeighborhoods] = useState<Neighborhood[]>([]);
   const [scored, setScored] = useState<ScoredNeighborhood[]>([]);
@@ -49,14 +55,12 @@ export default function ResultsPage() {
   const [loading, setLoading] = useState(true);
   const profileRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to profile when a neighborhood is selected
   useEffect(() => {
     if (selectedId && profileRef.current) {
       profileRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [selectedId]);
 
-  // Load input from sessionStorage
   useEffect(() => {
     const stored = sessionStorage.getItem("wizardInput");
     if (!stored) {
@@ -66,24 +70,21 @@ export default function ResultsPage() {
     setInput(JSON.parse(stored));
   }, [router]);
 
-  // Load neighborhoods
   useEffect(() => {
     fetch("/data/neighborhoods.json")
       .then((r) => r.json())
       .then(setNeighborhoods);
   }, []);
 
-  // Score neighborhoods when both input and data are ready
   useEffect(() => {
     if (!input || neighborhoods.length === 0) return;
 
     async function scoreAll() {
       setLoading(true);
-      const weights = deriveWeights(input!.sliders, input!.officeDays > 2);
+      const weights = deriveWeights(input!.sliders, input!.officeDays > 2, input!.budgetPriority);
       const tiers = calculateBudgetTiers(input!.monthlyIncome, input!.maxRent);
       const activeTiers = getActiveTiers(input!.monthlyIncome, input!.maxRent);
 
-      // Fetch commute times if user has an office
       let commuteMap = new Map<string, CommuteResult>();
       if (input!.officeDays > 2 && input!.officeAddress) {
         const origins = neighborhoods.map((n) => ({
@@ -94,10 +95,13 @@ export default function ResultsPage() {
         commuteMap = await fetchCommuteTimes(origins, input!.officeAddress);
       }
 
-      // Score each neighborhood against the "balanced" tier (or stretched if no balanced)
-      const budgetForScoring = tiers.balanced;
-      const scoredList: ScoredNeighborhood[] = neighborhoods.map((n) => {
-        const perPersonRent = getPerPersonRent(n, input!.roommates, input!.livingArrangement);
+      const budgetForScoring = tiers.stretched;
+
+      // Score every neighborhood so all of them appear on the map and are
+      // clickable for details. Affordability is enforced later when selecting
+      // the top-3 recommendations.
+      const dimensionData = neighborhoods.map((n) => {
+        const perPersonRent = getPerPersonRent(n, input!.roommates, input!.livingArrangement, input!.apartmentSize);
         const commuteResult = commuteMap.get(n.id);
         const commuteMinutes = commuteResult?.durationMinutes ?? null;
 
@@ -112,8 +116,7 @@ export default function ResultsPage() {
           budget: scoreBudget(
             perPersonRent,
             budgetForScoring,
-            input!.hasCar,
-            n.parkingCost
+            input!.budgetPriority
           ),
           commute: commuteScore,
           safety: scoreSafety(n.safety),
@@ -121,150 +124,87 @@ export default function ResultsPage() {
           community: scoreCommunity(n.communityScore),
         };
 
-        const matchScore = computeMatchScore(scores, weights);
-
         return {
           neighborhood: n,
           scores,
-          matchScore,
           commuteMinutes,
           commuteRoute: commuteResult?.routeSummary ?? null,
           perPersonRent,
-          rentPercent: getRentAsPercentOfIncome(
-            perPersonRent,
-            input!.monthlyIncome
-          ),
         };
       });
 
-      // Sort by match score
+      const allDimensionScores = dimensionData.map((d) => d.scores);
+      const topsisScores = computeMatchScoresTopsis(allDimensionScores, weights);
+
+      const scoredList: ScoredNeighborhood[] = dimensionData.map((d, i) => {
+        const overBudget = d.perPersonRent > budgetForScoring;
+        let matchScore = topsisScores[i];
+
+        matchScore = applyAgeAdjustment(
+          matchScore,
+          input!.ageGroup,
+          d.neighborhood
+        );
+
+        if (input!.avoidCollegeArea && d.neighborhood.collegeArea) {
+          matchScore = matchScore * 0.3;
+        }
+
+        if (input!.needsParking && !d.neighborhood.parkingFriendly) {
+          matchScore = matchScore * 0.3;
+        }
+
+        // Over-budget neighborhoods are never a valid match — force to 0.
+        if (overBudget) matchScore = 0;
+
+        return {
+          neighborhood: d.neighborhood,
+          scores: d.scores,
+          matchScore,
+          commuteMinutes: d.commuteMinutes,
+          commuteRoute: d.commuteRoute,
+          perPersonRent: d.perPersonRent,
+          rentPercent: getRentAsPercentOfIncome(
+            d.perPersonRent,
+            input!.monthlyIncome
+          ),
+          overBudget,
+        };
+      });
+
       scoredList.sort((a, b) => b.matchScore - a.matchScore);
       setScored(scoredList);
 
-      // Build tiered recommendations
-      const tierConfigs: {
-        tier: BudgetTier;
-        label: string;
-        color: string;
-        maxBudget: number;
-      }[] = [];
-
-      // Budget tiers are already per-person (based on user's personal income/max)
-      if (activeTiers.includes("saver")) {
-        tierConfigs.push({
-          tier: "saver",
-          label: "Easy on Your Wallet",
-          color: "green",
-          maxBudget: tiers.saver,
-        });
-      }
-      if (activeTiers.includes("balanced")) {
-        tierConfigs.push({
-          tier: "balanced",
-          label: "Balanced Pick",
-          color: "blue",
-          maxBudget: tiers.balanced,
-        });
-      }
-      if (activeTiers.includes("stretched")) {
-        tierConfigs.push({
-          tier: "stretched",
-          label: "At Your Max",
-          color: "orange",
-          maxBudget: tiers.stretched,
-        });
-      }
-
-      // Build 3 recommendations: pick top 3 distinct neighborhoods by match
-      // score, then assign tier labels based on where their rent falls
       const recs: TieredRecommendation[] = [];
       const usedIds = new Set<string>();
       const top3 = scoredList
         .filter((s) => {
+          // Recommendations must be within budget, even though the map shows all.
+          if (s.perPersonRent > budgetForScoring) return false;
           if (usedIds.has(s.neighborhood.id)) return false;
           usedIds.add(s.neighborhood.id);
           return true;
         })
         .slice(0, 3);
 
-      // Sort the 3 picks by rent (cheapest first) for tier assignment
-      const byRent = [...top3].sort(
-        (a, b) => a.perPersonRent - b.perPersonRent
-      );
+      const rankLabels: { label: string; color: string; tier: BudgetTier }[] = [
+        { label: "Best Match", color: "blue", tier: "balanced" },
+        { label: "Runner Up", color: "green", tier: "balanced" },
+        { label: "Also Great", color: "orange", tier: "balanced" },
+      ];
 
-      // Tiers are already per-person amounts
-      const saverBudget = tiers.saver;
-      const balancedBudget = tiers.balanced;
-      const stretchedBudget = tiers.stretched;
-
-      for (let i = 0; i < byRent.length; i++) {
-        const n = byRent[i];
-        const rent = n.perPersonRent;
-        let tier: BudgetTier;
-        let label: string;
-        let color: string;
-
-        if (rent <= saverBudget) {
-          tier = "saver";
-          label = "Easy on Your Wallet";
-          color = "green";
-        } else if (rent <= balancedBudget) {
-          // Assign cheapest as balanced, others shift up
-          if (i === 0 || byRent[i - 1].perPersonRent > saverBudget) {
-            tier = "balanced";
-            label = "Balanced Pick";
-            color = "blue";
-          } else {
-            tier = "balanced";
-            label = "Balanced Pick";
-            color = "blue";
-          }
-        } else if (rent <= stretchedBudget) {
-          tier = "stretched";
-          label = "At Your Max";
-          color = "orange";
-        } else {
-          tier = "stretched";
-          label = "Over Budget — Best Match";
-          color = "orange";
-        }
-
+      for (let i = 0; i < top3.length; i++) {
+        const n = top3[i];
+        const rank = rankLabels[i];
         recs.push({
-          tier,
-          label,
-          color,
+          tier: rank.tier,
+          label: rank.label,
+          color: rank.color,
           neighborhood: n,
           tradeoffVsPrev: null,
         });
       }
 
-      // Deduplicate tier labels — if multiple have same tier, relabel
-      const tierCounts: Record<string, number> = {};
-      recs.forEach((r) => {
-        tierCounts[r.tier] = (tierCounts[r.tier] || 0) + 1;
-      });
-
-      if (tierCounts["balanced"] && tierCounts["balanced"] > 1) {
-        // Multiple in balanced range — label by rank instead
-        let rank = 1;
-        for (const r of recs) {
-          if (r.tier === "balanced") {
-            if (rank === 1) {
-              r.label = "Best Match";
-              r.color = "blue";
-            } else {
-              r.label = "Runner Up";
-              r.color = "green";
-            }
-            rank++;
-          }
-        }
-      }
-
-      // Sort final recs by rent ascending
-      recs.sort((a, b) => a.neighborhood.perPersonRent - b.neighborhood.perPersonRent);
-
-      // Compute tradeoffs between adjacent recs
       for (let i = 1; i < recs.length; i++) {
         const curr = recs[i].neighborhood;
         const prev = recs[i - 1].neighborhood;
@@ -298,10 +238,28 @@ export default function ResultsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
-          <p className="mt-4 text-gray-600">
+      <div className="relative min-h-screen bg-black flex items-center justify-center overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://images.aiscribbles.com/34fe5695dbc942628e3cad9744e8ae13.png?v=60d084"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover z-0 opacity-70"
+        />
+        <GooeyFilter id="results-gooey-loading" strength={5} />
+        <div
+          className="absolute inset-0 z-[1]"
+          style={{ filter: "url(#results-gooey-loading)" }}
+        >
+          <PixelTrail
+            pixelSize={screenSize.lessThan("md") ? 24 : 32}
+            fadeDuration={0}
+            delay={500}
+            pixelClassName="bg-white/80"
+          />
+        </div>
+        <div className="relative z-10 text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto" />
+          <p className="mt-4 text-white">
             Finding your perfect neighborhood...
           </p>
         </div>
@@ -314,66 +272,92 @@ export default function ResultsPage() {
     : null;
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">Your Results</h1>
+    <main className="relative min-h-screen bg-black overflow-hidden">
+      {/* Background image */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://images.aiscribbles.com/34fe5695dbc942628e3cad9744e8ae13.png?v=60d084"
+        alt=""
+        className="fixed inset-0 w-full h-full object-cover z-0 opacity-70"
+      />
+
+      {/* Gooey pixel trail */}
+      <GooeyFilter id="results-gooey" strength={5} />
+      <div
+        className="fixed inset-0 z-[1]"
+        style={{ filter: "url(#results-gooey)" }}
+      >
+        <PixelTrail
+          pixelSize={screenSize.lessThan("md") ? 24 : 32}
+          fadeDuration={0}
+          delay={500}
+          pixelClassName="bg-white/80"
+        />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-6xl mx-auto">
+        <div className="px-4 py-4 flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-white">Recommended Neighbourhoods</h1>
           <button
-            onClick={() => router.push("/")}
-            className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+            onClick={() => router.push("/?step=3")}
+            className="text-white hover:text-white text-sm font-bold border border-white/15 px-4 py-2 rounded-lg transition-all hover:border-white/30 backdrop-blur-sm flex items-center gap-2"
           >
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.573-1.066z" /><circle cx="12" cy="12" r="3" /></svg>
             Adjust Preferences
           </button>
         </div>
-      </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-        {/* AI Overview — why these neighborhoods */}
-        {input && recommendations.length > 0 && (
-          <RecommendationOverview
+        <div className="px-4 py-6 space-y-8">
+          {input && recommendations.length > 0 && (
+            <RecommendationOverview
+              recommendations={recommendations}
+              userInput={input}
+            />
+          )}
+
+          {input && (
+            <RecommendationCards
+              recommendations={recommendations}
+              onSelect={(id) => setSelectedId(id)}
+              livingArrangement={input.livingArrangement}
+            />
+          )}
+
+          <NeighborhoodMap
             recommendations={recommendations}
-            userInput={input}
+            allNeighborhoods={scored}
+            selectedId={selectedId}
+            onSelect={setSelectedId}
+            officeAddress={input?.officeAddress ?? null}
           />
-        )}
 
-        {/* Recommendation Cards */}
-        <RecommendationCards
-          recommendations={recommendations}
-          onSelect={(id) => setSelectedId(id)}
-        />
+          <NewsPanel />
 
-        {/* Map */}
-        <NeighborhoodMap
-          recommendations={recommendations}
-          selectedId={selectedId}
-          onSelect={setSelectedId}
-          officeAddress={input?.officeAddress ?? null}
-        />
+          <div ref={profileRef} />
+          {selectedNeighborhood && input && (
+            <NeighborhoodProfile
+              scored={selectedNeighborhood}
+              userInput={input}
+              monthlyIncome={input.monthlyIncome}
+              roommates={input.roommates}
+              onClose={() => setSelectedId(null)}
+            />
+          )}
 
-        {/* Neighborhood Profile */}
-        <div ref={profileRef} />
-        {selectedNeighborhood && input && (
-          <NeighborhoodProfile
-            scored={selectedNeighborhood}
-            userInput={input}
-            monthlyIncome={input.monthlyIncome}
-            roommates={input.roommates}
-            onClose={() => setSelectedId(null)}
-          />
-        )}
-
-        {/* Compare View */}
-        {compareIds.length >= 2 && input && (
-          <CompareView
-            items={scored.filter((s) =>
-              compareIds.includes(s.neighborhood.id)
-            )}
-            monthlyIncome={input.monthlyIncome}
-            onRemove={(id) =>
-              setCompareIds((prev) => prev.filter((x) => x !== id))
-            }
-          />
-        )}
+          {compareIds.length >= 2 && input && (
+            <CompareView
+              items={scored.filter((s) =>
+                compareIds.includes(s.neighborhood.id)
+              )}
+              monthlyIncome={input.monthlyIncome}
+              livingArrangement={input.livingArrangement}
+              onRemove={(id) =>
+                setCompareIds((prev) => prev.filter((x) => x !== id))
+              }
+            />
+          )}
+        </div>
       </div>
     </main>
   );
