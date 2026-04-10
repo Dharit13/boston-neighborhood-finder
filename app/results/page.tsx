@@ -32,6 +32,7 @@ import RecommendationOverview from "@/components/results/RecommendationOverview"
 import RecommendationCards from "@/components/results/RecommendationCards";
 import NeighborhoodProfile from "@/components/results/NeighborhoodProfile";
 import NewsPanel from "@/components/results/NewsPanel";
+import ChatPanel from "@/components/results/ChatPanel";
 import CompareView from "@/components/results/CompareView";
 import { useScreenSize } from "@/hooks/use-screen-size";
 import { PixelTrail } from "@/components/ui/pixel-trail";
@@ -358,6 +359,7 @@ export default function ResultsPage() {
           )}
         </div>
       </div>
+      <ChatPanel userInput={input} recommendations={recommendations} />
     </main>
   );
 }
