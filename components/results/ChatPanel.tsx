@@ -160,6 +160,11 @@ export default function ChatPanel({ userInput, recommendations }: Props) {
         const ok = await handleResponse(res);
         if (!ok) {
           setMessages((prev) => prev.slice(0, -1)); // remove the assistant placeholder
+          // For non-401/429 failures (500 etc.), also surface the generic errorMsg
+          // so users see *something*. 401 and 429 already show their own banners.
+          if (res.status !== 401 && res.status !== 429) {
+            setErrorMsg("Couldn't reach the assistant. Try again in a moment.");
+          }
           return;
         }
         if (!res.body) {
