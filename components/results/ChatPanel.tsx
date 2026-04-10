@@ -55,7 +55,7 @@ function stripMarkdown(text: string): string {
 }
 
 export default function ChatPanel({ userInput, recommendations }: Props) {
-  const { error, handleResponse, reauth } = useAiErrorState();
+  const { error, setError, handleResponse, reauth } = useAiErrorState();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [draft, setDraft] = useState("");
@@ -115,8 +115,9 @@ export default function ChatPanel({ userInput, recommendations }: Props) {
   const handleClear = useCallback(() => {
     setMessages([]);
     setErrorMsg(null);
+    setError(null);
     setDraft("");
-  }, []);
+  }, [setError]);
 
   const send = useCallback(
     async (text: string) => {
