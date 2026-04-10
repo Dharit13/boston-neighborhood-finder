@@ -20,6 +20,7 @@ import {
   computeMatchScoresTopsis,
   applyMbtaBonus,
   applyAgeAdjustment,
+  applyUrbanAdjustment,
 } from "@/lib/scoring";
 import {
   calculateBudgetTiers,
@@ -146,6 +147,12 @@ export default function ResultsPage() {
           matchScore,
           input!.ageGroup,
           d.neighborhood
+        );
+
+        matchScore = applyUrbanAdjustment(
+          matchScore,
+          input!.sliders.urbanVsSuburban,
+          d.neighborhood.lifestyleProfile.urbanVsSuburban
         );
 
         if (input!.avoidCollegeArea && d.neighborhood.collegeArea) {

@@ -228,6 +228,42 @@ export function applyMbtaBonus(
 }
 
 /**
+ * Nudge the final match score based on how closely a neighborhood matches
+ * the user's urban-vs-suburban preference. Only applies when the user has
+ * picked an *extreme* urban setting (1 or 2 → "strong city", 4 or 5 →
+ * "strong suburban") — at those points the user is making a deliberate
+ * statement about the type of place they want, and a plain lifestyle
+ * distance metric plus a 0.15 safety weight tends to bury core-urban
+ * neighborhoods under quieter residential ones with higher community
+ * scores. This adjustment is a ±15% nudge, comparable to `applyAgeAdjustment`.
+ *
+ * Without this, "City Life + fully remote" was surfacing Somerville /
+ * Jamaica Plain / suburban-leaning spots instead of Downtown Crossing,
+ * Chinatown, West End, etc., because safety and community weights
+ * dominated when budget and commute scores were tied across all
+ * candidates (e.g. remote worker with a generous per-person budget).
+ */
+export function applyUrbanAdjustment(
+  baseScore: number,
+  userUrban: number,
+  neighborhoodUrban: number
+): number {
+  const stronglyUrban = userUrban <= 2;
+  const stronglySuburban = userUrban >= 4;
+  if (!stronglyUrban && !stronglySuburban) return baseScore;
+
+  const distance = Math.abs(userUrban - neighborhoodUrban);
+  let adjustment = 0;
+  if (distance === 0) adjustment = 12;
+  else if (distance === 1) adjustment = 4;
+  else if (distance === 2) adjustment = -10;
+  else adjustment = -15;
+
+  const adjusted = baseScore * (1 + adjustment / 100);
+  return Math.max(0, Math.min(100, adjusted));
+}
+
+/**
  * Nudge the final match score based on age group. Keeps the adjustment modest
  * (±10% max) so the user's explicit sliders still dominate the ranking.
  *

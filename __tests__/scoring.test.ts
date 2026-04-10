@@ -5,6 +5,7 @@ import {
   scoreLifestyle,
   scoreCommunity,
   computeMatchScore,
+  applyUrbanAdjustment,
 } from "@/lib/scoring";
 import type {
   DimensionScores,
@@ -129,5 +130,39 @@ describe("computeMatchScore", () => {
       community: 0.2,
     };
     expect(computeMatchScore(scores, weights)).toBeCloseTo(80, 1);
+  });
+});
+
+describe("applyUrbanAdjustment", () => {
+  it("leaves score unchanged when the user is neutral on urban vs suburban", () => {
+    expect(applyUrbanAdjustment(80, 3, 1)).toBe(80);
+    expect(applyUrbanAdjustment(80, 3, 5)).toBe(80);
+  });
+
+  it("boosts a strong urban pick that matches an urban-core neighborhood", () => {
+    // +12% of 70 = 78.4 → clamped, not rounded to int
+    expect(applyUrbanAdjustment(70, 1, 1)).toBeCloseTo(78.4, 5);
+  });
+
+  it("penalizes a strong urban pick against a suburban neighborhood", () => {
+    // -15% of 80 = 68
+    expect(applyUrbanAdjustment(80, 1, 5)).toBeCloseTo(68, 5);
+  });
+
+  it("applies a small boost on near-matches (distance 1)", () => {
+    // +4% of 50 = 52
+    expect(applyUrbanAdjustment(50, 1, 2)).toBeCloseTo(52, 5);
+  });
+
+  it("applies the symmetric nudge for strong suburban picks", () => {
+    // +12% for match
+    expect(applyUrbanAdjustment(60, 5, 5)).toBeCloseTo(67.2, 5);
+    // -15% for dense-urban mismatch
+    expect(applyUrbanAdjustment(60, 5, 1)).toBeCloseTo(51, 5);
+  });
+
+  it("clamps the adjusted score between 0 and 100", () => {
+    expect(applyUrbanAdjustment(95, 1, 1)).toBeLessThanOrEqual(100);
+    expect(applyUrbanAdjustment(5, 1, 5)).toBeGreaterThanOrEqual(0);
   });
 });

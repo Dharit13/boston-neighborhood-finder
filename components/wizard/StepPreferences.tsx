@@ -24,7 +24,11 @@ const VIBE_OPTIONS: {
       nightlifeVsQuiet: 1,
       urbanVsSuburban: 1,
       trendyVsFamily: 2,
-      communityVsPrivacy: 2,
+      // Urban-core residents skew toward privacy/anonymity, not tight
+      // community. Leaving this at 2 (community-leaning) used to boost
+      // residential-but-less-urban neighborhoods (Somerville, JP) over
+      // the actual city core (Downtown Crossing, Chinatown, West End).
+      communityVsPrivacy: 4,
       budgetVsConvenience: 4,
     },
   },
