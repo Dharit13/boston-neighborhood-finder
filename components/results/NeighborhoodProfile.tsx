@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { ScoredNeighborhood, MbtaLine, UserInput } from "@/lib/types";
 import { getRentAsPercentOfIncome } from "@/lib/budget";
+import MbtaAlertsPanel from "./MbtaAlertsPanel";
 
 interface Props {
   scored: ScoredNeighborhood;
@@ -13,13 +14,13 @@ interface Props {
 }
 
 const MBTA_COLORS: Record<MbtaLine, string> = {
-  red: "bg-red-500",
-  green: "bg-green-600",
-  blue: "bg-blue-600",
-  orange: "bg-orange-500",
-  silver: "bg-gray-400",
-  bus: "bg-yellow-500",
-  ferry: "bg-cyan-500",
+  red: "#da291c",
+  green: "#00843d",
+  blue: "#003da5",
+  orange: "#ed8b00",
+  silver: "#7c878e",
+  bus: "#f5b400",
+  ferry: "#00b4d8",
 };
 
 const MBTA_LABELS: Record<MbtaLine, string> = {
@@ -33,22 +34,26 @@ const MBTA_LABELS: Record<MbtaLine, string> = {
 };
 
 function budgetColor(percent: number): string {
-  if (percent <= 45) return "text-green-600";
-  if (percent <= 60) return "text-yellow-600";
-  if (percent <= 80) return "text-orange-600";
-  return "text-red-600";
+  if (percent <= 45) return "text-emerald-400";
+  if (percent <= 60) return "text-yellow-400";
+  if (percent <= 80) return "text-amber-400";
+  return "text-red-400";
 }
 
 function ScoreBar({ label, score }: { label: string; score: number }) {
   const color =
-    score >= 70 ? "bg-green-500" : score >= 50 ? "bg-yellow-500" : "bg-red-400";
+    score >= 70
+      ? "bg-emerald-500"
+      : score >= 50
+      ? "bg-yellow-500"
+      : "bg-red-400";
   return (
     <div>
       <div className="flex justify-between text-sm mb-1">
-        <span className="text-gray-700">{label}</span>
-        <span className="font-medium">{score}/100</span>
+        <span className="text-white">{label}</span>
+        <span className="font-medium text-white">{score}/100</span>
       </div>
-      <div className="h-2 bg-gray-200 rounded-full">
+      <div className="h-2 bg-white/10 rounded-full">
         <div
           className={`h-2 rounded-full ${color}`}
           style={{ width: `${score}%` }}
@@ -66,7 +71,10 @@ export default function NeighborhoodProfile({
   onClose,
 }: Props) {
   const n = scored.neighborhood;
-  const rentPercent = getRentAsPercentOfIncome(scored.perPersonRent, monthlyIncome);
+  const rentPercent = getRentAsPercentOfIncome(
+    scored.perPersonRent,
+    monthlyIncome
+  );
   const [aiSummary, setAiSummary] = useState<string | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
 
@@ -105,47 +113,46 @@ export default function NeighborhoodProfile({
   }, [scored.neighborhood.id]);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-6">
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">{n.name}</h2>
-          <p className="text-gray-600 mt-1">{n.description}</p>
+          <h2 className="text-2xl font-bold text-white">{n.name}</h2>
+          <p className="text-white mt-1">{n.description}</p>
         </div>
         <button
           onClick={onClose}
-          className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
+          className="text-white hover:text-white text-2xl leading-none"
         >
           &times;
         </button>
       </div>
 
       {/* Match Score */}
-      <div className="mb-6 p-4 bg-blue-50 rounded-lg">
-        <div className="text-3xl font-bold text-blue-700">
+      <div className="mb-6 p-4 rounded-lg border border-blue-500/30 bg-blue-500/10">
+        <div className="text-3xl font-bold text-white">
           {Math.round(scored.matchScore)}% Match
         </div>
       </div>
 
       {/* AI Summary */}
       {(aiLoading || aiSummary) && (
-        <div className="mb-6 p-4 bg-purple-50 border border-purple-200 rounded-lg">
-          <h3 className="text-sm font-semibold text-purple-800 mb-1">
+        <div className="mb-6 p-4 rounded-lg border border-purple-500/30 bg-purple-500/10">
+          <h3 className="text-sm font-semibold text-white mb-1">
             Why this neighborhood for you
           </h3>
           {aiLoading ? (
-            <p className="text-sm text-purple-600 animate-pulse">
+            <p className="text-sm text-white animate-pulse">
               Generating personalized summary...
             </p>
           ) : (
-            <p className="text-sm text-purple-900">{aiSummary}</p>
+            <p className="text-sm text-white">{aiSummary}</p>
           )}
         </div>
       )}
 
       {/* Transit Details */}
       <div className="mb-6 space-y-3">
-        <h3 className="font-semibold text-gray-900">Transit</h3>
-        {/* T Stations grouped by line */}
+        <h3 className="font-semibold text-white">Transit</h3>
         {n.mbtaLines
           .filter((line) => line !== "bus" && line !== "ferry")
           .map((line) => {
@@ -153,12 +160,15 @@ export default function NeighborhoodProfile({
             return (
               <div key={line} className="flex items-start gap-2">
                 <span
-                  className={`mt-1 w-3 h-3 rounded-full flex-shrink-0 ${MBTA_COLORS[line]}`}
+                  className="mt-1 w-3 h-3 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: MBTA_COLORS[line] }}
                 />
                 <div>
-                  <span className="text-sm font-medium">{MBTA_LABELS[line]}</span>
+                  <span className="text-sm font-medium text-white">
+                    {MBTA_LABELS[line]}
+                  </span>
                   {stations.length > 0 && (
-                    <span className="text-sm text-gray-500 ml-1">
+                    <span className="text-sm text-white ml-1">
                       — {stations.map((s) => s.name).join(", ")}
                     </span>
                   )}
@@ -166,71 +176,78 @@ export default function NeighborhoodProfile({
               </div>
             );
           })}
-        {/* Bus Routes */}
         {n.busRoutes.length > 0 && (
           <div className="flex items-start gap-2">
             <span
-              className={`mt-1 w-3 h-3 rounded-full flex-shrink-0 ${MBTA_COLORS.bus}`}
+              className="mt-1 w-3 h-3 rounded-full flex-shrink-0"
+              style={{ backgroundColor: MBTA_COLORS.bus }}
             />
             <div>
-              <span className="text-sm font-medium">Bus</span>
-              <span className="text-sm text-gray-500 ml-1">
+              <span className="text-sm font-medium text-white">Bus</span>
+              <span className="text-sm text-white ml-1">
                 — Routes {n.busRoutes.join(", ")}
               </span>
             </div>
           </div>
         )}
-        {/* Ferry */}
-        {n.mbtaStations
-          .filter((s) => s.line === "ferry")
-          .map((s) => (
-            <div key={s.name} className="flex items-start gap-2">
+        {(() => {
+          const ferryStops = n.mbtaStations.filter((s) => s.line === "ferry");
+          if (ferryStops.length === 0) return null;
+          return (
+            <div className="flex items-start gap-2">
               <span
-                className={`mt-1 w-3 h-3 rounded-full flex-shrink-0 ${MBTA_COLORS.ferry}`}
+                className="mt-1 w-3 h-3 rounded-full flex-shrink-0"
+                style={{ backgroundColor: MBTA_COLORS.ferry }}
               />
               <div>
-                <span className="text-sm font-medium">{s.name}</span>
+                <span className="text-sm font-medium text-white">
+                  {MBTA_LABELS.ferry}
+                </span>
+                <span className="text-sm text-white ml-1">
+                  — {ferryStops.map((s) => s.name).join(", ")}
+                </span>
               </div>
             </div>
-          ))}
-        {/* Walk time */}
-        {scored.commuteRoute && scored.commuteRoute.includes("walk") && (
-          <div className="flex items-start gap-2">
-            <span className="mt-1 w-3 h-3 rounded-full flex-shrink-0 bg-gray-300" />
-            <span className="text-sm font-medium">
-              {scored.commuteRoute.match(/(\d+\s*min\s*walk)/)?.[0] || "Walking available"}
-            </span>
-          </div>
-        )}
+          );
+        })()}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left column */}
         <div className="space-y-5">
-          {/* Rent Breakdown */}
           <div>
-            <h3 className="font-semibold text-gray-900 mb-2">Rent</h3>
+            <h3 className="font-semibold text-white mb-2">Rent</h3>
             <div className="space-y-1 text-sm">
               <div className="flex justify-between">
-                <span>Studio</span>
-                <span>${n.rent.studio[0].toLocaleString()} - ${n.rent.studio[1].toLocaleString()}</span>
+                <span className="text-white">Studio</span>
+                <span className="text-white">
+                  ${n.rent.studio[0].toLocaleString()} - $
+                  {n.rent.studio[1].toLocaleString()}
+                </span>
               </div>
               <div className="flex justify-between">
-                <span>1 Bedroom</span>
-                <span>${n.rent.oneBr[0].toLocaleString()} - ${n.rent.oneBr[1].toLocaleString()}</span>
+                <span className="text-white">1 Bedroom</span>
+                <span className="text-white">
+                  ${n.rent.oneBr[0].toLocaleString()} - $
+                  {n.rent.oneBr[1].toLocaleString()}
+                </span>
               </div>
               <div className="flex justify-between">
-                <span>2 Bedroom</span>
-                <span>${n.rent.twoBr[0].toLocaleString()} - ${n.rent.twoBr[1].toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>3 Bedroom</span>
-                <span>${n.rent.threeBr[0].toLocaleString()} - ${n.rent.threeBr[1].toLocaleString()}</span>
+                <span className="text-white">2 Bedroom</span>
+                <span className="text-white">
+                  ${n.rent.twoBr[0].toLocaleString()} - $
+                  {n.rent.twoBr[1].toLocaleString()}
+                </span>
               </div>
             </div>
-            <div className="mt-2 p-2 bg-gray-50 rounded text-sm">
-              <span>Your per-person cost: </span>
-              <span className="font-bold">
+            <div className="mt-2 p-2 rounded bg-white/5 border border-white/10 text-sm">
+              <span className="text-white">
+                {userInput.livingArrangement === "own-room" ||
+                userInput.livingArrangement === "shared-room"
+                  ? "Your per-person cost: "
+                  : "Your monthly rent: "}
+              </span>
+              <span className="font-bold text-white">
                 ${scored.perPersonRent.toLocaleString()}/mo
               </span>
               <span className={`ml-2 font-medium ${budgetColor(rentPercent)}`}>
@@ -239,71 +256,64 @@ export default function NeighborhoodProfile({
             </div>
           </div>
 
-          {/* Commute */}
           {scored.commuteMinutes !== null && (
             <div>
-              <h3 className="font-semibold text-gray-900 mb-2">Commute</h3>
+              <h3 className="font-semibold text-white mb-2">Commute</h3>
               <div className="text-sm">
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-white">
                   {scored.commuteMinutes} min
                 </div>
                 {scored.commuteRoute && (
-                  <div className="text-gray-600 mt-1">
+                  <div className="text-white mt-1">
                     via{" "}
                     {scored.commuteRoute.includes(" · ")
                       ? scored.commuteRoute.split(" · ")[0]
                       : scored.commuteRoute}
                   </div>
                 )}
-                {scored.commuteRoute && scored.commuteRoute.includes("walk") && (
-                  <div className="text-gray-500 mt-1 text-xs">
-                    🚶 {scored.commuteRoute.match(/(\d+\s*min\s*walk)/)?.[0] || "Walk option available"}
-                  </div>
-                )}
               </div>
             </div>
           )}
 
-          {/* Local Tips */}
           <div>
-            <h3 className="font-semibold text-gray-900 mb-2">Local Tips</h3>
-            <p className="text-sm text-gray-700">{n.localTips}</p>
+            <h3 className="font-semibold text-white mb-2">Local Tips</h3>
+            <p className="text-sm text-white">{n.localTips}</p>
           </div>
         </div>
 
         {/* Right column — scores */}
         <div className="space-y-4">
-          <h3 className="font-semibold text-gray-900">Scores</h3>
+          <h3 className="font-semibold text-white">Scores</h3>
           <ScoreBar label="Safety" score={scored.scores.safety} />
           <ScoreBar label="Lifestyle Match" score={scored.scores.lifestyle} />
           <ScoreBar label="Community Vibe" score={scored.scores.community} />
 
           <div className="pt-2 space-y-2 text-sm">
             <div className="flex justify-between">
-              <span className="text-gray-600">Walk Score</span>
-              <span className="font-medium">{n.walkScore}</span>
+              <span className="text-white">Walk Score</span>
+              <span className="font-medium text-white">{n.walkScore}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Transit Score</span>
-              <span className="font-medium">{n.transitScore}</span>
+              <span className="text-white">Transit Score</span>
+              <span className="font-medium text-white">{n.transitScore}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Bike Score</span>
-              <span className="font-medium">{n.bikeScore}</span>
+              <span className="text-white">Bike Score</span>
+              <span className="font-medium text-white">{n.bikeScore}</span>
             </div>
           </div>
 
           <div className="pt-2">
-            <h4 className="text-sm font-medium text-gray-700 mb-1">
+            <h4 className="text-sm font-medium text-white mb-1">
               Safety Trend
             </h4>
             <span
               className={`text-sm font-medium ${
                 n.safetyTrend === "improving"
-                  ? "text-green-600"
+                  ? "text-emerald-400"
                   : n.safetyTrend === "declining"
-                  ? "text-red-600"
-                  : "text-gray-600"
+                  ? "text-red-400"
+                  : "text-white"
               }`}
             >
               {n.safetyTrend === "improving"
@@ -314,6 +324,10 @@ export default function NeighborhoodProfile({
             </span>
           </div>
         </div>
+      </div>
+
+      <div className="mt-6">
+        <MbtaAlertsPanel lines={n.mbtaLines} />
       </div>
     </div>
   );
