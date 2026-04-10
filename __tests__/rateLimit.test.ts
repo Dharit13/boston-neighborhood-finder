@@ -108,36 +108,3 @@ describe("checkRateLimit — env vars set", () => {
     expect(result.resetAt).toBe(resetAt);
   });
 });
-
-describe("checkRateLimit — resetAt in denial response", () => {
-  it("returns resetAt in the denial response when the bucket is exhausted", async () => {
-    // Mock @upstash/ratelimit to return a denial with a known reset time
-    jest.resetModules();
-    const mockReset = Date.now() + 3_600_000;
-    jest.doMock("@upstash/ratelimit", () => ({
-      Ratelimit: class {
-        static slidingWindow() {
-          return {};
-        }
-        async limit() {
-          return { success: false, limit: 20, remaining: 0, reset: mockReset };
-        }
-      },
-    }));
-    jest.doMock("@upstash/redis", () => ({
-      Redis: class {
-        static fromEnv() {
-          return {};
-        }
-      },
-    }));
-    process.env.UPSTASH_REDIS_REST_URL = "https://example.upstash.io";
-    process.env.UPSTASH_REDIS_REST_TOKEN = "fake-token";
-
-    const { checkRateLimit } = await import("@/lib/rateLimit");
-    const result = await checkRateLimit("user-abc");
-
-    expect(result.ok).toBe(false);
-    expect(result.resetAt).toBe(mockReset);
-  });
-});

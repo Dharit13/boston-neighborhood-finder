@@ -14,9 +14,10 @@ export async function POST(request: NextRequest) {
   const ip = ipFromRequest(request);
   const rl = await checkRateLimit(ip);
   if (!rl.ok) {
+    const retryAfterSec = rl.resetAt ? Math.max(1, Math.ceil((rl.resetAt - Date.now()) / 1000)) : 60;
     return NextResponse.json(
-      { error: "rate_limited", retryAfterSeconds: rl.resetSeconds },
-      { status: 429, headers: { "Retry-After": String(rl.resetSeconds) } }
+      { error: "rate_limited", retryAfterSeconds: retryAfterSec },
+      { status: 429, headers: { "Retry-After": String(retryAfterSec) } }
     );
   }
 
