@@ -28,6 +28,9 @@ import { createServerClient } from "@supabase/ssr";
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Tag the request headers so the root layout can read pathname via headers().
+  request.headers.set("x-pathname", pathname);
+
   // Create a mutable response we can attach cookie updates to.
   let response = NextResponse.next({
     request: {
