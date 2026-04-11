@@ -3,7 +3,6 @@
 import { GoogleMap, useJsApiLoader, MarkerF, InfoWindowF } from "@react-google-maps/api";
 import { useEffect, useMemo, useState } from "react";
 import type { TieredRecommendation, ScoredNeighborhood } from "@/lib/types";
-import { GOOGLE_MAPS_LIBRARIES } from "@/lib/googleMapsLoader";
 
 interface Props {
   recommendations: TieredRecommendation[];
@@ -40,7 +39,6 @@ export default function NeighborhoodMap({
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
-    libraries: GOOGLE_MAPS_LIBRARIES,
   });
 
   // Map recommendation id → { color, label } for quick lookup
