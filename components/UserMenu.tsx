@@ -45,7 +45,7 @@ export default function UserMenu({ email }: Props) {
     <div ref={menuRef} className="fixed top-4 right-4 z-50">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-10 h-10 rounded-full border border-white/20 bg-transparent text-white hover:bg-white/10 hover:border-white/40 transition-all flex items-center justify-center backdrop-blur-sm"
+        className="w-11 h-11 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-2xl hover:scale-105 transition-transform flex items-center justify-center"
         aria-label="User menu"
         aria-expanded={open}
       >
@@ -57,7 +57,7 @@ export default function UserMenu({ email }: Props) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="w-4 h-4"
+          className="w-5 h-5"
           aria-hidden="true"
         >
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
