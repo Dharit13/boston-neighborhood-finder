@@ -169,7 +169,7 @@ export default function WizardContainer() {
         </div>
 
         {/* Card */}
-        <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl overflow-hidden">
+        <div className="rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl shadow-2xl overflow-hidden">
           <div className="p-6">
             {step === 0 && <StepAboutYou input={input} onChange={updateInput} />}
             {step === 1 && <StepHousing input={input} onChange={updateInput} />}

@@ -71,7 +71,7 @@ export default function RecommendationOverview({
   if (!loading && !overview && !error) return null;
 
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-5">
+    <div className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-xl p-5">
       <div className="flex items-start gap-3">
         <span className="text-2xl flex-shrink-0">🏘️</span>
         <div>

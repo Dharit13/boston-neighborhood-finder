@@ -15,7 +15,7 @@ const ARRANGEMENT_OPTIONS: {
   {
     value: "alone",
     label: "Single",
-    description: "Studio or 1BR, just you",
+    description: "Studio, 1BR, or 2BR, just you",
   },
   {
     value: "couple",

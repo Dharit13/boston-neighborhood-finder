@@ -43,7 +43,7 @@ export default async function SignInPage({
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-md mx-auto px-4">
-        <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl overflow-hidden">
+        <div className="rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl shadow-2xl overflow-hidden">
           <div className="p-8">
             <div className="text-center mb-6">
               <h1 className="text-2xl font-bold text-white tracking-tight">

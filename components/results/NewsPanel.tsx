@@ -49,7 +49,7 @@ export default function NewsPanel() {
   }, []);
 
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-6">
+    <div className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-xl p-6">
       <h2 className="text-lg font-bold text-white mb-4">Boston News</h2>
 
       {status === "loading" && (
