@@ -6,9 +6,8 @@ import StepAboutYou from "./StepAboutYou";
 import StepHousing from "./StepHousing";
 import StepCommute from "./StepCommute";
 import StepPreferences from "./StepPreferences";
-import { useScreenSize } from "@/hooks/use-screen-size";
-import { PixelTrail } from "@/components/ui/pixel-trail";
-import { GooeyFilter } from "@/components/ui/gooey-filter";
+import { SidePixelTrail } from "@/components/ui/SidePixelTrail";
+import { isMonthlyIncomeValid, isMaxRentValid } from "@/lib/validation";
 import type { UserInput, OfficeDays, SliderValues, BudgetPriority } from "@/lib/types";
 
 const STEPS = [
@@ -45,7 +44,6 @@ const DEFAULT_INPUT: UserInput = {
 export default function WizardContainer() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const screenSize = useScreenSize();
   const [step, setStep] = useState(0);
   const [input, setInput] = useState<UserInput>(DEFAULT_INPUT);
 
@@ -94,9 +92,9 @@ export default function WizardContainer() {
   const canProceed = (): boolean => {
     switch (step) {
       case 0:
-        return input.monthlyIncome > 0;
+        return isMonthlyIncomeValid(input.monthlyIncome);
       case 1:
-        return input.maxRent > 0;
+        return isMaxRentValid(input.maxRent, input.monthlyIncome);
       case 2:
         return input.officeDays <= 2 || !!input.officeAddress;
       case 3:
@@ -116,19 +114,8 @@ export default function WizardContainer() {
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-70"
       />
 
-      {/* Gooey pixel trail */}
-      <GooeyFilter id="wizard-gooey" strength={5} />
-      <div
-        className="absolute inset-0 z-[1]"
-        style={{ filter: "url(#wizard-gooey)" }}
-      >
-        <PixelTrail
-          pixelSize={screenSize.lessThan("md") ? 24 : 32}
-          fadeDuration={0}
-          delay={500}
-          pixelClassName="bg-white/80"
-        />
-      </div>
+      {/* Cursor pixel trail — side strips only, never behind the card */}
+      <SidePixelTrail centerWidthRem={36} />
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-xl mx-auto px-4 py-4">

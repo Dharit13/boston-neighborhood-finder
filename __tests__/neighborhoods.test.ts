@@ -35,4 +35,9 @@ describe("getPerPersonRent", () => {
     // (2000 + 2400) / 2 = 2200
     expect(getPerPersonRent(fakeNeighborhood, 0, "alone", "studio")).toBe(2200);
   });
+
+  it("returns 2BR mid for alone + 2br (no split, single occupant)", () => {
+    // (4200 + 4800) / 2 = 4500, no split
+    expect(getPerPersonRent(fakeNeighborhood, 0, "alone", "2br")).toBe(4500);
+  });
 });

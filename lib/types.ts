@@ -1,6 +1,6 @@
 // --- User Input Types ---
 
-export type AgeGroup = "21-25" | "26-29" | "30-35";
+export type AgeGroup = "21-25" | "26-29" | "30-35" | "36-40";
 
 export type OfficeDays = 0 | 1 | 2 | 3 | 4 | 5;
 

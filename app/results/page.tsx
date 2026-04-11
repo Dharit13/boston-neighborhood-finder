@@ -34,9 +34,7 @@ import NeighborhoodProfile from "@/components/results/NeighborhoodProfile";
 import NewsPanel from "@/components/results/NewsPanel";
 import ChatPanel from "@/components/results/ChatPanel";
 import CompareView from "@/components/results/CompareView";
-import { useScreenSize } from "@/hooks/use-screen-size";
-import { PixelTrail } from "@/components/ui/pixel-trail";
-import { GooeyFilter } from "@/components/ui/gooey-filter";
+import { SidePixelTrail } from "@/components/ui/SidePixelTrail";
 import dynamic from "next/dynamic";
 
 const NeighborhoodMap = dynamic(
@@ -46,7 +44,6 @@ const NeighborhoodMap = dynamic(
 
 export default function ResultsPage() {
   const router = useRouter();
-  const screenSize = useScreenSize();
   const [input, setInput] = useState<UserInput | null>(null);
   const [neighborhoods, setNeighborhoods] = useState<Neighborhood[]>([]);
   const [scored, setScored] = useState<ScoredNeighborhood[]>([]);
@@ -254,18 +251,7 @@ export default function ResultsPage() {
           alt=""
           className="absolute inset-0 w-full h-full object-cover z-0 opacity-70"
         />
-        <GooeyFilter id="results-gooey-loading" strength={5} />
-        <div
-          className="absolute inset-0 z-[1]"
-          style={{ filter: "url(#results-gooey-loading)" }}
-        >
-          <PixelTrail
-            pixelSize={screenSize.lessThan("md") ? 24 : 32}
-            fadeDuration={0}
-            delay={500}
-            pixelClassName="bg-white/80"
-          />
-        </div>
+        <SidePixelTrail centerWidthRem={72} />
         <div className="relative z-10 text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto" />
           <p className="mt-4 text-white">
@@ -290,19 +276,8 @@ export default function ResultsPage() {
         className="fixed inset-0 w-full h-full object-cover z-0 opacity-70"
       />
 
-      {/* Gooey pixel trail */}
-      <GooeyFilter id="results-gooey" strength={5} />
-      <div
-        className="fixed inset-0 z-[1]"
-        style={{ filter: "url(#results-gooey)" }}
-      >
-        <PixelTrail
-          pixelSize={screenSize.lessThan("md") ? 24 : 32}
-          fadeDuration={0}
-          delay={500}
-          pixelClassName="bg-white/80"
-        />
-      </div>
+      {/* Cursor pixel trail — fixed side strips, never behind the content */}
+      <SidePixelTrail centerWidthRem={72} fixed />
 
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto">

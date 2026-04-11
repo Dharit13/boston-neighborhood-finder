@@ -1,5 +1,6 @@
 import type { UserInput } from "@/lib/types";
 import BudgetDisplay from "@/components/ui/BudgetDisplay";
+import { parseMoneyInput, validateMaxRent } from "@/lib/validation";
 
 interface Props {
   input: UserInput;
@@ -53,6 +54,8 @@ export default function StepHousing({ input, onChange }: Props) {
     input.livingArrangement === "own-room" ||
     input.livingArrangement === "shared-room";
 
+  const rentError = validateMaxRent(input.maxRent, input.monthlyIncome);
+
   const roommateOptions =
     input.livingArrangement === "own-room"
       ? ROOMMATE_OPTIONS_OWN_ROOM
@@ -62,10 +65,10 @@ export default function StepHousing({ input, onChange }: Props) {
     arrangement: UserInput["livingArrangement"]
   ) => {
     if (arrangement === "alone") {
+      // Single can pick studio / 1BR / 2BR — keep whatever they had.
       onChange({
         livingArrangement: arrangement,
         roommates: 0,
-        apartmentSize: input.apartmentSize === "2br" ? "1br" : input.apartmentSize,
       });
     } else if (arrangement === "couple") {
       onChange({
@@ -137,10 +140,11 @@ export default function StepHousing({ input, onChange }: Props) {
           <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
             Apartment Size
           </label>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-3 gap-2">
             {([
               { value: "studio" as const, label: "Studio" },
               { value: "1br" as const, label: "1 Bedroom" },
+              { value: "2br" as const, label: "2 Bedroom" },
             ]).map((opt) => (
               <button
                 key={opt.value}
@@ -217,15 +221,25 @@ export default function StepHousing({ input, onChange }: Props) {
         <div className="relative">
           <span className="absolute left-4 top-3 text-white/40 pointer-events-none">$</span>
           <input
-            type="number"
-            value={input.maxRent || ""}
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            value={input.maxRent ? input.maxRent.toLocaleString() : ""}
             onChange={(e) =>
-              onChange({ maxRent: parseInt(e.target.value) || 0 })
+              onChange({ maxRent: parseMoneyInput(e.target.value) })
             }
             placeholder="2,500"
-            className="w-full pl-8 pr-4 py-3 rounded-lg bg-white/5 border border-white/15 text-white placeholder:text-white/25 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all"
+            aria-invalid={rentError !== null}
+            className={`w-full pl-8 pr-4 py-3 rounded-lg bg-white/5 border text-white placeholder:text-white/25 focus:outline-none focus:ring-1 transition-all ${
+              rentError
+                ? "border-red-400/60 focus:border-red-400 focus:ring-red-400/30"
+                : "border-white/15 focus:border-white/40 focus:ring-white/20"
+            }`}
           />
         </div>
+        {rentError && (
+          <p className="mt-1.5 text-xs text-red-300">{rentError}</p>
+        )}
       </div>
 
       {/* Budget Priority */}

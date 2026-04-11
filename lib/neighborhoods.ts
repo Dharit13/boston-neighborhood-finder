@@ -28,9 +28,12 @@ function getApartmentRent(
   apartmentSize: UserInput["apartmentSize"] = "studio"
 ): number {
   if (arrangement === "alone") {
-    const rentRange = apartmentSize === "1br"
-      ? neighborhood.rent.oneBr
-      : neighborhood.rent.studio;
+    const rentRange =
+      apartmentSize === "2br"
+        ? neighborhood.rent.twoBr
+        : apartmentSize === "1br"
+          ? neighborhood.rent.oneBr
+          : neighborhood.rent.studio;
     return Math.round((rentRange[0] + rentRange[1]) / 2);
   }
 

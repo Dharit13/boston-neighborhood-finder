@@ -270,6 +270,7 @@ export function applyUrbanAdjustment(
  * - 21-25: young professionals — reward nightlife, trendy, college-adjacent areas
  * - 26-29: no adjustment (balanced default)
  * - 30-35: reward quieter, family-leaning, safer areas; penalize heavy college zones
+ * - 36-40: stronger lean toward quiet, family, safe; bigger college-area penalty
  */
 export function applyAgeAdjustment(
   baseScore: number,
@@ -288,6 +289,11 @@ export function applyAgeAdjustment(
     if (neighborhood.lifestyleProfile.trendyVsFamily >= 4) adjustment += 4;
     if (neighborhood.safety >= 75) adjustment += 3;
     if (neighborhood.collegeArea) adjustment -= 6;
+  } else if (ageGroup === "36-40") {
+    if (neighborhood.lifestyleProfile.nightlifeVsQuiet >= 4) adjustment += 7;
+    if (neighborhood.lifestyleProfile.trendyVsFamily >= 4) adjustment += 6;
+    if (neighborhood.safety >= 75) adjustment += 4;
+    if (neighborhood.collegeArea) adjustment -= 8;
   }
 
   adjustment = Math.max(-10, Math.min(10, adjustment));
