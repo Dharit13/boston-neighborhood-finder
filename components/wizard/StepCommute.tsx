@@ -1,9 +1,21 @@
+import { useState } from "react";
+import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 import type { UserInput, OfficeDays, MbtaLine } from "@/lib/types";
+import { GOOGLE_MAPS_LIBRARIES } from "@/lib/googleMapsLoader";
 
 interface Props {
   input: UserInput;
   onChange: (partial: Partial<UserInput>) => void;
 }
+
+// Bias autocomplete suggestions toward Greater Boston so users see local
+// addresses first instead of identical street names elsewhere in the US.
+const BOSTON_BOUNDS: google.maps.LatLngBoundsLiteral = {
+  north: 42.45,
+  south: 42.2,
+  east: -70.9,
+  west: -71.2,
+};
 
 const DISPLAY_OPTIONS = [
   { value: 0 as OfficeDays, label: "Fully Remote" },
@@ -24,6 +36,21 @@ const MBTA_LINES: { value: MbtaLine; label: string; color: string }[] = [
 
 export default function StepCommute({ input, onChange }: Props) {
   const showAddress = input.officeDays > 2;
+
+  const { isLoaded: placesLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
+    libraries: GOOGLE_MAPS_LIBRARIES,
+  });
+
+  const [autocomplete, setAutocomplete] =
+    useState<google.maps.places.Autocomplete | null>(null);
+
+  const handlePlaceChanged = () => {
+    if (!autocomplete) return;
+    const place = autocomplete.getPlace();
+    const address = place.formatted_address || place.name || "";
+    if (address) onChange({ officeAddress: address });
+  };
 
   const toggleMbtaLine = (line: MbtaLine) => {
     const current = input.mbtaPreference;
@@ -71,13 +98,35 @@ export default function StepCommute({ input, onChange }: Props) {
           <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
             Office Address
           </label>
-          <input
-            type="text"
-            value={input.officeAddress || ""}
-            onChange={(e) => onChange({ officeAddress: e.target.value })}
-            placeholder="e.g., 1 Kendall Square, Cambridge, MA"
-            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/15 text-white placeholder:text-white/25 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all"
-          />
+          {placesLoaded ? (
+            <Autocomplete
+              onLoad={setAutocomplete}
+              onPlaceChanged={handlePlaceChanged}
+              options={{
+                componentRestrictions: { country: "us" },
+                fields: ["formatted_address", "name", "geometry"],
+                types: ["address"],
+                bounds: BOSTON_BOUNDS,
+                strictBounds: false,
+              }}
+            >
+              <input
+                type="text"
+                value={input.officeAddress || ""}
+                onChange={(e) => onChange({ officeAddress: e.target.value })}
+                placeholder="Start typing an address…"
+                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/15 text-white placeholder:text-white/25 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all"
+              />
+            </Autocomplete>
+          ) : (
+            <input
+              type="text"
+              value={input.officeAddress || ""}
+              onChange={(e) => onChange({ officeAddress: e.target.value })}
+              placeholder="Loading address suggestions…"
+              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/15 text-white placeholder:text-white/25 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all"
+            />
+          )}
           <p className="mt-2 text-xs text-white/30">
             We&apos;ll calculate transit commute times from each neighborhood.
           </p>
