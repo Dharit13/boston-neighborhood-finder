@@ -86,7 +86,7 @@ export default function MbtaAlertsPanel({ lines }: Props) {
       <h3 className="text-sm font-bold text-white mb-3">MBTA Service Alerts</h3>
 
       {status === "loading" && (
-        <p className="text-xs text-white/60">Checking alerts…</p>
+        <p className="text-xs text-white">Checking alerts…</p>
       )}
 
       {status === "empty" && (
@@ -96,7 +96,7 @@ export default function MbtaAlertsPanel({ lines }: Props) {
       )}
 
       {status === "error" && (
-        <p className="text-xs text-white/60">
+        <p className="text-xs text-white">
           Couldn&apos;t load alerts right now.
         </p>
       )}
@@ -123,14 +123,14 @@ export default function MbtaAlertsPanel({ lines }: Props) {
                       {LINE_LABELS[route]}
                     </span>
                   ))}
-                  <span className="text-[10px] text-white/60 uppercase tracking-wide">
+                  <span className="text-[10px] text-white uppercase tracking-wide">
                     {effectLabel(alert.effect)}
                   </span>
                 </div>
                 <div className="text-xs font-medium text-white">
                   {alert.header}
                 </div>
-                <div className="text-xs text-white/70 mt-0.5">
+                <div className="text-xs text-white mt-0.5">
                   {truncated}
                   {alert.description.length > 140 && (
                     <button

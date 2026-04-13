@@ -129,7 +129,7 @@ export default function StepPreferences({ input, onChange }: Props) {
         <h2 className="text-2xl font-bold text-white tracking-tight">
           Pick Your Vibe
         </h2>
-        <p className="text-white/50 text-sm mt-1">
+        <p className="text-white text-sm mt-1">
           What kind of neighborhood feels like home to you?
         </p>
       </div>
@@ -150,12 +150,12 @@ export default function StepPreferences({ input, onChange }: Props) {
               <span className="text-2xl">{vibe.emoji}</span>
               <span
                 className={`text-sm font-semibold ${
-                  isSelected ? "text-white" : "text-white/80"
+                  isSelected ? "text-white" : "text-white"
                 }`}
               >
                 {vibe.label}
               </span>
-              <span className="text-xs leading-relaxed text-white/40">
+              <span className="text-xs leading-relaxed text-white">
                 {vibe.description}
               </span>
             </button>
@@ -164,9 +164,9 @@ export default function StepPreferences({ input, onChange }: Props) {
       </div>
 
       {selectedVibe && (
-        <p className="text-xs text-white/30 text-center">
+        <p className="text-xs text-white text-center">
           We&apos;ll prioritize neighborhoods that match the{" "}
-          <span className="text-white/60 font-medium">
+          <span className="text-white font-medium">
             {selectedVibe.label}
           </span>{" "}
           lifestyle.
@@ -175,7 +175,7 @@ export default function StepPreferences({ input, onChange }: Props) {
 
       {/* Dealbreakers */}
       <div className="pt-5 border-t border-white/10">
-        <p className="text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
+        <p className="text-xs font-semibold text-white uppercase tracking-widest mb-2">
           Dealbreakers
         </p>
         <div className="space-y-2.5">
@@ -197,7 +197,7 @@ export default function StepPreferences({ input, onChange }: Props) {
                 </svg>
               )}
             </div>
-            <span className="text-sm text-white/60 group-hover:text-white/80 transition-colors">
+            <span className="text-sm text-white group-hover:text-white transition-colors">
               Avoid college/university areas
             </span>
           </button>
@@ -220,7 +220,7 @@ export default function StepPreferences({ input, onChange }: Props) {
                 </svg>
               )}
             </div>
-            <span className="text-sm text-white/60 group-hover:text-white/80 transition-colors">
+            <span className="text-sm text-white group-hover:text-white transition-colors">
               I have a car — need easy parking
             </span>
           </button>

@@ -49,7 +49,7 @@ export default async function SignInPage({
               <h1 className="text-2xl font-bold text-white tracking-tight">
                 Boston Neighbourhood Finder
               </h1>
-              <p className="text-white/70 text-sm mt-2">Sign in to get started</p>
+              <p className="text-white text-sm mt-2">Sign in to get started</p>
             </div>
 
             {errorMessage && (
@@ -64,7 +64,7 @@ export default async function SignInPage({
 
             <UserCount count={count} />
 
-            <p className="text-[11px] text-white/40 text-center mt-6 leading-relaxed">
+            <p className="text-[11px] text-white text-center mt-6 leading-relaxed">
               We use your account only to prevent abuse of AI features.
               No profile data is stored.
             </p>

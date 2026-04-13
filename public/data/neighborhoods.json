@@ -4,7 +4,7 @@
     "name": "Back Bay",
     "region": "boston",
     "description": "Classic Boston elegance with brownstone-lined streets, Newbury Street shopping, and a polished professional vibe. One of the most walkable neighborhoods in the country.",
-    "localTips": "Broker fees are standard (1 month). Street parking nearly impossible — budget for a garage ($300-450/mo). Most buildings are older brownstones with radiator heat. Laundry in-unit is rare in older buildings.",
+    "localTips": "Broker fees are standard (1 month). Street parking nearly impossible \u2014 budget for a garage ($300-450/mo). Most buildings are older brownstones with radiator heat. Laundry in-unit is rare in older buildings.",
     "rent": {
       "studio": [
         2475,
@@ -94,7 +94,7 @@
     "name": "Beacon Hill",
     "region": "boston",
     "description": "Historic gaslit streets and brick sidewalks make this Boston's most picturesque neighborhood. Quiet, affluent, and surprisingly residential despite being steps from downtown.",
-    "localTips": "Extremely limited parking — many residents don't own cars. Cobblestone streets are charming but rough on bikes. Most units are in converted historic homes. Sept 1 lease cycle dominates.",
+    "localTips": "Extremely limited parking \u2014 many residents don't own cars. Cobblestone streets are charming but rough on bikes. Most units are in converted historic homes. Sept 1 lease cycle dominates.",
     "rent": {
       "studio": [
         2205,
@@ -129,11 +129,10 @@
       "parks": 20
     },
     "mbtaLines": [
+      "red",
       "blue",
-      "bus",
       "green",
-      "orange",
-      "red"
+      "bus"
     ],
     "centroid": {
       "lat": 42.3588,
@@ -145,36 +144,16 @@
         "name": "Charles/MGH"
       },
       {
-        "line": "red",
-        "name": "Park Street"
-      },
-      {
-        "line": "green",
-        "name": "Park Street"
-      },
-      {
-        "line": "red",
-        "name": "Downtown Crossing"
-      },
-      {
-        "line": "orange",
-        "name": "Downtown Crossing"
-      },
-      {
-        "line": "orange",
-        "name": "Chinatown"
-      },
-      {
-        "line": "green",
-        "name": "Boylston"
-      },
-      {
-        "line": "green",
-        "name": "Arlington"
-      },
-      {
         "line": "blue",
         "name": "Bowdoin"
+      },
+      {
+        "line": "red",
+        "name": "Park Street"
+      },
+      {
+        "line": "green",
+        "name": "Park Street"
       }
     ],
     "busRoutes": [
@@ -188,7 +167,7 @@
     "name": "South End",
     "region": "boston",
     "description": "Boston's trendiest dining scene with Victorian brownstones, art galleries, and a diverse, progressive community. The restaurant row on Tremont Street is legendary.",
-    "localTips": "Broker fees common. Street parking via resident permit ($25/yr) but competitive. Many converted condos. Strong dog owner community — Peters Park has an off-leash area. Sept 1 cycle.",
+    "localTips": "Broker fees common. Street parking via resident permit ($25/yr) but competitive. Many converted condos. Strong dog owner community \u2014 Peters Park has an off-leash area. Sept 1 cycle.",
     "rent": {
       "studio": [
         2250,
@@ -223,9 +202,8 @@
       "parks": 20
     },
     "mbtaLines": [
-      "bus",
-      "green",
-      "orange"
+      "orange",
+      "bus"
     ],
     "centroid": {
       "lat": 42.3421,
@@ -234,19 +212,15 @@
     "mbtaStations": [
       {
         "line": "orange",
+        "name": "Back Bay"
+      },
+      {
+        "line": "orange",
         "name": "Massachusetts Avenue"
       },
       {
         "line": "orange",
-        "name": "Back Bay"
-      },
-      {
-        "line": "green",
-        "name": "Symphony"
-      },
-      {
-        "line": "green",
-        "name": "Prudential"
+        "name": "Tufts Medical Center"
       }
     ],
     "busRoutes": [
@@ -337,7 +311,7 @@
     "name": "Seaport",
     "region": "boston",
     "description": "Boston's newest neighborhood with gleaming high-rises, upscale dining, and waterfront living. Tech companies and startups dominate. Feels more like a new city than old Boston.",
-    "localTips": "Most expensive area. Almost all new luxury construction — expect amenities but generic architecture. Very limited grocery options. Wind off the harbor is brutal in winter. Limited MBTA access (Silver Line only).",
+    "localTips": "Most expensive area. Almost all new luxury construction \u2014 expect amenities but generic architecture. Very limited grocery options. Wind off the harbor is brutal in winter. Limited MBTA access (Silver Line only).",
     "rent": {
       "studio": [
         2970,
@@ -373,8 +347,7 @@
     },
     "mbtaLines": [
       "bus",
-      "ferry",
-      "red"
+      "ferry"
     ],
     "centroid": {
       "lat": 42.3489,
@@ -382,24 +355,16 @@
     },
     "mbtaStations": [
       {
-        "line": "red",
-        "name": "Broadway"
-      },
-      {
         "line": "ferry",
-        "name": "Rowes Wharf"
-      },
-      {
-        "line": "ferry",
-        "name": "Seaport/Fan Pier"
+        "name": "Fan Pier"
       }
     ],
     "busRoutes": [
+      "SL1",
+      "SL2",
+      "SL3",
       "4",
-      "7",
-      "741",
-      "742",
-      "743"
+      "7"
     ],
     "collegeArea": false,
     "parkingFriendly": false
@@ -409,7 +374,7 @@
     "name": "East Boston",
     "region": "boston",
     "description": "Rapidly gentrifying waterfront neighborhood with stunning harbor views, a vibrant Latin American community, and some of the best affordable ethnic food in the city.",
-    "localTips": "Blue Line access is excellent. Logan Airport noise is real — check flight paths before signing a lease. Amazing empanadas and pupusas. Piers Park has the best skyline views. Waterfront trail is growing.",
+    "localTips": "Blue Line access is excellent. Logan Airport noise is real \u2014 check flight paths before signing a lease. Amazing empanadas and pupusas. Piers Park has the best skyline views. Waterfront trail is growing.",
     "rent": {
       "studio": [
         2030,
@@ -495,8 +460,8 @@
     "id": "north-end",
     "name": "North End",
     "region": "boston",
-    "description": "Boston's Little Italy — narrow streets packed with Italian restaurants, bakeries, and old-world charm. Tiny apartments in a tight-knit community with unbeatable dining.",
-    "localTips": "Smallest apartments in Boston — studios are genuinely tiny. Almost no parking (waitlist for resident permits can be years). Noise from restaurants/tourists on weekends. Hanover Street is the main strip. Mike's vs Modern Pastry is a real debate.",
+    "description": "Boston's Little Italy \u2014 narrow streets packed with Italian restaurants, bakeries, and old-world charm. Tiny apartments in a tight-knit community with unbeatable dining.",
+    "localTips": "Smallest apartments in Boston \u2014 studios are genuinely tiny. Almost no parking (waitlist for resident permits can be years). Noise from restaurants/tourists on weekends. Hanover Street is the main strip. Mike's vs Modern Pastry is a real debate.",
     "rent": {
       "studio": [
         2048,
@@ -568,17 +533,10 @@
       }
     ],
     "busRoutes": [
-      "111",
-      "116",
-      "15",
-      "39",
       "4",
-      "426",
-      "428",
-      "450",
-      "57",
       "92",
-      "93"
+      "93",
+      "111"
     ],
     "collegeArea": false,
     "parkingFriendly": false
@@ -588,7 +546,7 @@
     "name": "Charlestown",
     "region": "boston",
     "description": "Historic neighborhood across the harbor with the Bunker Hill Monument, Navy Yard, and a mix of longtime residents and young professionals. Waterfront access and community feel.",
-    "localTips": "Parking is tight but doable with permit. Orange Line at Sullivan Sq or bus 93. Ferry from Navy Yard to Long Wharf is a fantastic commute option. Gentrifying — mix of old and new. Good brunch scene emerging.",
+    "localTips": "Parking is tight but doable with permit. Orange Line at Sullivan Sq or bus 93. Ferry from Navy Yard to Long Wharf is a fantastic commute option. Gentrifying \u2014 mix of old and new. Good brunch scene emerging.",
     "rent": {
       "studio": [
         2250,
@@ -657,7 +615,7 @@
     "name": "Allston",
     "region": "boston",
     "description": "Boston's college-town-within-a-city. BU students, cheap eats, dive bars, live music, and the chaotic energy of Allston Christmas (Sept 1 moving day). Gritty, fun, affordable.",
-    "localTips": "Sept 1 moving day is insane — furniture on sidewalks everywhere ('Allston Christmas'). Lots of roommate situations in triple-deckers. Great Asian and Korean food on Harvard Ave. Green Line B branch is slow but works. Parking is manageable.",
+    "localTips": "Sept 1 moving day is insane \u2014 furniture on sidewalks everywhere ('Allston Christmas'). Lots of roommate situations in triple-deckers. Great Asian and Korean food on Harvard Ave. Green Line B branch is slow but works. Parking is manageable.",
     "rent": {
       "studio": [
         1845,
@@ -843,7 +801,7 @@
     "name": "Fenway/Kenmore",
     "region": "boston",
     "description": "Home of Fenway Park, the MFA, and a huge student population from Northeastern, Berklee, and BU. Lively on game days, walkable, and well-connected by the Green Line.",
-    "localTips": "Game day parking restrictions are strict — check Red Sox schedule before moving. Incredible museum access (MFA, Gardner). Lansdowne Street nightlife. Student-heavy so turnover is high. Kenmore has better transit than deep Fenway.",
+    "localTips": "Game day parking restrictions are strict \u2014 check Red Sox schedule before moving. Incredible museum access (MFA, Gardner). Lansdowne Street nightlife. Student-heavy so turnover is high. Kenmore has better transit than deep Fenway.",
     "rent": {
       "studio": [
         2172,
@@ -878,9 +836,8 @@
       "parks": 20
     },
     "mbtaLines": [
-      "bus",
       "green",
-      "orange"
+      "bus"
     ],
     "centroid": {
       "lat": 42.3467,
@@ -888,36 +845,8 @@
     },
     "mbtaStations": [
       {
-        "line": "orange",
-        "name": "Ruggles"
-      },
-      {
-        "line": "orange",
-        "name": "Massachusetts Avenue"
-      },
-      {
-        "line": "green",
-        "name": "Hynes Convention Center"
-      },
-      {
         "line": "green",
         "name": "Kenmore"
-      },
-      {
-        "line": "green",
-        "name": "Blandford Street"
-      },
-      {
-        "line": "green",
-        "name": "Boston University East"
-      },
-      {
-        "line": "green",
-        "name": "Boston University Central"
-      },
-      {
-        "line": "green",
-        "name": "Saint Mary's Street"
       },
       {
         "line": "green",
@@ -925,15 +854,11 @@
       },
       {
         "line": "green",
-        "name": "Longwood Medical Area"
+        "name": "Longwood"
       },
       {
         "line": "green",
-        "name": "Museum of Fine Arts"
-      },
-      {
-        "line": "green",
-        "name": "Northeastern University"
+        "name": "Hynes Convention Center"
       },
       {
         "line": "green",
@@ -957,7 +882,7 @@
     "name": "Mission Hill",
     "region": "boston",
     "description": "Diverse student-and-hospital-worker neighborhood near the Longwood Medical Area. Affordable for its location, with a strong local identity and improving amenities.",
-    "localTips": "Close to Longwood hospitals — great for medical workers. Green Line E branch access. Tremont Street has good local restaurants. Hilly terrain (hence the name). More affordable than neighboring Fenway.",
+    "localTips": "Close to Longwood hospitals \u2014 great for medical workers. Green Line E branch access. Tremont Street has good local restaurants. Hilly terrain (hence the name). More affordable than neighboring Fenway.",
     "rent": {
       "studio": [
         2205,
@@ -1056,7 +981,7 @@
     "name": "Jamaica Plain",
     "region": "boston",
     "description": "JP is Boston's progressive, artsy heart. Jamaica Pond, the Arnold Arboretum, fantastic breweries, and a strong sense of community. Great for young families and creatives alike.",
-    "localTips": "Centre Street is the main drag — amazing restaurants and local shops. Jamaica Pond is a gem for running/walking. Orange Line access at several stops. Farmer's market is a community institution. More spacious apartments than downtown.",
+    "localTips": "Centre Street is the main drag \u2014 amazing restaurants and local shops. Jamaica Pond is a gem for running/walking. Orange Line access at several stops. Farmer's market is a community institution. More spacious apartments than downtown.",
     "rent": {
       "studio": [
         1732,
@@ -1091,9 +1016,8 @@
       "parks": 20
     },
     "mbtaLines": [
-      "bus",
-      "green",
-      "orange"
+      "orange",
+      "bus"
     ],
     "centroid": {
       "lat": 42.3097,
@@ -1102,11 +1026,7 @@
     "mbtaStations": [
       {
         "line": "orange",
-        "name": "Forest Hills"
-      },
-      {
-        "line": "orange",
-        "name": "Green Street"
+        "name": "Jackson Square"
       },
       {
         "line": "orange",
@@ -1114,19 +1034,11 @@
       },
       {
         "line": "orange",
-        "name": "Jackson Square"
+        "name": "Green Street"
       },
       {
-        "line": "green",
-        "name": "Heath Street"
-      },
-      {
-        "line": "green",
-        "name": "Back of the Hill"
-      },
-      {
-        "line": "green",
-        "name": "Riverway"
+        "line": "orange",
+        "name": "Forest Hills"
       }
     ],
     "busRoutes": [
@@ -1178,9 +1090,8 @@
       "parks": 20
     },
     "mbtaLines": [
-      "bus",
-      "green",
-      "orange"
+      "orange",
+      "bus"
     ],
     "centroid": {
       "lat": 42.3278,
@@ -1189,7 +1100,7 @@
     "mbtaStations": [
       {
         "line": "orange",
-        "name": "Jackson Square"
+        "name": "Ruggles"
       },
       {
         "line": "orange",
@@ -1197,15 +1108,7 @@
       },
       {
         "line": "orange",
-        "name": "Ruggles"
-      },
-      {
-        "line": "orange",
-        "name": "Massachusetts Avenue"
-      },
-      {
-        "line": "green",
-        "name": "Symphony"
+        "name": "Jackson Square"
       }
     ],
     "busRoutes": [
@@ -1235,7 +1138,7 @@
     "name": "Dorchester North",
     "region": "boston",
     "description": "Boston's largest and most diverse neighborhood. North Dorchester (Savin Hill, Jones Hill) has gentrified significantly with Red Line access, waterfront, and a growing restaurant scene.",
-    "localTips": "Savin Hill and Fields Corner have great Red Line access. Vietnamese food on Dot Ave is outstanding. Columbia Point has UMass Boston and the JFK Library. Neighborhood varies block-by-block — visit first.",
+    "localTips": "Savin Hill and Fields Corner have great Red Line access. Vietnamese food on Dot Ave is outstanding. Columbia Point has UMass Boston and the JFK Library. Neighborhood varies block-by-block \u2014 visit first.",
     "rent": {
       "studio": [
         2116,
@@ -1270,8 +1173,8 @@
       "parks": 20
     },
     "mbtaLines": [
-      "bus",
-      "red"
+      "red",
+      "bus"
     ],
     "centroid": {
       "lat": 42.3145,
@@ -1293,30 +1196,6 @@
       {
         "line": "red",
         "name": "Fields Corner"
-      },
-      {
-        "line": "red",
-        "name": "Shawmut"
-      },
-      {
-        "line": "red",
-        "name": "Ashmont"
-      },
-      {
-        "line": "red",
-        "name": "Cedar Grove"
-      },
-      {
-        "line": "red",
-        "name": "Butler"
-      },
-      {
-        "line": "red",
-        "name": "Milton"
-      },
-      {
-        "line": "red",
-        "name": "Central Avenue"
       }
     ],
     "busRoutes": [
@@ -1368,30 +1247,14 @@
       "parks": 16
     },
     "mbtaLines": [
-      "bus",
-      "red"
+      "red",
+      "bus"
     ],
     "centroid": {
       "lat": 42.2936,
       "lng": -71.0686
     },
     "mbtaStations": [
-      {
-        "line": "red",
-        "name": "Andrew"
-      },
-      {
-        "line": "red",
-        "name": "JFK/UMass"
-      },
-      {
-        "line": "red",
-        "name": "Savin Hill"
-      },
-      {
-        "line": "red",
-        "name": "Fields Corner"
-      },
       {
         "line": "red",
         "name": "Shawmut"
@@ -1407,14 +1270,6 @@
       {
         "line": "red",
         "name": "Butler"
-      },
-      {
-        "line": "red",
-        "name": "Milton"
-      },
-      {
-        "line": "red",
-        "name": "Central Avenue"
       }
     ],
     "busRoutes": [
@@ -1430,7 +1285,7 @@
     "name": "Roslindale",
     "region": "boston",
     "description": "A village within the city. Roslindale Square has a walkable center with independent shops, restaurants, and a beloved farmers market. Growing family destination with a strong community.",
-    "localTips": "Commuter Rail at Roslindale Village (faster than driving). Bus connections to Forest Hills Orange Line. Adams Park farmers market (Saturdays). More house-like living — single/two-family homes. Amazing value compared to JP next door.",
+    "localTips": "Commuter Rail at Roslindale Village (faster than driving). Bus connections to Forest Hills Orange Line. Adams Park farmers market (Saturdays). More house-like living \u2014 single/two-family homes. Amazing value compared to JP next door.",
     "rent": {
       "studio": [
         1817,
@@ -1493,7 +1348,7 @@
     "name": "Hyde Park",
     "region": "boston",
     "description": "Boston's southernmost neighborhood with a suburban feel. Diverse, affordable, family-oriented with Commuter Rail access. Feels more like a small town than a city neighborhood.",
-    "localTips": "Commuter Rail on Providence/Stoughton and Fairmount lines. Cleary Square is the main commercial area. Most suburban feel in Boston — yards, driveways, quiet streets. Much more affordable but longer commute downtown.",
+    "localTips": "Commuter Rail on Providence/Stoughton and Fairmount lines. Cleary Square is the main commercial area. Most suburban feel in Boston \u2014 yards, driveways, quiet streets. Much more affordable but longer commute downtown.",
     "rent": {
       "studio": [
         2002,
@@ -1592,14 +1447,6 @@
       "lng": -71.0944
     },
     "mbtaStations": [
-      {
-        "line": "red",
-        "name": "Milton"
-      },
-      {
-        "line": "red",
-        "name": "Central Avenue"
-      },
       {
         "line": "red",
         "name": "Valley Road"
@@ -1753,7 +1600,7 @@
     "name": "Cambridge - Kendall Square",
     "region": "inner-suburb",
     "description": "The innovation district. MIT, biotech giants, and tech startups surround you. Modern apartments, excellent transit, but still developing its restaurant/nightlife scene.",
-    "localTips": "Red Line at Kendall/MIT. Walking distance to MIT campus. Biotech/tech jobs everywhere — you might walk to work. Area has gotten much more livable with new restaurants. CambridgeSide mall nearby. Pricey but transit-rich.",
+    "localTips": "Red Line at Kendall/MIT. Walking distance to MIT campus. Biotech/tech jobs everywhere \u2014 you might walk to work. Area has gotten much more livable with new restaurants. CambridgeSide mall nearby. Pricey but transit-rich.",
     "rent": {
       "studio": [
         2795,
@@ -1815,7 +1662,7 @@
     "name": "Cambridge - Central Square",
     "region": "inner-suburb",
     "description": "Gritty, diverse, and full of character. Best live music scene in the area, eclectic dining, and a real neighborhood feel between Harvard and MIT. Rapidly gentrifying but still has edge.",
-    "localTips": "Red Line at Central. Mass Ave is the spine — restaurants, bars, music venues. Middle East/Sonia is legendary for live music. More affordable than Harvard or Kendall. Great ethnic food diversity.",
+    "localTips": "Red Line at Central. Mass Ave is the spine \u2014 restaurants, bars, music venues. Middle East/Sonia is legendary for live music. More affordable than Harvard or Kendall. Great ethnic food diversity.",
     "rent": {
       "studio": [
         2070,
@@ -1880,7 +1727,7 @@
     "name": "Cambridge - Porter Square",
     "region": "inner-suburb",
     "description": "Quieter residential area between Harvard and Davis squares. Good local restaurants, the Porter Exchange (Japanese food hall), and a more relaxed pace than its neighbors.",
-    "localTips": "Red Line at Porter (deepest station — long escalator ride). Lesley University area. Porter Exchange in the old Sears building has great Japanese food. Mass Ave connects to Harvard and Davis. Good balance of access and calm.",
+    "localTips": "Red Line at Porter (deepest station \u2014 long escalator ride). Lesley University area. Porter Exchange in the old Sears building has great Japanese food. Mass Ave connects to Harvard and Davis. Good balance of access and calm.",
     "rent": {
       "studio": [
         2426,
@@ -1939,7 +1786,7 @@
     "name": "Cambridge - Inman Square",
     "region": "inner-suburb",
     "description": "Hidden gem between Central and Union squares. Excellent restaurant scene (some of the best in Cambridge), residential streets, and a strong local community feel without the student crowds.",
-    "localTips": "No direct T access — bus or walk to Central (Red) or Green Line GLX. This is actually a plus — it keeps the neighborhood quieter. Outstanding dining (Oleana, Puritan, 1369 Coffee House). Real neighborhood feel.",
+    "localTips": "No direct T access \u2014 bus or walk to Central (Red) or Green Line GLX. This is actually a plus \u2014 it keeps the neighborhood quieter. Outstanding dining (Oleana, Puritan, 1369 Coffee House). Real neighborhood feel.",
     "rent": {
       "studio": [
         2070,
@@ -2001,7 +1848,7 @@
     "id": "somerville-davis",
     "name": "Somerville - Davis Square",
     "region": "inner-suburb",
-    "description": "The quintessential 'hip' square — independent shops, comedy at the Somerville Theatre, great bars, and a strong community identity. Red Line access makes it one of the most desirable squares outside Boston.",
+    "description": "The quintessential 'hip' square \u2014 independent shops, comedy at the Somerville Theatre, great bars, and a strong community identity. Red Line access makes it one of the most desirable squares outside Boston.",
     "localTips": "Red Line at Davis. Somerville Theatre is a treasure. Incredible bar/restaurant scene (Painted Burro, Five Horses, Spoke). Bike path (Community Path) connects to Alewife. Tufts students nearby but less overwhelming than Allston.",
     "rent": {
       "studio": [
@@ -2067,7 +1914,7 @@
     "name": "Somerville - Union Square",
     "region": "inner-suburb",
     "description": "Formerly underserved by transit, Union Square has exploded since the Green Line Extension opened. Excellent restaurants, farmers market, and a creative community vibe.",
-    "localTips": "Green Line Extension at Union Square — game changer. Bow Market is a one-of-a-kind food/shop collective. Strong independent restaurant scene. Farmers market is one of the best in the area. Gentrifying fast — rents rising.",
+    "localTips": "Green Line Extension at Union Square \u2014 game changer. Bow Market is a one-of-a-kind food/shop collective. Strong independent restaurant scene. Farmers market is one of the best in the area. Gentrifying fast \u2014 rents rising.",
     "rent": {
       "studio": [
         2126,
@@ -2136,8 +1983,8 @@
     "id": "somerville-assembly",
     "name": "Somerville - Assembly Row",
     "region": "inner-suburb",
-    "description": "Brand-new mixed-use development on the Mystic River. Shopping, restaurants, movie theater, and modern apartments. Orange Line access. Feels like a planned community — polished but still finding its soul.",
-    "localTips": "Orange Line at Assembly. Very new — most buildings less than 10 years old. LEGO Discovery Center, AMC theater, outlet shops. Good for people who want new construction. Less neighborhood character than Davis or Union. Windy by the river.",
+    "description": "Brand-new mixed-use development on the Mystic River. Shopping, restaurants, movie theater, and modern apartments. Orange Line access. Feels like a planned community \u2014 polished but still finding its soul.",
+    "localTips": "Orange Line at Assembly. Very new \u2014 most buildings less than 10 years old. LEGO Discovery Center, AMC theater, outlet shops. Good for people who want new construction. Less neighborhood character than Davis or Union. Windy by the river.",
     "rent": {
       "studio": [
         2025,
@@ -2262,7 +2109,7 @@
     "name": "Brookline",
     "region": "inner-suburb",
     "description": "Affluent, family-friendly enclave surrounded by Boston. Excellent schools, Coolidge Corner's vibrant retail, and multiple Green Line branches. The best of suburban living with urban access.",
-    "localTips": "Green Line C branch (Coolidge Corner) and D branch (Brookline Village to Reservoir). Coolidge Corner Theatre is beloved. Top public schools — huge draw for families. Higher rents but you get a lot. Town meeting government — very civically engaged.",
+    "localTips": "Green Line C branch (Coolidge Corner) and D branch (Brookline Village to Reservoir). Coolidge Corner Theatre is beloved. Top public schools \u2014 huge draw for families. Higher rents but you get a lot. Town meeting government \u2014 very civically engaged.",
     "rent": {
       "studio": [
         2115,
@@ -2297,46 +2144,14 @@
       "parks": 8
     },
     "mbtaLines": [
-      "bus",
-      "green"
+      "green",
+      "bus"
     ],
     "centroid": {
       "lat": 42.3418,
       "lng": -71.1217
     },
     "mbtaStations": [
-      {
-        "line": "green",
-        "name": "Boston University East"
-      },
-      {
-        "line": "green",
-        "name": "Boston University Central"
-      },
-      {
-        "line": "green",
-        "name": "Amory Street"
-      },
-      {
-        "line": "green",
-        "name": "Babcock Street"
-      },
-      {
-        "line": "green",
-        "name": "Packard's Corner"
-      },
-      {
-        "line": "green",
-        "name": "Harvard Avenue"
-      },
-      {
-        "line": "green",
-        "name": "Griggs Street"
-      },
-      {
-        "line": "green",
-        "name": "Sutherland Road"
-      },
       {
         "line": "green",
         "name": "Cleveland Circle"
@@ -2387,19 +2202,7 @@
       },
       {
         "line": "green",
-        "name": "Saint Mary's Street"
-      },
-      {
-        "line": "green",
-        "name": "Chestnut Hill"
-      },
-      {
-        "line": "green",
-        "name": "Reservoir"
-      },
-      {
-        "line": "green",
-        "name": "Beaconsfield"
+        "name": "Brookline Village"
       },
       {
         "line": "green",
@@ -2407,27 +2210,19 @@
       },
       {
         "line": "green",
-        "name": "Brookline Village"
+        "name": "Beaconsfield"
+      },
+      {
+        "line": "green",
+        "name": "Reservoir"
+      },
+      {
+        "line": "green",
+        "name": "Chestnut Hill"
       },
       {
         "line": "green",
         "name": "Longwood"
-      },
-      {
-        "line": "green",
-        "name": "Fenway"
-      },
-      {
-        "line": "green",
-        "name": "Back of the Hill"
-      },
-      {
-        "line": "green",
-        "name": "Riverway"
-      },
-      {
-        "line": "green",
-        "name": "Mission Park"
       }
     ],
     "busRoutes": [
@@ -2441,7 +2236,7 @@
     "name": "Everett",
     "region": "outer-ring",
     "description": "Working-class city north of Boston undergoing transformation with the Encore casino and new development. Affordable, diverse, with improving infrastructure but limited rail transit.",
-    "localTips": "No direct T station — rely on buses (97, 99, 104, 109, 110) to Orange Line or bus to downtown. Encore casino has brought investment but also traffic. Broadway is the main drag. Much more affordable than Somerville next door.",
+    "localTips": "No direct T station \u2014 rely on buses (97, 99, 104, 109, 110) to Orange Line or bus to downtown. Encore casino has brought investment but also traffic. Broadway is the main drag. Much more affordable than Somerville next door.",
     "rent": {
       "studio": [
         2182,
@@ -2476,18 +2271,14 @@
       "parks": 5
     },
     "mbtaLines": [
-      "bus",
-      "orange"
+      "orange",
+      "bus"
     ],
     "centroid": {
       "lat": 42.4084,
       "lng": -71.0537
     },
     "mbtaStations": [
-      {
-        "line": "orange",
-        "name": "Assembly"
-      },
       {
         "line": "orange",
         "name": "Wellington"
@@ -2651,8 +2442,8 @@
     "id": "chelsea",
     "name": "Chelsea",
     "region": "outer-ring",
-    "description": "One of the most diverse small cities in America. Latin American culture is strong — incredible food and community. Silver Line access to downtown. Rapidly developing while maintaining its character.",
-    "localTips": "Silver Line SL3 to South Station. Bus 111 to Haymarket is fast and frequent. Commuter Rail at Chelsea station. Very affordable. Amazing Latin American food — particularly Salvadoran and Colombian. Chelsea Walk is a nice waterfront path.",
+    "description": "One of the most diverse small cities in America. Latin American culture is strong \u2014 incredible food and community. Silver Line access to downtown. Rapidly developing while maintaining its character.",
+    "localTips": "Silver Line SL3 to South Station. Bus 111 to Haymarket is fast and frequent. Commuter Rail at Chelsea station. Very affordable. Amazing Latin American food \u2014 particularly Salvadoran and Colombian. Chelsea Walk is a nice waterfront path.",
     "rent": {
       "studio": [
         1958,
@@ -2867,7 +2658,7 @@
     "name": "Milton",
     "region": "outer-ring",
     "description": "Affluent, leafy town south of Boston with the Blue Hills Reservation for hiking and the Mattapan Trolley at its northern edge. Excellent schools, quiet streets, and a small-town feel.",
-    "localTips": "Mattapan Trolley connects to Red Line at Ashmont. Commuter Rail on the Greenbush Line. Blue Hills has great hiking minutes away. Milton Academy area is beautiful. More suburban than most of our list — car helpful.",
+    "localTips": "Mattapan Trolley connects to Red Line at Ashmont. Commuter Rail on the Greenbush Line. Blue Hills has great hiking minutes away. Milton Academy area is beautiful. More suburban than most of our list \u2014 car helpful.",
     "rent": {
       "studio": [
         1485,
@@ -2917,18 +2708,6 @@
       {
         "line": "red",
         "name": "Central Avenue"
-      },
-      {
-        "line": "red",
-        "name": "Valley Road"
-      },
-      {
-        "line": "red",
-        "name": "Capen Street"
-      },
-      {
-        "line": "red",
-        "name": "Mattapan"
       }
     ],
     "busRoutes": [
@@ -2943,7 +2722,7 @@
     "name": "Watertown",
     "region": "outer-ring",
     "description": "Established suburban town with a growing food scene, Armenian community heritage, and the Charles River path. No T access but good bus connections. Arsenal Yards is a new retail/dining hub.",
-    "localTips": "No T station — bus 57 to Kenmore Green Line, bus 71 to Harvard Red Line. Car very helpful. Arsenal Yards has new restaurants and Target. Strong Armenian community (great bakeries). Charles River path access for biking/running. More affordable than Cambridge/Brighton.",
+    "localTips": "No T station \u2014 bus 57 to Kenmore Green Line, bus 71 to Harvard Red Line. Car very helpful. Arsenal Yards has new restaurants and Target. Strong Armenian community (great bakeries). Charles River path access for biking/running. More affordable than Cambridge/Brighton.",
     "rent": {
       "studio": [
         2012,
@@ -2996,7 +2775,7 @@
     "name": "Waltham",
     "region": "outer-ring",
     "description": "Watch City (historic watch factories) with Brandeis University, Moody Street's restaurant row, and Commuter Rail access. More suburban but Moody Street has genuine urban energy.",
-    "localTips": "Commuter Rail (Fitchburg Line) at Waltham station. Bus 70 to Central Sq Cambridge. Moody Street is the highlight — diverse restaurants, bars, and shops. Brandeis gives it some college-town feel. Car recommended for most of the city.",
+    "localTips": "Commuter Rail (Fitchburg Line) at Waltham station. Bus 70 to Central Sq Cambridge. Moody Street is the highlight \u2014 diverse restaurants, bars, and shops. Brandeis gives it some college-town feel. Car recommended for most of the city.",
     "rent": {
       "studio": [
         2070,
@@ -3054,7 +2833,7 @@
     "id": "newton",
     "name": "Newton",
     "region": "outer-ring",
-    "description": "Wealthy garden city with 13 distinct villages, top-ranked schools, and Green Line D branch access. The gold standard of Boston suburbs — you pay a premium for schools, safety, and space.",
+    "description": "Wealthy garden city with 13 distinct villages, top-ranked schools, and Green Line D branch access. The gold standard of Boston suburbs \u2014 you pay a premium for schools, safety, and space.",
     "localTips": "Green Line D branch has multiple Newton stops (Chestnut Hill to Riverside). Newton Centre has a walkable village center. Excellent schools are the #1 draw. Car needed for most daily life despite T access. Newton-Wellesley Hospital area has good dining.",
     "rent": {
       "studio": [
@@ -3100,27 +2879,7 @@
     "mbtaStations": [
       {
         "line": "green",
-        "name": "Boston College"
-      },
-      {
-        "line": "green",
-        "name": "Riverside"
-      },
-      {
-        "line": "green",
-        "name": "Woodland"
-      },
-      {
-        "line": "green",
-        "name": "Waban"
-      },
-      {
-        "line": "green",
-        "name": "Eliot"
-      },
-      {
-        "line": "green",
-        "name": "Newton Highlands"
+        "name": "Chestnut Hill"
       },
       {
         "line": "green",
@@ -3128,7 +2887,23 @@
       },
       {
         "line": "green",
-        "name": "Chestnut Hill"
+        "name": "Newton Highlands"
+      },
+      {
+        "line": "green",
+        "name": "Eliot"
+      },
+      {
+        "line": "green",
+        "name": "Waban"
+      },
+      {
+        "line": "green",
+        "name": "Woodland"
+      },
+      {
+        "line": "green",
+        "name": "Riverside"
       }
     ],
     "busRoutes": [
@@ -3142,7 +2917,7 @@
     "name": "Financial District",
     "region": "boston",
     "description": "Boston's business core with sleek high-rises, historic landmarks, and a buzzing weekday energy. Increasingly residential with luxury apartments and easy access to everything downtown.",
-    "localTips": "Quieter on weekends — most restaurants cater to the lunch crowd. Look for apartments in converted office buildings for larger floor plans. Extremely walkable to South Station, Faneuil Hall, and the waterfront.",
+    "localTips": "Quieter on weekends \u2014 most restaurants cater to the lunch crowd. Look for apartments in converted office buildings for larger floor plans. Extremely walkable to South Station, Faneuil Hall, and the waterfront.",
     "rent": {
       "studio": [
         2588,
@@ -3177,12 +2952,11 @@
       "parks": 20
     },
     "mbtaLines": [
+      "red",
+      "orange",
       "blue",
       "bus",
-      "ferry",
-      "green",
-      "orange",
-      "red"
+      "ferry"
     ],
     "centroid": {
       "lat": 42.3557,
@@ -3191,67 +2965,23 @@
     "mbtaStations": [
       {
         "line": "red",
-        "name": "Park Street"
-      },
-      {
-        "line": "green",
-        "name": "Park Street"
-      },
-      {
-        "line": "red",
         "name": "Downtown Crossing"
       },
       {
         "line": "orange",
         "name": "Downtown Crossing"
+      },
+      {
+        "line": "orange",
+        "name": "State"
+      },
+      {
+        "line": "blue",
+        "name": "State"
       },
       {
         "line": "red",
         "name": "South Station"
-      },
-      {
-        "line": "orange",
-        "name": "Tufts Medical Center"
-      },
-      {
-        "line": "orange",
-        "name": "Chinatown"
-      },
-      {
-        "line": "orange",
-        "name": "State"
-      },
-      {
-        "line": "blue",
-        "name": "State"
-      },
-      {
-        "line": "orange",
-        "name": "Haymarket"
-      },
-      {
-        "line": "green",
-        "name": "Haymarket"
-      },
-      {
-        "line": "green",
-        "name": "Government Center"
-      },
-      {
-        "line": "blue",
-        "name": "Government Center"
-      },
-      {
-        "line": "green",
-        "name": "Boylston"
-      },
-      {
-        "line": "green",
-        "name": "Arlington"
-      },
-      {
-        "line": "blue",
-        "name": "Bowdoin"
       },
       {
         "line": "blue",
@@ -3267,31 +2997,16 @@
       },
       {
         "line": "ferry",
-        "name": "Long Wharf (North)"
-      },
-      {
-        "line": "ferry",
         "name": "Central Wharf (South)"
       }
     ],
     "busRoutes": [
-      "11",
-      "116",
-      "15",
-      "354",
-      "39",
       "4",
+      "7",
+      "11",
       "501",
       "504",
-      "505",
-      "57",
-      "7",
-      "741",
-      "742",
-      "743",
-      "751",
-      "92",
-      "93"
+      "505"
     ],
     "collegeArea": false,
     "parkingFriendly": false
@@ -3301,7 +3016,7 @@
     "name": "West End",
     "region": "boston",
     "description": "A compact, centrally located neighborhood between Beacon Hill and North Station. Modern high-rises with river views, walking distance to TD Garden and Massachusetts General Hospital.",
-    "localTips": "Most housing is in large apartment complexes — expect modern amenities but less character than neighboring Beacon Hill. Great access to the Esplanade for running/biking along the river.",
+    "localTips": "Most housing is in large apartment complexes \u2014 expect modern amenities but less character than neighboring Beacon Hill. Great access to the Esplanade for running/biking along the river.",
     "rent": {
       "studio": [
         2160,
@@ -3387,7 +3102,7 @@
     "name": "Downtown Crossing",
     "region": "boston",
     "description": "The retail and transit heart of Boston. Pedestrian-friendly streets, major shopping, and surrounded by every T line. A true urban center with a mix of historic buildings and modern towers.",
-    "localTips": "The Millennium Tower and other luxury buildings have transformed this area. Very noisy and busy — not for light sleepers. Unbeatable transit access from any direction.",
+    "localTips": "The Millennium Tower and other luxury buildings have transformed this area. Very noisy and busy \u2014 not for light sleepers. Unbeatable transit access from any direction.",
     "rent": {
       "studio": [
         2501,
@@ -3422,12 +3137,10 @@
       "parks": 20
     },
     "mbtaLines": [
-      "blue",
-      "bus",
-      "ferry",
-      "green",
+      "red",
       "orange",
-      "red"
+      "green",
+      "bus"
     ],
     "centroid": {
       "lat": 42.3556,
@@ -3436,14 +3149,6 @@
     "mbtaStations": [
       {
         "line": "red",
-        "name": "Park Street"
-      },
-      {
-        "line": "green",
-        "name": "Park Street"
-      },
-      {
-        "line": "red",
         "name": "Downtown Crossing"
       },
       {
@@ -3452,90 +3157,20 @@
       },
       {
         "line": "red",
-        "name": "South Station"
-      },
-      {
-        "line": "orange",
-        "name": "Tufts Medical Center"
-      },
-      {
-        "line": "orange",
-        "name": "Chinatown"
-      },
-      {
-        "line": "orange",
-        "name": "State"
-      },
-      {
-        "line": "blue",
-        "name": "State"
-      },
-      {
-        "line": "orange",
-        "name": "Haymarket"
+        "name": "Park Street"
       },
       {
         "line": "green",
-        "name": "Haymarket"
-      },
-      {
-        "line": "green",
-        "name": "Government Center"
-      },
-      {
-        "line": "blue",
-        "name": "Government Center"
-      },
-      {
-        "line": "green",
-        "name": "Boylston"
-      },
-      {
-        "line": "green",
-        "name": "Arlington"
-      },
-      {
-        "line": "blue",
-        "name": "Bowdoin"
-      },
-      {
-        "line": "blue",
-        "name": "Aquarium"
-      },
-      {
-        "line": "ferry",
-        "name": "Long Wharf (South)"
-      },
-      {
-        "line": "ferry",
-        "name": "Rowes Wharf"
-      },
-      {
-        "line": "ferry",
-        "name": "Long Wharf (North)"
-      },
-      {
-        "line": "ferry",
-        "name": "Central Wharf (South)"
+        "name": "Park Street"
       }
     ],
     "busRoutes": [
+      "7",
       "11",
-      "116",
-      "15",
-      "354",
-      "39",
-      "4",
       "43",
       "501",
       "504",
-      "505",
-      "57",
-      "7",
-      "749",
-      "751",
-      "92",
-      "93"
+      "505"
     ],
     "collegeArea": false,
     "parkingFriendly": false

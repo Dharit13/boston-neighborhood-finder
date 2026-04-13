@@ -124,7 +124,7 @@ export default function WizardContainer() {
           <h1 className="text-2xl font-bold text-white tracking-tight">
             Boston Neighbourhood Finder
           </h1>
-          <p className="text-white/70 text-xs mt-1">
+          <p className="text-white text-xs mt-1">
             Find your perfect neighborhood based on your budget, commute, and lifestyle.
           </p>
         </div>
@@ -140,8 +140,8 @@ export default function WizardContainer() {
                   i === step
                     ? "bg-white/15 text-white border border-white/20 backdrop-blur-sm"
                     : i < step
-                    ? "text-white/70 hover:text-white cursor-pointer"
-                    : "text-white/25 cursor-default"
+                    ? "text-white hover:text-white cursor-pointer"
+                    : "text-white/50 cursor-default"
                 }`}
               >
                 <span
@@ -150,7 +150,7 @@ export default function WizardContainer() {
                       ? "bg-white text-black"
                       : i === step
                       ? "bg-white/20 text-white"
-                      : "bg-white/10 text-white/30"
+                      : "bg-white/10 text-white"
                   }`}
                 >
                   {i < step ? "\u2713" : i + 1}
@@ -184,7 +184,7 @@ export default function WizardContainer() {
             <button
               onClick={prev}
               disabled={step === 0}
-              className="px-5 py-2.5 rounded-lg text-sm font-medium text-white/50 border border-white/10 hover:text-white hover:border-white/25 disabled:opacity-0 disabled:pointer-events-none transition-all"
+              className="px-5 py-2.5 rounded-lg text-sm font-medium text-white border border-white/10 hover:text-white hover:border-white/25 disabled:opacity-0 disabled:pointer-events-none transition-all"
             >
               Back
             </button>

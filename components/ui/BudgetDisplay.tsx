@@ -36,7 +36,7 @@ export default function BudgetDisplay({
 
   return (
     <div className="mt-4 space-y-2">
-      <p className="text-xs font-semibold text-white/60 uppercase tracking-widest">
+      <p className="text-xs font-semibold text-white uppercase tracking-widest">
         Your budget tiers{" "}
         {isRoommateSplit && roommates > 0
           ? `(per person with ${roommates} roommate${roommates > 1 ? "s" : ""})`
@@ -58,7 +58,7 @@ export default function BudgetDisplay({
             <div className="flex justify-between items-center">
               <div>
                 <span className="font-medium text-sm">{config.label}</span>
-                <span className="text-xs ml-2 opacity-60">
+                <span className="text-xs ml-2 opacity-80">
                   ({config.sublabel})
                 </span>
               </div>

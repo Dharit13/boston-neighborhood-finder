@@ -92,13 +92,13 @@ export default function StepHousing({ input, onChange }: Props) {
         <h2 className="text-2xl font-bold text-white tracking-tight">
           Housing
         </h2>
-        <p className="text-white/50 text-sm mt-1">
+        <p className="text-white text-sm mt-1">
           How you plan to live and what you can spend.
         </p>
       </div>
 
       <div>
-        <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
+        <label className="block text-xs font-semibold text-white uppercase tracking-widest mb-2">
           Living Arrangement
         </label>
         <div className="grid grid-cols-2 gap-3">
@@ -109,14 +109,14 @@ export default function StepHousing({ input, onChange }: Props) {
               className={`text-left py-3 px-4 rounded-lg transition-all ${
                 input.livingArrangement === opt.value
                   ? "bg-white text-black"
-                  : "border border-white/15 text-white/60 hover:text-white hover:border-white/30"
+                  : "border border-white/15 text-white hover:text-white hover:border-white/30"
               }`}
             >
               <div
                 className={`text-sm font-semibold ${
                   input.livingArrangement === opt.value
                     ? "text-black"
-                    : "text-white/80"
+                    : "text-white"
                 }`}
               >
                 {opt.label}
@@ -125,7 +125,7 @@ export default function StepHousing({ input, onChange }: Props) {
                 className={`text-xs mt-0.5 ${
                   input.livingArrangement === opt.value
                     ? "text-black/60"
-                    : "text-white/40"
+                    : "text-white"
                 }`}
               >
                 {opt.description}
@@ -137,7 +137,7 @@ export default function StepHousing({ input, onChange }: Props) {
 
       {input.livingArrangement === "alone" && (
         <div>
-          <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
+          <label className="block text-xs font-semibold text-white uppercase tracking-widest mb-2">
             Apartment Size
           </label>
           <div className="grid grid-cols-3 gap-2">
@@ -152,7 +152,7 @@ export default function StepHousing({ input, onChange }: Props) {
                 className={`py-2.5 px-4 rounded-lg text-center text-sm font-medium transition-all ${
                   input.apartmentSize === opt.value
                     ? "bg-white text-black"
-                    : "border border-white/15 text-white/60 hover:text-white hover:border-white/30"
+                    : "border border-white/15 text-white hover:text-white hover:border-white/30"
                 }`}
               >
                 {opt.label}
@@ -164,7 +164,7 @@ export default function StepHousing({ input, onChange }: Props) {
 
       {input.livingArrangement === "couple" && (
         <div>
-          <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
+          <label className="block text-xs font-semibold text-white uppercase tracking-widest mb-2">
             Apartment Size
           </label>
           <div className="grid grid-cols-2 gap-2">
@@ -178,7 +178,7 @@ export default function StepHousing({ input, onChange }: Props) {
                 className={`py-2.5 px-4 rounded-lg text-center text-sm font-medium transition-all ${
                   input.apartmentSize === opt.value
                     ? "bg-white text-black"
-                    : "border border-white/15 text-white/60 hover:text-white hover:border-white/30"
+                    : "border border-white/15 text-white hover:text-white hover:border-white/30"
                 }`}
               >
                 {opt.label}
@@ -190,7 +190,7 @@ export default function StepHousing({ input, onChange }: Props) {
 
       {showRoommates && (
         <div>
-          <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
+          <label className="block text-xs font-semibold text-white uppercase tracking-widest mb-2">
             How many roommates?
           </label>
           <div className="grid grid-cols-1 gap-2">
@@ -201,7 +201,7 @@ export default function StepHousing({ input, onChange }: Props) {
                 className={`py-2.5 px-4 rounded-lg text-center text-sm font-medium transition-all ${
                   input.roommates === opt.value
                     ? "bg-white text-black"
-                    : "border border-white/15 text-white/60 hover:text-white hover:border-white/30"
+                    : "border border-white/15 text-white hover:text-white hover:border-white/30"
                 }`}
               >
                 {opt.label}
@@ -212,14 +212,14 @@ export default function StepHousing({ input, onChange }: Props) {
       )}
 
       <div>
-        <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
+        <label className="block text-xs font-semibold text-white uppercase tracking-widest mb-2">
           {input.livingArrangement === "own-room" ||
           input.livingArrangement === "shared-room"
             ? "Maximum monthly rent (your share)"
             : "Maximum monthly rent"}
         </label>
         <div className="relative">
-          <span className="absolute left-4 top-3 text-white/40 pointer-events-none">$</span>
+          <span className="absolute left-4 top-3 text-white pointer-events-none">$</span>
           <input
             type="text"
             inputMode="numeric"
@@ -230,7 +230,7 @@ export default function StepHousing({ input, onChange }: Props) {
             }
             placeholder="2,500"
             aria-invalid={rentError !== null}
-            className={`w-full pl-8 pr-4 py-3 rounded-lg bg-white/5 border text-white placeholder:text-white/25 focus:outline-none focus:ring-1 transition-all ${
+            className={`w-full pl-8 pr-4 py-3 rounded-lg bg-white/5 border text-white placeholder:text-white/50 focus:outline-none focus:ring-1 transition-all ${
               rentError
                 ? "border-red-400/60 focus:border-red-400 focus:ring-red-400/30"
                 : "border-white/15 focus:border-white/40 focus:ring-white/20"
@@ -244,7 +244,7 @@ export default function StepHousing({ input, onChange }: Props) {
 
       {/* Budget Priority */}
       <div>
-        <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
+        <label className="block text-xs font-semibold text-white uppercase tracking-widest mb-2">
           How do you feel about spending up to your max?
         </label>
         <div className="grid grid-cols-3 gap-2">
@@ -271,14 +271,14 @@ export default function StepHousing({ input, onChange }: Props) {
               className={`py-3 px-3 rounded-lg text-center transition-all ${
                 input.budgetPriority === opt.value
                   ? "bg-white text-black"
-                  : "border border-white/15 text-white/60 hover:text-white hover:border-white/30"
+                  : "border border-white/15 text-white hover:text-white hover:border-white/30"
               }`}
             >
               <div
                 className={`text-sm font-semibold ${
                   input.budgetPriority === opt.value
                     ? "text-black"
-                    : "text-white/80"
+                    : "text-white"
                 }`}
               >
                 {opt.label}
@@ -287,7 +287,7 @@ export default function StepHousing({ input, onChange }: Props) {
                 className={`text-xs mt-0.5 ${
                   input.budgetPriority === opt.value
                     ? "text-black/60"
-                    : "text-white/40"
+                    : "text-white"
                 }`}
               >
                 {opt.desc}

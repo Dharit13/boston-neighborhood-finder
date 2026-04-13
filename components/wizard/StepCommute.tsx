@@ -67,13 +67,13 @@ export default function StepCommute({ input, onChange }: Props) {
         <h2 className="text-2xl font-bold text-white tracking-tight">
           Your Commute
         </h2>
-        <p className="text-white/50 text-sm mt-1">
+        <p className="text-white text-sm mt-1">
           Where do you need to get to, and how often?
         </p>
       </div>
 
       <div>
-        <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
+        <label className="block text-xs font-semibold text-white uppercase tracking-widest mb-2">
           Office days per week
         </label>
         <div className="grid grid-cols-2 gap-3">
@@ -84,7 +84,7 @@ export default function StepCommute({ input, onChange }: Props) {
               className={`py-3 px-4 rounded-lg text-sm font-medium text-center transition-all ${
                 input.officeDays === opt.value
                   ? "bg-white text-black"
-                  : "border border-white/15 text-white/60 hover:text-white hover:border-white/30"
+                  : "border border-white/15 text-white hover:text-white hover:border-white/30"
               }`}
             >
               {opt.label}
@@ -95,7 +95,7 @@ export default function StepCommute({ input, onChange }: Props) {
 
       {showAddress && (
         <div>
-          <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
+          <label className="block text-xs font-semibold text-white uppercase tracking-widest mb-2">
             Office Address
           </label>
           {placesLoaded ? (
@@ -115,7 +115,7 @@ export default function StepCommute({ input, onChange }: Props) {
                 value={input.officeAddress || ""}
                 onChange={(e) => onChange({ officeAddress: e.target.value })}
                 placeholder="Start typing an address…"
-                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/15 text-white placeholder:text-white/25 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all"
+                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/15 text-white placeholder:text-white/50 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all"
               />
             </Autocomplete>
           ) : (
@@ -124,20 +124,20 @@ export default function StepCommute({ input, onChange }: Props) {
               value={input.officeAddress || ""}
               onChange={(e) => onChange({ officeAddress: e.target.value })}
               placeholder="Loading address suggestions…"
-              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/15 text-white placeholder:text-white/25 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all"
+              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/15 text-white placeholder:text-white/50 focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all"
             />
           )}
-          <p className="mt-2 text-xs text-white/30">
+          <p className="mt-2 text-xs text-white">
             We&apos;ll calculate transit commute times from each neighborhood.
           </p>
         </div>
       )}
 
       <div>
-        <label className="block text-xs font-semibold text-white/60 uppercase tracking-widest mb-2">
+        <label className="block text-xs font-semibold text-white uppercase tracking-widest mb-2">
           Preferred MBTA Lines
         </label>
-        <p className="text-xs text-white/30 mb-3">
+        <p className="text-xs text-white mb-3">
           Select lines you prefer — we&apos;ll boost neighborhoods on those
           lines.
         </p>
@@ -151,7 +151,7 @@ export default function StepCommute({ input, onChange }: Props) {
                 className={`px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-all ${
                   selected
                     ? "bg-white text-black"
-                    : "border border-white/15 text-white/60 hover:text-white hover:border-white/30"
+                    : "border border-white/15 text-white hover:text-white hover:border-white/30"
                 }`}
               >
                 <span

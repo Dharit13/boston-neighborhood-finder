@@ -61,11 +61,11 @@ export default function NewsPanel() {
       )}
 
       {status === "empty" && (
-        <p className="text-sm text-white/60">No recent Boston headlines.</p>
+        <p className="text-sm text-white">No recent Boston headlines.</p>
       )}
 
       {status === "error" && (
-        <p className="text-sm text-white/60">Couldn&apos;t load news right now.</p>
+        <p className="text-sm text-white">Couldn&apos;t load news right now.</p>
       )}
 
       {status === "ok" && (
@@ -80,7 +80,7 @@ export default function NewsPanel() {
               >
                 {item.title}
               </a>
-              <div className="text-xs text-white/50 mt-0.5">
+              <div className="text-xs text-white mt-0.5">
                 {item.source} · {relativeTime(item.publishedAt)}
               </div>
             </li>
