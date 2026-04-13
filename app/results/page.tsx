@@ -247,7 +247,7 @@ export default function ResultsPage() {
       <div className="relative min-h-screen bg-black flex items-center justify-center overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/boston-sunset.jpg"
+          src="/images/boston-citynight.jpg"
           alt=""
           className="absolute inset-0 w-full h-full object-cover z-0 opacity-75"
         />
@@ -271,7 +271,7 @@ export default function ResultsPage() {
       {/* Background image */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/images/boston-sunset.jpg"
+        src="/images/boston-citynight.jpg"
         alt=""
         className="fixed inset-0 w-full h-full object-cover z-0 opacity-75"
       />
