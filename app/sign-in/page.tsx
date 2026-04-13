@@ -29,7 +29,7 @@ export default async function SignInPage({
       <img
         src="/images/boston-sunset.jpg"
         alt=""
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
       />
 
 
