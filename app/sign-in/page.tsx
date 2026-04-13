@@ -29,7 +29,7 @@ export default async function SignInPage({
       <img
         src="https://images.aiscribbles.com/34fe5695dbc942628e3cad9744e8ae13.png?v=60d084"
         alt=""
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-70"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
       />
 
       {/* Gooey pixel trail — same cursor effect as the wizard */}
