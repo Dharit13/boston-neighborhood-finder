@@ -33,6 +33,45 @@ const MBTA_LABELS: Record<MbtaLine, string> = {
   ferry: "Ferry",
 };
 
+function getRentalUrls(name: string, region: string): { zillow: string; apartments: string } {
+  let city: string;
+  let hood: string;
+
+  const prefixMatch = name.match(/^(Cambridge|Somerville)\s*-\s*(.+)$/);
+  if (prefixMatch) {
+    city = prefixMatch[1];
+    hood = prefixMatch[2];
+  } else if (region !== "boston") {
+    city = name;
+    hood = "";
+  } else {
+    city = "Boston";
+    hood = name;
+  }
+
+  const searchHood = hood
+    .replace(/\s*\/\s*.*/g, "")
+    .replace(/\s+(North|South)$/g, "");
+
+  const slug = (s: string) => s.replace(/\s+/g, "-");
+
+  const zillowPath = searchHood
+    ? `${slug(searchHood)}-${slug(city)}-MA_rb`
+    : `${slug(city)}-MA_rb`;
+
+  const hoodHasCity = searchHood.toLowerCase().includes(city.toLowerCase());
+  const aptPath = searchHood
+    ? hoodHasCity
+      ? `${slug(searchHood).toLowerCase()}-ma`
+      : `${slug(searchHood).toLowerCase()}-${slug(city).toLowerCase()}-ma`
+    : `${slug(city).toLowerCase()}-ma`;
+
+  return {
+    zillow: `https://www.zillow.com/homes/for_rent/${zillowPath}/`,
+    apartments: `https://www.apartments.com/${aptPath}/`,
+  };
+}
+
 function budgetColor(percent: number): string {
   if (percent <= 45) return "text-emerald-400";
   if (percent <= 60) return "text-yellow-400";
@@ -287,6 +326,24 @@ export default function NeighborhoodProfile({
               <span className={`ml-2 font-medium ${budgetColor(rentPercent)}`}>
                 ({rentPercent}% of income)
               </span>
+            </div>
+            <div className="mt-3 flex gap-2">
+              <a
+                href={getRentalUrls(n.name, n.region).zillow}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 text-center px-3 py-2 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-300 text-sm font-medium hover:bg-blue-600/30 transition-colors"
+              >
+                Zillow
+              </a>
+              <a
+                href={getRentalUrls(n.name, n.region).apartments}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 text-center px-3 py-2 rounded-lg bg-green-600/20 border border-green-500/30 text-green-300 text-sm font-medium hover:bg-green-600/30 transition-colors"
+              >
+                Apartments.com
+              </a>
             </div>
           </div>
 
