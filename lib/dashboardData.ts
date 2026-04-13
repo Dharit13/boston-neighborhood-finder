@@ -170,19 +170,27 @@ export interface DashboardData {
 }
 
 export function computeDashboardData(neighborhoods: Neighborhood[]): DashboardData {
+  if (neighborhoods.length === 0) {
+    throw new Error("computeDashboardData requires at least one neighborhood");
+  }
+
   const rentLeaderboard = computeRentLeaderboard(neighborhoods);
   const bestValue = computeBestValue(neighborhoods);
   const commuteFriendly = computeCommuteFriendly(neighborhoods);
   const safety = computeSafetyRankings(neighborhoods);
   const lifestyleClusters = computeLifestyleClusters(neighborhoods);
 
+  const bestTransitNeighborhood = [...neighborhoods].sort(
+    (a, b) => b.transitScore - a.transitScore
+  )[0];
+
   return {
     heroStats: {
       mostExpensive: rentLeaderboard.mostExpensive[0],
       safest: safety.safest[0],
       bestTransit: {
-        name: commuteFriendly[0].name,
-        transitScore: commuteFriendly[0].transitScore,
+        name: bestTransitNeighborhood.name,
+        transitScore: bestTransitNeighborhood.transitScore,
       },
       bestValue: {
         name: bestValue[0].name,

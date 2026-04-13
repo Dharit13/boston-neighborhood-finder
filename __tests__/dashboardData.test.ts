@@ -216,7 +216,30 @@ describe("computeDashboardData", () => {
     const data = computeDashboardData(neighborhoods);
     expect(data.heroStats.mostExpensive.name).toBe("Expensive");
     expect(data.heroStats.safest.name).toBe("Safe");
+    // bestTransit uses pure transitScore (96), not commute composite
     expect(data.heroStats.bestTransit.name).toBe("Transit");
+    expect(data.heroStats.bestTransit.transitScore).toBe(96);
+  });
+
+  it("bestTransit uses pure transitScore, not commute composite", () => {
+    // A neighborhood with highest transitScore but low commute composite
+    // should still win the hero stat
+    const testNeighborhoods = [
+      makeNeighborhood({
+        name: "HighTransit",
+        transitScore: 99,
+        walkScore: 10,
+        mbtaLines: [],
+      }),
+      makeNeighborhood({
+        name: "HighCommute",
+        transitScore: 80,
+        walkScore: 95,
+        mbtaLines: ["red", "orange", "green", "blue", "silver"] as MbtaLine[],
+      }),
+    ];
+    const data = computeDashboardData(testNeighborhoods);
+    expect(data.heroStats.bestTransit.name).toBe("HighTransit");
   });
 
   it("returns all sections populated", () => {
@@ -227,5 +250,11 @@ describe("computeDashboardData", () => {
     expect(data.commuteFriendly.length).toBeGreaterThan(0);
     expect(data.safety.safest.length).toBeGreaterThan(0);
     expect(data.lifestyleClusters.nightlife.length).toBeGreaterThan(0);
+  });
+
+  it("throws on empty input", () => {
+    expect(() => computeDashboardData([])).toThrow(
+      "computeDashboardData requires at least one neighborhood"
+    );
   });
 });

@@ -19,13 +19,30 @@ export default function DashboardPage() {
   const router = useRouter();
   const [data, setData] = useState<DashboardData | null>(null);
 
+  const [error, setError] = useState(false);
+
   useEffect(() => {
     fetch("/data/neighborhoods.json")
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
       .then((neighborhoods: Neighborhood[]) => {
         setData(computeDashboardData(neighborhoods));
+      })
+      .catch((err) => {
+        console.error("Failed to load neighborhood data:", err);
+        setError(true);
       });
   }, []);
+
+  if (error) {
+    return (
+      <main className="min-h-screen bg-black flex items-center justify-center">
+        <p className="text-red-400">Failed to load neighborhood data.</p>
+      </main>
+    );
+  }
 
   if (!data) {
     return (

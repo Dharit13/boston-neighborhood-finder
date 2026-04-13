@@ -105,10 +105,10 @@ Full-width card with a 2x2 grid (stacked on mobile). Four cluster cards:
 
 | Cluster | Color | Filter logic |
 |---------|-------|-------------|
-| Nightlife Hubs | Amber | `lifestyleProfile.nightlifeVsQuiet >= 4` |
-| Family-Friendly | Green | `lifestyleProfile.trendyVsFamily <= 2` |
-| Urban Core | Blue | `lifestyleProfile.urbanVsSuburban >= 4` |
-| Quiet & Suburban | Purple | `lifestyleProfile.urbanVsSuburban <= 2` |
+| Nightlife Hubs | Amber | `lifestyleProfile.nightlifeVsQuiet <= 2` (1 = nightlife, 5 = quiet) |
+| Family-Friendly | Green | `lifestyleProfile.trendyVsFamily >= 4` (1 = trendy, 5 = family) |
+| Urban Core | Blue | `lifestyleProfile.urbanVsSuburban <= 2` (1 = urban, 5 = suburban) |
+| Quiet & Suburban | Purple | `lifestyleProfile.urbanVsSuburban >= 4` (1 = urban, 5 = suburban) |
 
 Each card shows the cluster label with an emoji and a comma-separated list of matching neighborhood names.
 
