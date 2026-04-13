@@ -121,12 +121,14 @@ function averageSliders(vibes: typeof VIBE_OPTIONS): SliderValues {
     sum.budgetVsConvenience += v.sliders.budgetVsConvenience;
   }
   const n = vibes.length;
+  // Keep precise floats — rounding loses the signal when 2 of 3 vibes
+  // lean the same way (e.g. urban 1+1+3 → 1.67, not rounded to 2).
   return {
-    nightlifeVsQuiet: Math.round(sum.nightlifeVsQuiet / n),
-    urbanVsSuburban: Math.round(sum.urbanVsSuburban / n),
-    trendyVsFamily: Math.round(sum.trendyVsFamily / n),
-    communityVsPrivacy: Math.round(sum.communityVsPrivacy / n),
-    budgetVsConvenience: Math.round(sum.budgetVsConvenience / n),
+    nightlifeVsQuiet: sum.nightlifeVsQuiet / n,
+    urbanVsSuburban: sum.urbanVsSuburban / n,
+    trendyVsFamily: sum.trendyVsFamily / n,
+    communityVsPrivacy: sum.communityVsPrivacy / n,
+    budgetVsConvenience: sum.budgetVsConvenience / n,
   };
 }
 
