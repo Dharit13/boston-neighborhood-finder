@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { NewsItem } from "@/lib/types";
 
+type CategorizedNewsItem = NewsItem & { category?: string };
 type Status = "loading" | "ok" | "empty" | "error";
 
 function relativeTime(iso: string): string {
@@ -20,7 +21,7 @@ function relativeTime(iso: string): string {
 
 export default function NewsPanel() {
   const [status, setStatus] = useState<Status>("loading");
-  const [items, setItems] = useState<NewsItem[]>([]);
+  const [items, setItems] = useState<CategorizedNewsItem[]>([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -88,7 +89,12 @@ export default function NewsPanel() {
                   <span className="text-sm text-white hover:text-sky-300 transition-colors">
                     {item.title}
                   </span>
-                  <div className="text-xs text-white/70 mt-1">
+                  <div className="text-xs text-white/70 mt-1 flex items-center gap-1.5">
+                    {item.category && (
+                      <span className="text-[10px] uppercase tracking-wider text-sky-400/80 bg-sky-400/10 px-1.5 py-0.5 rounded">
+                        {item.category}
+                      </span>
+                    )}
                     {item.source} · {relativeTime(item.publishedAt)}
                   </div>
                 </div>
