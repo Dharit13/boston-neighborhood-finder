@@ -129,27 +129,27 @@ describe("computeCommuteFriendly", () => {
 });
 
 describe("computeSafetyRankings", () => {
-  it("returns top 5 safest and top 5 trending safer", () => {
+  it("returns top 5 safest and bottom 5 least safe", () => {
     const neighborhoods = [
       makeNeighborhood({ name: "Safe1", safety: 90, safetyTrend: "stable" }),
       makeNeighborhood({ name: "Safe2", safety: 85, safetyTrend: "improving" }),
       makeNeighborhood({ name: "Unsafe", safety: 40, safetyTrend: "declining" }),
-      makeNeighborhood({ name: "Improving", safety: 60, safetyTrend: "improving" }),
+      makeNeighborhood({ name: "Mid", safety: 60, safetyTrend: "stable" }),
     ];
     const result = computeSafetyRankings(neighborhoods);
     expect(result.safest[0].name).toBe("Safe1");
     expect(result.safest[0].safety).toBe(90);
-    expect(result.trendingSafer[0].name).toBe("Safe2");
-    expect(result.trendingSafer).toHaveLength(2);
+    expect(result.leastSafe[0].name).toBe("Unsafe");
+    expect(result.leastSafe[0].safety).toBe(40);
   });
 
   it("caps both lists at 5", () => {
     const neighborhoods = Array.from({ length: 10 }, (_, i) =>
-      makeNeighborhood({ name: `N${i}`, safety: 50 + i * 5, safetyTrend: "improving" as SafetyTrend })
+      makeNeighborhood({ name: `N${i}`, safety: 50 + i * 5, safetyTrend: "stable" as SafetyTrend })
     );
     const result = computeSafetyRankings(neighborhoods);
     expect(result.safest).toHaveLength(5);
-    expect(result.trendingSafer).toHaveLength(5);
+    expect(result.leastSafe).toHaveLength(5);
   });
 });
 

@@ -269,17 +269,31 @@ export default function DashboardPage() {
               </div>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-wider text-blue-400 mb-3">Trending Safer ▲</p>
+              <p className="text-xs uppercase tracking-wider text-red-400 mb-3">Least Safe</p>
               <div className="space-y-2">
-                {data.safety.trendingSafer.map((entry, i) => (
+                {data.safety.leastSafe.map((entry, i) => (
                   <div key={entry.name} className="flex justify-between items-center">
                     <span className="text-sm text-white">{i + 1}. {entry.name}</span>
-                    <span className="text-sm text-blue-400">{entry.safety} → improving</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-semibold text-red-400">{entry.safety}</span>
+                      <span
+                        className={`text-[10px] ${
+                          entry.safetyTrend === "improving"
+                            ? "text-emerald-400"
+                            : entry.safetyTrend === "declining"
+                              ? "text-red-400"
+                              : "text-white/50"
+                        }`}
+                      >
+                        {entry.safetyTrend === "improving"
+                          ? "▲ improving"
+                          : entry.safetyTrend === "declining"
+                            ? "▼ declining"
+                            : "— stable"}
+                      </span>
+                    </div>
                   </div>
                 ))}
-                {data.safety.trendingSafer.length === 0 && (
-                  <p className="text-sm text-white/50">No neighborhoods currently trending safer</p>
-                )}
               </div>
             </div>
           </div>

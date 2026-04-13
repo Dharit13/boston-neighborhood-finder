@@ -105,7 +105,7 @@ export interface SafetyEntry {
 
 export interface SafetyRankings {
   safest: SafetyEntry[];
-  trendingSafer: SafetyEntry[];
+  leastSafe: SafetyEntry[];
 }
 
 export function computeSafetyRankings(neighborhoods: Neighborhood[]): SafetyRankings {
@@ -115,16 +115,12 @@ export function computeSafetyRankings(neighborhoods: Neighborhood[]): SafetyRank
     safetyTrend: n.safetyTrend,
   }));
 
-  const safest = [...entries]
-    .sort((a, b) => b.safety - a.safety)
-    .slice(0, 5);
+  const sorted = [...entries].sort((a, b) => b.safety - a.safety);
 
-  const trendingSafer = entries
-    .filter((e) => e.safetyTrend === "improving")
-    .sort((a, b) => b.safety - a.safety)
-    .slice(0, 5);
-
-  return { safest, trendingSafer };
+  return {
+    safest: sorted.slice(0, 5),
+    leastSafe: sorted.slice(-5).reverse(),
+  };
 }
 
 // --- Lifestyle Clusters ---
