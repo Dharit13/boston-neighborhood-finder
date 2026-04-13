@@ -50,7 +50,7 @@ export default function NewsPanel() {
   }, []);
 
   return (
-    <div className="rounded-xl border border-sky-500/40 bg-sky-500/10 backdrop-blur-xl p-6">
+    <div className="rounded-xl border border-sky-500/40 bg-black/60 backdrop-blur-xl p-6">
       <h2 className="text-lg font-bold text-sky-300 mb-4 flex items-center gap-2">
         <span>📰</span> Boston News
       </h2>
