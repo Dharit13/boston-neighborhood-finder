@@ -37,6 +37,7 @@ const DEFAULT_INPUT: UserInput = {
   officeAddress: null,
   mbtaPreference: [],
   sliders: DEFAULT_SLIDERS,
+  selectedVibes: [],
   avoidCollegeArea: false,
   needsParking: false,
 };

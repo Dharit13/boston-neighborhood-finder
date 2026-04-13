@@ -1,5 +1,5 @@
-import type { UserInput } from "@/lib/types";
-import BudgetDisplay from "@/components/ui/BudgetDisplay";
+import type { UserInput, BudgetPriority } from "@/lib/types";
+import BudgetSelector from "@/components/ui/BudgetSelector";
 import { parseMoneyInput, validateMaxRent } from "@/lib/validation";
 
 interface Props {
@@ -242,66 +242,14 @@ export default function StepHousing({ input, onChange }: Props) {
         )}
       </div>
 
-      {/* Budget Priority */}
-      <div>
-        <label className="block text-xs font-semibold text-white uppercase tracking-widest mb-2">
-          How do you feel about spending up to your max?
-        </label>
-        <div className="grid grid-cols-3 gap-2">
-          {([
-            {
-              value: "save" as const,
-              label: "Save Money",
-              desc: "Prioritize cheaper areas",
-            },
-            {
-              value: "balanced" as const,
-              label: "Balanced",
-              desc: "Weigh cost with other factors",
-            },
-            {
-              value: "spend" as const,
-              label: "Best Fit",
-              desc: "Willing to pay for the right spot",
-            },
-          ]).map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => onChange({ budgetPriority: opt.value })}
-              className={`py-3 px-3 rounded-lg text-center transition-all ${
-                input.budgetPriority === opt.value
-                  ? "bg-white text-black"
-                  : "border border-white/15 text-white hover:text-white hover:border-white/30"
-              }`}
-            >
-              <div
-                className={`text-sm font-semibold ${
-                  input.budgetPriority === opt.value
-                    ? "text-black"
-                    : "text-white"
-                }`}
-              >
-                {opt.label}
-              </div>
-              <div
-                className={`text-xs mt-0.5 ${
-                  input.budgetPriority === opt.value
-                    ? "text-black/60"
-                    : "text-white"
-                }`}
-              >
-                {opt.desc}
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <BudgetDisplay
+      {/* Budget Priority — merged with tier display */}
+      <BudgetSelector
         monthlyIncome={input.monthlyIncome}
         maxRent={input.maxRent}
         roommates={input.roommates}
         livingArrangement={input.livingArrangement}
+        budgetPriority={input.budgetPriority}
+        onChange={onChange}
       />
     </div>
   );

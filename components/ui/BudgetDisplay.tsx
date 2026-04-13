@@ -9,9 +9,9 @@ interface Props {
 }
 
 const TIER_CONFIG = {
-  saver: { label: "Budget Saver", sublabel: "45% of income", color: "emerald" },
+  saver: { label: "Save Money", sublabel: "45% of income", color: "emerald" },
   balanced: { label: "Balanced", sublabel: "60% of income", color: "blue" },
-  stretched: { label: "At Your Max", sublabel: "Your limit", color: "amber" },
+  stretched: { label: "Best Fit", sublabel: "Your limit", color: "amber" },
 } as const;
 
 export default function BudgetDisplay({

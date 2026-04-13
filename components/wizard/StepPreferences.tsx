@@ -108,20 +108,38 @@ const VIBE_OPTIONS: {
   },
 ];
 
-function slidersMatch(a: SliderValues, b: SliderValues): boolean {
-  return (
-    a.nightlifeVsQuiet === b.nightlifeVsQuiet &&
-    a.urbanVsSuburban === b.urbanVsSuburban &&
-    a.trendyVsFamily === b.trendyVsFamily &&
-    a.communityVsPrivacy === b.communityVsPrivacy &&
-    a.budgetVsConvenience === b.budgetVsConvenience
-  );
+function averageSliders(vibes: typeof VIBE_OPTIONS): SliderValues {
+  if (vibes.length === 0) {
+    return { nightlifeVsQuiet: 3, urbanVsSuburban: 3, trendyVsFamily: 3, communityVsPrivacy: 3, budgetVsConvenience: 3 };
+  }
+  const sum = { nightlifeVsQuiet: 0, urbanVsSuburban: 0, trendyVsFamily: 0, communityVsPrivacy: 0, budgetVsConvenience: 0 };
+  for (const v of vibes) {
+    sum.nightlifeVsQuiet += v.sliders.nightlifeVsQuiet;
+    sum.urbanVsSuburban += v.sliders.urbanVsSuburban;
+    sum.trendyVsFamily += v.sliders.trendyVsFamily;
+    sum.communityVsPrivacy += v.sliders.communityVsPrivacy;
+    sum.budgetVsConvenience += v.sliders.budgetVsConvenience;
+  }
+  const n = vibes.length;
+  return {
+    nightlifeVsQuiet: Math.round(sum.nightlifeVsQuiet / n),
+    urbanVsSuburban: Math.round(sum.urbanVsSuburban / n),
+    trendyVsFamily: Math.round(sum.trendyVsFamily / n),
+    communityVsPrivacy: Math.round(sum.communityVsPrivacy / n),
+    budgetVsConvenience: Math.round(sum.budgetVsConvenience / n),
+  };
 }
 
 export default function StepPreferences({ input, onChange }: Props) {
-  const selectedVibe = VIBE_OPTIONS.find((v) =>
-    slidersMatch(v.sliders, input.sliders)
-  );
+  const selected = input.selectedVibes ?? [];
+
+  const toggleVibe = (label: string) => {
+    const next = selected.includes(label)
+      ? selected.filter((l) => l !== label)
+      : [...selected, label];
+    const matchedVibes = VIBE_OPTIONS.filter((v) => next.includes(v.label));
+    onChange({ selectedVibes: next, sliders: averageSliders(matchedVibes) });
+  };
 
   return (
     <div className="space-y-5">
@@ -130,17 +148,17 @@ export default function StepPreferences({ input, onChange }: Props) {
           Pick Your Vibe
         </h2>
         <p className="text-white text-sm mt-1">
-          What kind of neighborhood feels like home to you?
+          Select one or more that feel like home to you. We&apos;ll blend your picks for better matches.
         </p>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         {VIBE_OPTIONS.map((vibe) => {
-          const isSelected = selectedVibe === vibe;
+          const isSelected = selected.includes(vibe.label);
           return (
             <button
               key={vibe.label}
-              onClick={() => onChange({ sliders: vibe.sliders })}
+              onClick={() => toggleVibe(vibe.label)}
               className={`flex flex-col items-start gap-2 p-4 rounded-xl border-2 transition-all text-left ${
                 isSelected
                   ? `${vibe.selectedColor} shadow-lg`
@@ -148,11 +166,7 @@ export default function StepPreferences({ input, onChange }: Props) {
               }`}
             >
               <span className="text-2xl">{vibe.emoji}</span>
-              <span
-                className={`text-sm font-semibold ${
-                  isSelected ? "text-white" : "text-white"
-                }`}
-              >
+              <span className="text-sm font-semibold text-white">
                 {vibe.label}
               </span>
               <span className="text-xs leading-relaxed text-white">
@@ -163,13 +177,13 @@ export default function StepPreferences({ input, onChange }: Props) {
         })}
       </div>
 
-      {selectedVibe && (
+      {selected.length > 0 && (
         <p className="text-xs text-white text-center">
-          We&apos;ll prioritize neighborhoods that match the{" "}
+          We&apos;ll blend neighborhoods matching{" "}
           <span className="text-white font-medium">
-            {selectedVibe.label}
-          </span>{" "}
-          lifestyle.
+            {selected.join(" + ")}
+          </span>
+          .
         </p>
       )}
 

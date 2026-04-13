@@ -28,6 +28,7 @@ export interface UserInput {
   officeAddress: string | null;
   mbtaPreference: MbtaLine[];
   sliders: SliderValues;
+  selectedVibes: string[];
   avoidCollegeArea: boolean;
   needsParking: boolean;
 }
