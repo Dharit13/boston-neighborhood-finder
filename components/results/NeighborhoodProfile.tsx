@@ -243,7 +243,7 @@ export default function NeighborhoodProfile({
 
       {/* ── AI Summary ── */}
       {(aiLoading || aiSummary || error) && (
-        <div className="p-4 rounded-lg border border-purple-500 bg-purple-500/30">
+        <div className="p-4 rounded-lg border border-purple-400/50 bg-purple-400/15">
           <h3 className="text-xs font-semibold text-white uppercase tracking-widest mb-2">
             Why this neighborhood for you
           </h3>
