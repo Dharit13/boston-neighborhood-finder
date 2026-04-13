@@ -110,9 +110,9 @@ export default function WizardContainer() {
       {/* Background image */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="https://images.aiscribbles.com/34fe5695dbc942628e3cad9744e8ae13.png?v=60d084"
+        src="/images/boston-sunset.jpg"
         alt=""
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-20"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
       />
 
 

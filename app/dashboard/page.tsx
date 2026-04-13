@@ -40,7 +40,7 @@ export default function DashboardPage() {
   if (error) {
     return (
       <main className="relative min-h-screen bg-black flex items-center justify-center overflow-hidden">
-        <img src="https://images.aiscribbles.com/34fe5695dbc942628e3cad9744e8ae13.png?v=60d084" alt="" className="fixed inset-0 w-full h-full object-cover z-0 opacity-40" />
+        <img src="/images/boston-dusk.jpg" alt="" className="fixed inset-0 w-full h-full object-cover z-0 opacity-40" />
         <p className="relative z-10 text-red-400">Failed to load neighborhood data.</p>
       </main>
     );
@@ -49,7 +49,7 @@ export default function DashboardPage() {
   if (!data) {
     return (
       <main className="relative min-h-screen bg-black flex items-center justify-center overflow-hidden">
-        <img src="https://images.aiscribbles.com/34fe5695dbc942628e3cad9744e8ae13.png?v=60d084" alt="" className="fixed inset-0 w-full h-full object-cover z-0 opacity-40" />
+        <img src="/images/boston-dusk.jpg" alt="" className="fixed inset-0 w-full h-full object-cover z-0 opacity-40" />
         <p className="relative z-10 text-white/60 animate-pulse">Loading dashboard...</p>
       </main>
     );
@@ -61,7 +61,7 @@ export default function DashboardPage() {
     <main className="relative min-h-screen bg-black overflow-hidden">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="https://images.aiscribbles.com/34fe5695dbc942628e3cad9744e8ae13.png?v=60d084"
+        src="/images/boston-dusk.jpg"
         alt=""
         className="fixed inset-0 w-full h-full object-cover z-0 opacity-40"
       />

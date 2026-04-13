@@ -247,7 +247,7 @@ export default function ResultsPage() {
       <div className="relative min-h-screen bg-black flex items-center justify-center overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.aiscribbles.com/34fe5695dbc942628e3cad9744e8ae13.png?v=60d084"
+          src="/images/boston-night.jpg"
           alt=""
           className="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
         />
@@ -271,7 +271,7 @@ export default function ResultsPage() {
       {/* Background image */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="https://images.aiscribbles.com/34fe5695dbc942628e3cad9744e8ae13.png?v=60d084"
+        src="/images/boston-night.jpg"
         alt=""
         className="fixed inset-0 w-full h-full object-cover z-0 opacity-40"
       />
