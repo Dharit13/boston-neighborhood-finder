@@ -133,18 +133,27 @@ export interface LifestyleClusters {
 }
 
 export function computeLifestyleClusters(neighborhoods: Neighborhood[]): LifestyleClusters {
+  const TOP_N = 10;
   return {
-    nightlife: neighborhoods
-      .filter((n) => n.lifestyleProfile.nightlifeVsQuiet <= 2)
+    // Sort by lowest nightlifeVsQuiet (1 = most nightlife)
+    nightlife: [...neighborhoods]
+      .sort((a, b) => a.lifestyleProfile.nightlifeVsQuiet - b.lifestyleProfile.nightlifeVsQuiet)
+      .slice(0, TOP_N)
       .map((n) => n.name),
-    family: neighborhoods
-      .filter((n) => n.lifestyleProfile.trendyVsFamily >= 4)
+    // Sort by highest trendyVsFamily (5 = most family)
+    family: [...neighborhoods]
+      .sort((a, b) => b.lifestyleProfile.trendyVsFamily - a.lifestyleProfile.trendyVsFamily)
+      .slice(0, TOP_N)
       .map((n) => n.name),
-    urban: neighborhoods
-      .filter((n) => n.lifestyleProfile.urbanVsSuburban <= 2)
+    // Sort by lowest urbanVsSuburban (1 = most urban)
+    urban: [...neighborhoods]
+      .sort((a, b) => a.lifestyleProfile.urbanVsSuburban - b.lifestyleProfile.urbanVsSuburban)
+      .slice(0, TOP_N)
       .map((n) => n.name),
-    quiet: neighborhoods
-      .filter((n) => n.lifestyleProfile.urbanVsSuburban >= 4)
+    // Sort by highest urbanVsSuburban (5 = most suburban/quiet)
+    quiet: [...neighborhoods]
+      .sort((a, b) => b.lifestyleProfile.urbanVsSuburban - a.lifestyleProfile.urbanVsSuburban)
+      .slice(0, TOP_N)
       .map((n) => n.name),
   };
 }
