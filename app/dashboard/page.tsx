@@ -99,13 +99,11 @@ export default function DashboardPage() {
           </div>
           <div className="rounded-xl border border-blue-500/40 bg-blue-950/60 backdrop-blur-xl p-4 text-center">
             <p className="text-[11px] uppercase tracking-wider text-blue-300">Best Transit</p>
-            <p className="text-xl font-bold text-white mt-1">Score: {data.heroStats.bestTransit.transitScore}</p>
-            <p className="text-sm text-white/70 mt-0.5">{data.heroStats.bestTransit.name}</p>
+            <p className="text-xl font-bold text-white mt-1">{data.heroStats.bestTransit.name}</p>
           </div>
           <div className="rounded-xl border border-purple-500/40 bg-purple-950/60 backdrop-blur-xl p-4 text-center">
             <p className="text-[11px] uppercase tracking-wider text-purple-300">Best Value</p>
-            <p className="text-xl font-bold text-white mt-1">Score: {data.heroStats.bestValue.valueScore}</p>
-            <p className="text-sm text-white/70 mt-0.5">{data.heroStats.bestValue.name}</p>
+            <p className="text-xl font-bold text-white mt-1">{data.heroStats.bestValue.name}</p>
           </div>
         </div>
 
