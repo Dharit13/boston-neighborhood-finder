@@ -68,7 +68,7 @@ USER PROFILE:
 TOP 3 RECOMMENDATIONS:
 ${recSummaries}
 
-Write ONLY the 3-4 sentence overview. No headers, bullets, preamble, or markdown formatting (no **bold**, no *italics*). Use plain text only. Start directly with the insight.`;
+Write a one-line intro sentence, then exactly one "- " bullet per neighborhood (3 bullets total) explaining why it was picked and what makes it unique for this user. Keep each bullet to 1-2 sentences. No headers, preamble, or markdown formatting (no **bold**, no *italics*). Plain text only.`;
 
   const client = new Anthropic({ apiKey });
 

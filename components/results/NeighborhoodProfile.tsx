@@ -261,7 +261,18 @@ export default function NeighborhoodProfile({
               You&apos;ve used all 20 of your hourly AI requests. {formatResetAt(error.resetAt)}
             </div>
           ) : (
-            <p className="text-sm text-white leading-relaxed">{aiSummary}</p>
+            <ul className="space-y-2">
+              {(aiSummary ?? "")
+                .split(/\n/)
+                .map((line: string) => line.replace(/^-\s*/, "").trim())
+                .filter((line: string) => line.length > 0)
+                .map((point: string, i: number) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-white leading-relaxed">
+                    <span className="text-purple-300 mt-0.5 flex-shrink-0">▸</span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+            </ul>
           )}
         </div>
       )}
@@ -295,7 +306,7 @@ export default function NeighborhoodProfile({
             </div>
           </div>
           <p className="text-[11px] text-white/70 leading-snug">
-            Actual rents may be up to 10% higher in some listings. Utilities (electric, gas, internet) are typically not included.
+            Actual rents may be up to 10% higher than the ranges shown. Utilities (electric, gas, internet) are typically not included.
           </p>
           <div className="p-2.5 rounded-lg bg-white/10 border border-white/15 text-sm">
             <span className="text-white">

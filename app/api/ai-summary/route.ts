@@ -47,7 +47,7 @@ NEIGHBORHOOD: ${neighborhood.name}
 - Community score: ${neighborhood.communityScore}/100
 ${neighborhood.commuteMinutes ? `- Commute: ${neighborhood.commuteMinutes} min via ${neighborhood.commuteRoute}` : "- Commute: Remote worker"}
 
-Write ONLY the 2-3 sentence personalized summary. No headers, bullets, preamble, or markdown formatting (no **bold**, no *italics*). Use plain text only.`;
+Write exactly 3-4 short bullet points (one line each). Start each bullet with "- ". Cover: budget fit, commute/transit, lifestyle match, and one honest pro or con. No headers, preamble, or markdown formatting (no **bold**, no *italics*). Plain text bullets only.`;
 
   const client = new Anthropic({ apiKey });
 

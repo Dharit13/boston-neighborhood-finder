@@ -91,11 +91,36 @@ export default function RecommendationOverview({
             <div className="px-4 py-2 bg-amber-500/30 border border-amber-500 text-amber-200 text-xs rounded-lg">
               You&apos;ve used all 20 of your hourly AI requests. {formatResetAt(error.resetAt)}
             </div>
-          ) : (
-            <p className="text-sm text-white leading-relaxed">
-              {overview?.replace(/\*\*/g, "")}
-            </p>
-          )}
+          ) : (() => {
+            const lines = (overview ?? "")
+              .replace(/\*\*/g, "")
+              .split(/\n/)
+              .map((l) => l.trim())
+              .filter((l) => l.length > 0);
+            const intro = lines.filter((l) => !l.startsWith("- "));
+            const bullets = lines
+              .filter((l) => l.startsWith("- "))
+              .map((l) => l.replace(/^-\s*/, ""));
+            return (
+              <div className="space-y-3">
+                {intro.length > 0 && (
+                  <p className="text-sm text-white leading-relaxed">
+                    {intro.join(" ")}
+                  </p>
+                )}
+                {bullets.length > 0 && (
+                  <ul className="space-y-2">
+                    {bullets.map((point, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-white leading-relaxed">
+                        <span className="text-blue-300 mt-0.5 flex-shrink-0">▸</span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            );
+          })()}
         </div>
       </div>
     </div>
