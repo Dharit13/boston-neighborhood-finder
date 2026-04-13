@@ -1,0 +1,71 @@
+<h2>Dashboard Layout Approach</h2>
+<p class="subtitle">How should the sections be organized on the page?</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Category Cards — Vertical Scroll</h3>
+      <p>Each insight category (Rent, Value, Transit, Safety, Lifestyle) gets its own full-width card stacked vertically. Each card has a title, a "hero stat" (e.g., "Most Expensive: Back Bay — $3,400/mo"), and a ranked top-5 list below it.</p>
+      <div style="margin-top: 12px; padding: 16px; background: rgba(255,255,255,0.05); border-radius: 8px; font-family: monospace; font-size: 12px; line-height: 1.8;">
+        ┌─────────────────────────────────┐<br>
+        │ 🏠 Rent Leaderboard             │<br>
+        │ Most Expensive: Back Bay $3,400 │<br>
+        │ 1. Back Bay  2. Seaport  3. ... │<br>
+        ├─────────────────────────────────┤<br>
+        │ 💰 Best Value for Money          │<br>
+        │ Top Value: Malden — 82/100      │<br>
+        │ 1. Malden  2. Quincy  3. ...    │<br>
+        ├─────────────────────────────────┤<br>
+        │ 🚇 Commute-Friendly             │<br>
+        │ ...                             │<br>
+        └─────────────────────────────────┘
+      </div>
+      <p style="margin-top: 8px; color: #8b9dc3; font-size: 13px;"><strong>Pros:</strong> Simple, scannable, mobile-friendly. Each section stands alone.<br><strong>Cons:</strong> Can feel long/repetitive with 5-6 cards of similar layout.</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Magazine Layout — Mixed Grid</h3>
+      <p>A hero section at top with 3-4 "headline stats" (most expensive, safest, best transit), then a 2-column grid of insight sections below. Each section uses the best format for its data — bar rankings for rent, a tier list for safety, badges for transit lines.</p>
+      <div style="margin-top: 12px; padding: 16px; background: rgba(255,255,255,0.05); border-radius: 8px; font-family: monospace; font-size: 12px; line-height: 1.8;">
+        ┌──────────┬──────────┬──────────┐<br>
+        │ $3,400/mo│ 92 Safe  │ 🚇 5 lines│<br>
+        │ Back Bay │ Brookline│ Downtown │<br>
+        ├──────────┴────┬─────┴──────────┤<br>
+        │ 💰 Value      │ 🚇 Transit     │<br>
+        │ ranked list   │ line badges    │<br>
+        ├───────────────┼────────────────┤<br>
+        │ 🛡️ Safety     │ 🎭 Lifestyle   │<br>
+        │ tier groups   │ cluster tags   │<br>
+        └───────────────┴────────────────┘
+      </div>
+      <p style="margin-top: 8px; color: #8b9dc3; font-size: 13px;"><strong>Pros:</strong> Visually interesting, dense but not repetitive. Hero stats give instant takeaways.<br><strong>Cons:</strong> More complex layout, 2-col grid collapses on mobile.</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Hybrid — Hero Stats + Vertical Cards</h3>
+      <p>Best of both: a compact hero row of 4 "headline stats" at the top, then full-width category cards below (like option A) but with varied internal layouts per card type. Hero gives the quick hits, cards give the depth.</p>
+      <div style="margin-top: 12px; padding: 16px; background: rgba(255,255,255,0.05); border-radius: 8px; font-family: monospace; font-size: 12px; line-height: 1.8;">
+        ┌────────┬────────┬────────┬────────┐<br>
+        │Priciest│ Safest │Best 🚇 │BestVal │<br>
+        │BackBay │Brookln │Downtwn │Malden  │<br>
+        ├────────┴────────┴────────┴────────┤<br>
+        │ 🏠 Rent Leaderboard (bar chart)   │<br>
+        ├───────────────────────────────────┤<br>
+        │ 💰 Value for Money (ranked list)  │<br>
+        ├───────────────────────────────────┤<br>
+        │ 🚇 Transit (line badges + ranks)  │<br>
+        └───────────────────────────────────┘
+      </div>
+      <p style="margin-top: 8px; color: #8b9dc3; font-size: 13px;"><strong>Pros:</strong> Quick summary up top, deep dive below. Mobile-friendly. Each card can have its own visual treatment.<br><strong>Cons:</strong> Slightly more work than pure A, but not much.</p>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top: 24px;">My recommendation: <strong>C (Hybrid)</strong> — gives instant takeaways in the hero row while keeping each category readable as a full-width card. Works well on mobile too.</p>

@@ -6,7 +6,7 @@ import StepAboutYou from "./StepAboutYou";
 import StepHousing from "./StepHousing";
 import StepCommute from "./StepCommute";
 import StepPreferences from "./StepPreferences";
-import { SidePixelTrail } from "@/components/ui/SidePixelTrail";
+
 import { isMonthlyIncomeValid, isMaxRentValid } from "@/lib/validation";
 import type { UserInput, OfficeDays, SliderValues, BudgetPriority } from "@/lib/types";
 
@@ -115,8 +115,6 @@ export default function WizardContainer() {
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-70"
       />
 
-      {/* Cursor pixel trail — side strips only, never behind the card */}
-      <SidePixelTrail centerWidthRem={36} />
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-xl mx-auto px-4 py-4">

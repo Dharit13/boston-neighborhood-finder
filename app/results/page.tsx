@@ -34,7 +34,7 @@ import NeighborhoodProfile from "@/components/results/NeighborhoodProfile";
 import NewsPanel from "@/components/results/NewsPanel";
 import ChatPanel from "@/components/results/ChatPanel";
 import CompareView from "@/components/results/CompareView";
-import { SidePixelTrail } from "@/components/ui/SidePixelTrail";
+
 import dynamic from "next/dynamic";
 
 const NeighborhoodMap = dynamic(
@@ -251,7 +251,7 @@ export default function ResultsPage() {
           alt=""
           className="absolute inset-0 w-full h-full object-cover z-0 opacity-70"
         />
-        <SidePixelTrail centerWidthRem={72} />
+
         <div className="relative z-10 text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto" />
           <p className="mt-4 text-white">
@@ -276,8 +276,6 @@ export default function ResultsPage() {
         className="fixed inset-0 w-full h-full object-cover z-0 opacity-70"
       />
 
-      {/* Cursor pixel trail — fixed side strips, never behind the content */}
-      <SidePixelTrail centerWidthRem={72} fixed />
 
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto">
