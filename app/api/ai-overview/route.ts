@@ -25,6 +25,15 @@ export async function POST(request: NextRequest) {
 
   const { recommendations, userPrefs } = await request.json();
 
+  // Input validation
+  if (
+    !Array.isArray(recommendations) || recommendations.length === 0 ||
+    !userPrefs || typeof userPrefs !== "object" ||
+    typeof userPrefs.ageGroup !== "string" || userPrefs.ageGroup.trim().length === 0
+  ) {
+    return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+  }
+
   interface RecSummary {
     name: string;
     label: string;

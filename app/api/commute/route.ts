@@ -50,6 +50,15 @@ export async function POST(request: NextRequest) {
 
   const { originLat, originLng, destination } = await request.json();
 
+  // Input validation
+  if (
+    typeof originLat !== "number" || originLat < -90 || originLat > 90 ||
+    typeof originLng !== "number" || originLng < -180 || originLng > 180 ||
+    typeof destination !== "string" || destination.trim().length === 0 || destination.length > 500
+  ) {
+    return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+  }
+
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;
   if (!apiKey) {
     return NextResponse.json(

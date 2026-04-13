@@ -25,6 +25,16 @@ export async function POST(request: NextRequest) {
 
   const { neighborhood, userPrefs } = await request.json();
 
+  // Input validation
+  if (
+    !neighborhood || typeof neighborhood !== "object" ||
+    typeof neighborhood.name !== "string" || neighborhood.name.trim().length === 0 ||
+    !userPrefs || typeof userPrefs !== "object" ||
+    typeof userPrefs.ageGroup !== "string" || userPrefs.ageGroup.trim().length === 0
+  ) {
+    return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+  }
+
   const prompt = `You are a friendly Boston local helping someone find the right neighborhood. Based on their preferences and a specific neighborhood's data, write a personalized 2-3 sentence summary of why this neighborhood does or doesn't fit them. Be honest — if it's a weak match, say so constructively. Use a conversational tone.
 
 USER PREFERENCES:
