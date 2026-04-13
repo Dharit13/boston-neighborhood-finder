@@ -71,8 +71,8 @@ export default function NewsPanel() {
       )}
 
       {status === "ok" && (
-        <ul className="space-y-1">
-          {items.map((item) => (
+        <ul className="space-y-1 max-h-72 overflow-y-auto pr-1">
+          {items.slice(0, 5).map((item) => (
             <li
               key={item.url}
               className="p-3 rounded-lg hover:bg-white/5 transition-colors"
