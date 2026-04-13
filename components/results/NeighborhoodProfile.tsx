@@ -61,7 +61,7 @@ const APT_SLUGS: Record<string, string> = {
   "cambridge-inman": "inman-square-cambridge-ma",
   "somerville-davis": "davis-square-somerville-ma",
   "somerville-union": "union-square-somerville-ma",
-  "somerville-assembly": "assembly-row-somerville-ma",
+  "somerville-assembly": "assembly-square-somerville-ma",
   "somerville-east": "east-somerville-somerville-ma",
   "brookline": "brookline-ma",
   "everett": "everett-ma",
@@ -78,6 +78,18 @@ const APT_SLUGS: Record<string, string> = {
   "west-end": "west-end-boston-boston-ma",
   "downtown-crossing": "downtown-boston-boston-ma",
   "chinatown-leather-district": "chinatown-boston-ma",
+};
+
+// Zillow doesn't recognize some neighborhoods by name — use zip or
+// corrected slug instead. Verified via web search.
+const ZILLOW_OVERRIDES: Record<string, string> = {
+  "seaport": "https://www.zillow.com/boston-ma-02210/rentals/",
+  "financial-district": "https://www.zillow.com/boston-ma-02110/rentals/",
+  "cambridge-kendall": "https://www.zillow.com/cambridge-ma-02142/rentals/",
+  "cambridge-central": "https://www.zillow.com/cambridge-ma-02139/rentals/",
+  "cambridge-porter": "https://www.zillow.com/homes/for_rent/Porter-Square-Somerville-MA_rb/",
+  "cambridge-inman": "https://www.zillow.com/homes/for_rent/Inman-Square-Somerville-MA_rb/",
+  "somerville-assembly": "https://www.zillow.com/homes/for_rent/Assembly-Square-Somerville-MA_rb/",
 };
 
 function getRentalUrls(id: string, name: string, region: string): { zillow: string; apartments: string } {
@@ -102,14 +114,17 @@ function getRentalUrls(id: string, name: string, region: string): { zillow: stri
 
   const slug = (s: string) => s.replace(/\s+/g, "-");
 
-  const zillowPath = searchHood
-    ? `${slug(searchHood)}-${slug(city)}-MA_rb`
-    : `${slug(city)}-MA_rb`;
+  const zillowUrl = ZILLOW_OVERRIDES[id] ?? (() => {
+    const zillowPath = searchHood
+      ? `${slug(searchHood)}-${slug(city)}-MA_rb`
+      : `${slug(city)}-MA_rb`;
+    return `https://www.zillow.com/homes/for_rent/${zillowPath}/`;
+  })();
 
   const aptSlug = APT_SLUGS[id] ?? `${slug(name).toLowerCase()}-ma`;
 
   return {
-    zillow: `https://www.zillow.com/homes/for_rent/${zillowPath}/`,
+    zillow: zillowUrl,
     apartments: `https://www.apartments.com/${aptSlug}/`,
   };
 }

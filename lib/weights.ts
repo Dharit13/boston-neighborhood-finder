@@ -46,7 +46,7 @@ export function deriveWeights(
   if (budgetPriority === "spend") {
     // Boost budget weight by 20% so the "reward expensive" scoring
     // curve actually moves premium neighborhoods to the top
-    const budgetBoost = practicalWeight * 0.1;
+    const budgetBoost = practicalWeight * 0.25;
     budgetRaw += budgetBoost;
   } else if (budgetPriority === "save") {
     // Boost budget weight by 30%, taking from lifestyle

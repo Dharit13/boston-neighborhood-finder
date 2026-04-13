@@ -14,8 +14,8 @@ import type {
  * - "save": Cheaper = better. Rent at 50% of budget → 100, at budget → 60, over → drops to 0.
  *   This creates a gradient that rewards saving money.
  * - "balanced": Under budget → 100, over budget → drops linearly to 0.
- * - "spend": Under budget → 100 (don't care about cost as long as it fits).
- *   Budget weight is also slashed in the weight derivation.
+ * - "spend": Expensive = better. Rent at 0% of budget → 10, at budget → 100.
+ *   Budget weight is also boosted in the weight derivation.
  */
 export function scoreBudget(
   medianRent: number,
@@ -42,11 +42,11 @@ export function scoreBudget(
     // User wants premium — strongly reward neighborhoods that use the
     // full stretch budget. Cheap areas should score poorly so that
     // upscale neighborhoods actually rise to the top.
-    // 0% of budget → 30, 50% → 55, 75% → 75, 100% → 100
-    if (effectiveRent <= 0) return 30;
+    // 0% of budget → 10, 50% → 55, 75% → 77, 100% → 100
+    if (effectiveRent <= 0) return 10;
     if (effectiveRent <= budget) {
       const ratio = effectiveRent / budget;
-      return Math.round(30 + ratio * 70);
+      return Math.round(10 + ratio * 90);
     }
     // Still penalize over-budget, but gently
     const overRatio = (effectiveRent - budget) / budget;
