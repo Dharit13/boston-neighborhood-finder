@@ -18,16 +18,16 @@ interface Props {
 
 const COLOR_MAP: Record<string, { border: string; badge: string }> = {
   green: {
-    border: "border-emerald-500/30 hover:border-emerald-500/60",
-    badge: "bg-emerald-500/20 text-white",
+    border: "border-emerald-500 hover:border-emerald-400",
+    badge: "bg-emerald-600 text-white",
   },
   blue: {
-    border: "border-blue-500/30 hover:border-blue-500/60",
-    badge: "bg-blue-500/20 text-white",
+    border: "border-blue-500 hover:border-blue-400",
+    badge: "bg-blue-600 text-white",
   },
   orange: {
-    border: "border-amber-500/30 hover:border-amber-500/60",
-    badge: "bg-amber-500/20 text-white",
+    border: "border-amber-500 hover:border-amber-400",
+    badge: "bg-amber-600 text-white",
   },
 };
 

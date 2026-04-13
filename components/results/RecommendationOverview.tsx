@@ -83,12 +83,12 @@ export default function RecommendationOverview({
               Analyzing your top picks...
             </p>
           ) : error?.kind === "unauthorized" ? (
-            <div className="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-200 text-xs rounded-lg">
+            <div className="px-4 py-2 bg-red-500/30 border border-red-500 text-red-200 text-xs rounded-lg">
               Your session expired.{" "}
               <button onClick={reauth} className="underline">Sign in again</button>
             </div>
           ) : error?.kind === "rateLimited" ? (
-            <div className="px-4 py-2 bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs rounded-lg">
+            <div className="px-4 py-2 bg-amber-500/30 border border-amber-500 text-amber-200 text-xs rounded-lg">
               You&apos;ve used all 20 of your hourly AI requests. {formatResetAt(error.resetAt)}
             </div>
           ) : (

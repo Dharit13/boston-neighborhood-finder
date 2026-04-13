@@ -234,7 +234,7 @@ export default function NeighborhoodProfile({
       </div>
 
       {/* Match Score */}
-      <div className="mb-6 p-4 rounded-lg border border-blue-500/30 bg-blue-500/10">
+      <div className="mb-6 p-4 rounded-lg border border-blue-500 bg-blue-500/30">
         <div className="text-3xl font-bold text-white">
           {Math.round(scored.matchScore)}% Match
         </div>
@@ -242,7 +242,7 @@ export default function NeighborhoodProfile({
 
       {/* AI Summary */}
       {(aiLoading || aiSummary || error) && (
-        <div className="mb-6 p-4 rounded-lg border border-purple-500/30 bg-purple-500/10">
+        <div className="mb-6 p-4 rounded-lg border border-purple-500 bg-purple-500/30">
           <h3 className="text-sm font-semibold text-white mb-1">
             Why this neighborhood for you
           </h3>
@@ -251,12 +251,12 @@ export default function NeighborhoodProfile({
               Generating personalized summary...
             </p>
           ) : error?.kind === "unauthorized" ? (
-            <div className="px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-200 text-xs rounded-lg">
+            <div className="px-4 py-2 bg-red-500/30 border border-red-500 text-red-200 text-xs rounded-lg">
               Your session expired.{" "}
               <button onClick={reauth} className="underline">Sign in again</button>
             </div>
           ) : error?.kind === "rateLimited" ? (
-            <div className="px-4 py-2 bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs rounded-lg">
+            <div className="px-4 py-2 bg-amber-500/30 border border-amber-500 text-amber-200 text-xs rounded-lg">
               You&apos;ve used all 20 of your hourly AI requests. {formatResetAt(error.resetAt)}
             </div>
           ) : (
@@ -374,7 +374,7 @@ export default function NeighborhoodProfile({
                 href={getRentalUrls(n.id, n.name, n.region).zillow}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 text-center px-3 py-2 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-300 text-sm font-medium hover:bg-blue-600/30 transition-colors"
+                className="flex-1 text-center px-3 py-2 rounded-lg bg-blue-600 border border-blue-500 text-white text-sm font-medium hover:bg-blue-700 transition-colors"
               >
                 Zillow
               </a>
@@ -382,7 +382,7 @@ export default function NeighborhoodProfile({
                 href={getRentalUrls(n.id, n.name, n.region).apartments}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 text-center px-3 py-2 rounded-lg bg-green-600/20 border border-green-500/30 text-green-300 text-sm font-medium hover:bg-green-600/30 transition-colors"
+                className="flex-1 text-center px-3 py-2 rounded-lg bg-green-600 border border-green-500 text-white text-sm font-medium hover:bg-green-700 transition-colors"
               >
                 Apartments.com
               </a>

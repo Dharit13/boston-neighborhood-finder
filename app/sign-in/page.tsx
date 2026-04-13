@@ -53,7 +53,7 @@ export default async function SignInPage({
             </div>
 
             {errorMessage && (
-              <div className="mb-4 px-4 py-2 rounded-lg bg-red-500/10 border border-red-500/30 text-red-200 text-xs text-center">
+              <div className="mb-4 px-4 py-2 rounded-lg bg-red-500/30 border border-red-500 text-red-200 text-xs text-center">
                 {errorMessage}
               </div>
             )}

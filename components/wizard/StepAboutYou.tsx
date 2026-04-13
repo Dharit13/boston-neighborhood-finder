@@ -66,7 +66,7 @@ export default function StepAboutYou({ input, onChange }: Props) {
             aria-invalid={incomeError !== null}
             className={`w-full pl-8 pr-4 py-3 rounded-lg bg-white/5 border text-white placeholder:text-white/50 focus:outline-none focus:ring-1 transition-all ${
               incomeError
-                ? "border-red-400/60 focus:border-red-400 focus:ring-red-400/30"
+                ? "border-red-400 focus:border-red-400 focus:ring-red-400/50"
                 : "border-white/15 focus:border-white/40 focus:ring-white/20"
             }`}
           />

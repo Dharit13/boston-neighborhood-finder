@@ -18,8 +18,8 @@ const VIBE_OPTIONS: {
     description:
       "Walkable urban core with restaurants, bars, and energy on your doorstep",
     emoji: "\ud83c\udf03",
-    color: "border-amber-500/30 bg-amber-500/5",
-    selectedColor: "border-amber-400 bg-amber-500/20 shadow-amber-500/10",
+    color: "border-amber-500/60 bg-amber-500/15",
+    selectedColor: "border-amber-400 bg-amber-500/40 shadow-amber-500/20",
     sliders: {
       nightlifeVsQuiet: 1,
       urbanVsSuburban: 1,
@@ -37,8 +37,8 @@ const VIBE_OPTIONS: {
     description:
       "Good mix of going out and getting work done, close to transit",
     emoji: "\ud83d\udcbc",
-    color: "border-blue-500/30 bg-blue-500/5",
-    selectedColor: "border-blue-400 bg-blue-500/20 shadow-blue-500/10",
+    color: "border-blue-500/60 bg-blue-500/15",
+    selectedColor: "border-blue-400 bg-blue-500/40 shadow-blue-500/20",
     sliders: {
       nightlifeVsQuiet: 2,
       urbanVsSuburban: 2,
@@ -52,8 +52,8 @@ const VIBE_OPTIONS: {
     description:
       "Calm residential streets, coffee shops over clubs, a slower pace",
     emoji: "\ud83c\udfe1",
-    color: "border-emerald-500/30 bg-emerald-500/5",
-    selectedColor: "border-emerald-400 bg-emerald-500/20 shadow-emerald-500/10",
+    color: "border-emerald-500/60 bg-emerald-500/15",
+    selectedColor: "border-emerald-400 bg-emerald-500/40 shadow-emerald-500/20",
     sliders: {
       nightlifeVsQuiet: 4,
       urbanVsSuburban: 4,
@@ -67,8 +67,8 @@ const VIBE_OPTIONS: {
     description:
       "Maximum nightlife, events, and community \u2014 always something happening",
     emoji: "\ud83c\udf89",
-    color: "border-rose-500/30 bg-rose-500/5",
-    selectedColor: "border-rose-400 bg-rose-500/20 shadow-rose-500/10",
+    color: "border-rose-500/60 bg-rose-500/15",
+    selectedColor: "border-rose-400 bg-rose-500/40 shadow-rose-500/20",
     sliders: {
       nightlifeVsQuiet: 1,
       urbanVsSuburban: 1,
@@ -81,8 +81,8 @@ const VIBE_OPTIONS: {
     label: "Commute First",
     description: "Prioritize a short, easy commute above all else",
     emoji: "\ud83d\ude87",
-    color: "border-cyan-500/30 bg-cyan-500/5",
-    selectedColor: "border-cyan-400 bg-cyan-500/20 shadow-cyan-500/10",
+    color: "border-cyan-500/60 bg-cyan-500/15",
+    selectedColor: "border-cyan-400 bg-cyan-500/40 shadow-cyan-500/20",
     sliders: {
       nightlifeVsQuiet: 3,
       urbanVsSuburban: 3,
@@ -96,8 +96,8 @@ const VIBE_OPTIONS: {
     description:
       "Safe, quiet neighborhoods with parks, schools, and strong community",
     emoji: "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67",
-    color: "border-yellow-500/30 bg-yellow-500/5",
-    selectedColor: "border-yellow-400 bg-yellow-500/20 shadow-yellow-500/10",
+    color: "border-yellow-500/60 bg-yellow-500/15",
+    selectedColor: "border-yellow-400 bg-yellow-500/40 shadow-yellow-500/20",
     sliders: {
       nightlifeVsQuiet: 5,
       urbanVsSuburban: 4,

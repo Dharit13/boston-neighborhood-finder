@@ -26,9 +26,9 @@ export default function BudgetDisplay({
   const activeTiers = getActiveTiers(monthlyIncome, maxRent);
 
   const colorClasses: Record<string, string> = {
-    emerald: "border-emerald-500/30 bg-emerald-500/10 text-emerald-300",
-    blue: "border-blue-500/30 bg-blue-500/10 text-blue-300",
-    amber: "border-amber-500/30 bg-amber-500/10 text-amber-300",
+    emerald: "border-emerald-500 bg-emerald-500/30 text-emerald-300",
+    blue: "border-blue-500 bg-blue-500/30 text-blue-300",
+    amber: "border-amber-500 bg-amber-500/30 text-amber-300",
   };
 
   const isRoommateSplit =
