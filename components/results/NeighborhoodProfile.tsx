@@ -33,7 +33,54 @@ const MBTA_LABELS: Record<MbtaLine, string> = {
   ferry: "Ferry",
 };
 
-function getRentalUrls(name: string, region: string): { zillow: string; apartments: string } {
+const APT_SLUGS: Record<string, string> = {
+  "back-bay": "back-bay-boston-ma",
+  "beacon-hill": "beacon-hill-boston-ma",
+  "south-end": "south-end-boston-boston-ma",
+  "south-boston": "south-boston-ma",
+  "seaport": "seaport-boston-ma",
+  "east-boston": "east-boston-ma",
+  "north-end": "north-end-boston-boston-ma",
+  "charlestown": "charlestown-ma",
+  "allston": "allston-ma",
+  "brighton": "brighton-ma",
+  "fenway-kenmore": "fenway-boston-ma",
+  "mission-hill": "mission-hill-ma",
+  "jamaica-plain": "jamaica-plain-ma",
+  "roxbury": "roxbury-ma",
+  "dorchester-north": "dorchester-ma",
+  "dorchester-south": "dorchester-ma",
+  "roslindale": "roslindale-ma",
+  "hyde-park": "hyde-park-ma",
+  "mattapan": "mattapan-ma",
+  "west-roxbury": "west-roxbury-ma",
+  "cambridge-harvard": "harvard-square-cambridge-ma",
+  "cambridge-kendall": "kendall-square-cambridge-ma",
+  "cambridge-central": "central-square-cambridge-ma",
+  "cambridge-porter": "porter-square-cambridge-ma",
+  "cambridge-inman": "inman-square-cambridge-ma",
+  "somerville-davis": "davis-square-somerville-ma",
+  "somerville-union": "union-square-somerville-ma",
+  "somerville-assembly": "assembly-row-somerville-ma",
+  "somerville-east": "east-somerville-somerville-ma",
+  "brookline": "brookline-ma",
+  "everett": "everett-ma",
+  "malden": "malden-ma",
+  "medford": "medford-ma",
+  "chelsea": "chelsea-ma",
+  "revere": "revere-ma",
+  "quincy": "quincy-ma",
+  "milton": "milton-ma",
+  "watertown": "watertown-ma",
+  "waltham": "waltham-ma",
+  "newton": "newton-ma",
+  "financial-district": "financial-district-boston-ma",
+  "west-end": "west-end-boston-boston-ma",
+  "downtown-crossing": "downtown-boston-boston-ma",
+  "chinatown-leather-district": "chinatown-boston-ma",
+};
+
+function getRentalUrls(id: string, name: string, region: string): { zillow: string; apartments: string } {
   let city: string;
   let hood: string;
 
@@ -59,16 +106,11 @@ function getRentalUrls(name: string, region: string): { zillow: string; apartmen
     ? `${slug(searchHood)}-${slug(city)}-MA_rb`
     : `${slug(city)}-MA_rb`;
 
-  const hoodHasCity = searchHood.toLowerCase().includes(city.toLowerCase());
-  const aptPath = searchHood
-    ? hoodHasCity
-      ? `${slug(searchHood).toLowerCase()}-ma`
-      : `${slug(searchHood).toLowerCase()}-${slug(city).toLowerCase()}-ma`
-    : `${slug(city).toLowerCase()}-ma`;
+  const aptSlug = APT_SLUGS[id] ?? `${slug(name).toLowerCase()}-ma`;
 
   return {
     zillow: `https://www.zillow.com/homes/for_rent/${zillowPath}/`,
-    apartments: `https://www.apartments.com/${aptPath}/`,
+    apartments: `https://www.apartments.com/${aptSlug}/`,
   };
 }
 
@@ -329,7 +371,7 @@ export default function NeighborhoodProfile({
             </div>
             <div className="mt-3 flex gap-2">
               <a
-                href={getRentalUrls(n.name, n.region).zillow}
+                href={getRentalUrls(n.id, n.name, n.region).zillow}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 text-center px-3 py-2 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-300 text-sm font-medium hover:bg-blue-600/30 transition-colors"
@@ -337,7 +379,7 @@ export default function NeighborhoodProfile({
                 Zillow
               </a>
               <a
-                href={getRentalUrls(n.name, n.region).apartments}
+                href={getRentalUrls(n.id, n.name, n.region).apartments}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 text-center px-3 py-2 rounded-lg bg-green-600/20 border border-green-500/30 text-green-300 text-sm font-medium hover:bg-green-600/30 transition-colors"
