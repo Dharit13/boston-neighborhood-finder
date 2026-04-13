@@ -29,6 +29,7 @@ export interface UserInput {
   mbtaPreference: MbtaLine[];
   sliders: SliderValues;
   selectedVibes: string[];
+  vibeStrength?: number; // max lifestyle deviation across selected vibes (0-1)
   avoidCollegeArea: boolean;
   needsParking: boolean;
 }

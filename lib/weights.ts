@@ -3,20 +3,30 @@ import type { SliderValues, ScoringWeights, BudgetPriority } from "./types";
 export function deriveWeights(
   sliders: SliderValues,
   hasOffice: boolean,
-  budgetPriority: BudgetPriority = "balanced"
+  budgetPriority: BudgetPriority = "balanced",
+  lifestyleStrengthOverride?: number
 ): ScoringWeights {
   const SAFETY_BASELINE = 0.15;
   const remaining = 1.0 - SAFETY_BASELINE;
 
   // How strong are the lifestyle/community preferences? (deviation from center)
-  const deviations = [
-    Math.abs(sliders.nightlifeVsQuiet - 3),
-    Math.abs(sliders.urbanVsSuburban - 3),
-    Math.abs(sliders.trendyVsFamily - 3),
-    Math.abs(sliders.communityVsPrivacy - 3),
-  ];
-  const avgDeviation = deviations.reduce((a, b) => a + b, 0) / 4; // 0-2
-  const lifestyleStrength = avgDeviation / 2; // 0-1
+  // When multi-vibe is used, the averaged sliders drift toward center,
+  // understating how opinionated the user is. The caller can pass the
+  // pre-averaged strength so that two "urban" vibes still yield high
+  // lifestyle weight even though the average is closer to 3.
+  let lifestyleStrength: number;
+  if (lifestyleStrengthOverride !== undefined) {
+    lifestyleStrength = lifestyleStrengthOverride;
+  } else {
+    const deviations = [
+      Math.abs(sliders.nightlifeVsQuiet - 3),
+      Math.abs(sliders.urbanVsSuburban - 3),
+      Math.abs(sliders.trendyVsFamily - 3),
+      Math.abs(sliders.communityVsPrivacy - 3),
+    ];
+    const avgDeviation = deviations.reduce((a, b) => a + b, 0) / 4; // 0-2
+    lifestyleStrength = avgDeviation / 2; // 0-1
+  }
 
   // Split remaining between practical (budget+commute) and preference (lifestyle+community)
   const preferenceShare = 0.15 + lifestyleStrength * 0.3; // 0.15 to 0.45

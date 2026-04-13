@@ -82,7 +82,7 @@ export default function ResultsPage() {
 
     async function scoreAll() {
       setLoading(true);
-      const weights = deriveWeights(input!.sliders, input!.officeDays > 2, input!.budgetPriority);
+      const weights = deriveWeights(input!.sliders, input!.officeDays > 2, input!.budgetPriority, input!.vibeStrength);
       const tiers = calculateBudgetTiers(input!.monthlyIncome, input!.maxRent);
 
       let commuteMap = new Map<string, CommuteResult>();

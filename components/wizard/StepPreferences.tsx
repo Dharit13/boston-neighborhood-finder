@@ -132,6 +132,26 @@ function averageSliders(vibes: typeof VIBE_OPTIONS): SliderValues {
   };
 }
 
+// Compute lifestyle strength from the original vibes, not the averaged sliders.
+// For each vibe, measure its average deviation from center (3). Then take the
+// max across all selected vibes so that 2 urban picks don't dilute the signal.
+function computeVibeStrength(vibes: typeof VIBE_OPTIONS): number | undefined {
+  if (vibes.length === 0) return undefined;
+  if (vibes.length === 1) return undefined; // single vibe — let deriveWeights compute from sliders directly
+  let maxStrength = 0;
+  for (const v of vibes) {
+    const devs = [
+      Math.abs(v.sliders.nightlifeVsQuiet - 3),
+      Math.abs(v.sliders.urbanVsSuburban - 3),
+      Math.abs(v.sliders.trendyVsFamily - 3),
+      Math.abs(v.sliders.communityVsPrivacy - 3),
+    ];
+    const avg = devs.reduce((a, b) => a + b, 0) / 4;
+    maxStrength = Math.max(maxStrength, avg / 2);
+  }
+  return maxStrength;
+}
+
 export default function StepPreferences({ input, onChange }: Props) {
   const selected = input.selectedVibes ?? [];
 
@@ -140,7 +160,11 @@ export default function StepPreferences({ input, onChange }: Props) {
       ? selected.filter((l) => l !== label)
       : [...selected, label];
     const matchedVibes = VIBE_OPTIONS.filter((v) => next.includes(v.label));
-    onChange({ selectedVibes: next, sliders: averageSliders(matchedVibes) });
+    onChange({
+      selectedVibes: next,
+      sliders: averageSliders(matchedVibes),
+      vibeStrength: computeVibeStrength(matchedVibes),
+    });
   };
 
   return (
