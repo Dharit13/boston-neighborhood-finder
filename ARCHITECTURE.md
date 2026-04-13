@@ -32,7 +32,7 @@ neighbourhood_finder/
 │   │   ├── StepAboutYou.tsx      # Age, income
 │   │   ├── StepHousing.tsx       # Roommates, living arrangement, max rent
 │   │   ├── StepCommute.tsx       # Office days, office address, MBTA preference
-│   │   └── StepPreferences.tsx   # "Vibe" presets that map to lifestyle sliders
+│   │   └── StepPreferences.tsx   # Multi-select "Vibe" presets → averaged sliders + vibeStrength
 │   │
 │   ├── results/
 │   │   ├── RecommendationOverview.tsx    # Claude "why these three" card
@@ -45,7 +45,7 @@ neighbourhood_finder/
 │   │   └── MbtaAlertsPanel.tsx           # Live MBTA alerts for user's lines
 │   │
 │   └── ui/
-│       ├── BudgetDisplay.tsx
+│       ├── BudgetSelector.tsx          # Merged budget priority + tier display
 │       ├── TradeoffSlider.tsx
 │       ├── pixel-trail.tsx               # Decorative cursor-trail effect
 │       └── gooey-filter.tsx              # SVG filter for animated blobs
@@ -75,14 +75,18 @@ neighbourhood_finder/
 │   ├── zillow-*.csv / *.md       # Zillow rent snapshots + methodology notes
 │   └── 2022/ 2023/ 2024/         # Historical Zillow data
 │
-├── __tests__/                    # Jest unit tests (78 total)
-│   ├── scoring.test.ts
-│   ├── weights.test.ts
-│   ├── budget.test.ts
-│   ├── news.test.ts
-│   ├── mbtaAlerts.test.ts
-│   ├── rateLimit.test.ts
-│   └── chatPrompt.test.ts
+├── __tests__/                    # Jest unit tests (138 total)
+│   ├── scoring.test.ts           # Dimension scorers, TOPSIS, MBTA/age/urban adjustments
+│   ├── weights.test.ts           # Weight derivation under different inputs
+│   ├── budget.test.ts            # Tier math, per-person rent, percentages
+│   ├── news.test.ts              # RSS parser edge cases
+│   ├── mbtaAlerts.test.ts        # Line-to-route mapping, alert normalization
+│   ├── rateLimit.test.ts         # Upstash presence/absence fallback
+│   ├── chatPrompt.test.ts        # Pre-check, guardrails, prompt builder
+│   ├── auth.test.ts              # requireUser auth enforcement
+│   ├── neighborhoods.test.ts     # Neighborhood data integrity (44 records)
+│   ├── validation.test.ts        # API input validation (commute, AI routes)
+│   └── userCount.test.ts         # Public user count function
 │
 ├── docs/
 │   └── superpowers/              # Design specs and implementation plans
@@ -119,12 +123,14 @@ neighbourhood_finder/
 │     (batched, one round-trip per neighborhood)              │
 │                                                             │
 │  4. Score all 44 neighborhoods locally:                     │
-│     - deriveWeights(sliders, officeDays > 2, budgetPriority)│
+│     - deriveWeights(sliders, hasOffice, budgetPriority,     │
+│       vibeStrength)                                         │
 │     - scoreBudget / scoreCommute / scoreSafety              │
 │     - scoreLifestyle / scoreCommunity                       │
+│     - applyMbtaBonus (5-15 bonus or 15% penalty)            │
 │     - computeMatchScoresTopsis(all dimensions + weights)    │
-│     - applyMbtaBonus (+10 if MBTA line matches preference)  │
 │     - applyAgeAdjustment (±5-10% by age group)              │
+│     - applyUrbanAdjustment (±12-15% for extreme prefs)      │
 │     - collegeArea / parking multiplicative penalties        │
 │     - over-budget → match score 0                           │
 │                                                             │
@@ -162,11 +168,12 @@ Every neighborhood is scored on five independent dimensions in [lib/scoring.ts](
 
 ### 2. Weight derivation ([lib/weights.ts](./lib/weights.ts))
 
-`deriveWeights(sliders, hasLongCommute, budgetPriority)` returns normalized weights across the five dimensions. Three knobs shape it:
+`deriveWeights(sliders, hasLongCommute, budgetPriority, vibeStrength?)` returns normalized weights across the five dimensions. Four knobs shape it:
 
-1. **Budget priority** (saver / balanced / spend) — shifts how much of the pie goes to budget vs. everything else
+1. **Budget priority** (save / balanced / spend) — "save" boosts budget weight +15%; "spend" boosts budget weight +25% (since the scoring curve rewards expensive neighborhoods in spend mode)
 2. **Office days** — long-commute users get commute weighted more heavily
 3. **Lifestyle slider strength** — the farther a user's sliders are from center (3), the more weight lifestyle and community get relative to practical dimensions
+4. **vibeStrength override** — when the user selects multiple vibes, averaging sliders dilutes their deviation from center. `vibeStrength` is the *max* deviation across the original vibes, passed to preserve the user's conviction level even after averaging
 
 Safety always gets a fixed ~15% baseline. The remaining 85% is split between "practical" (budget + commute) and "preference" (lifestyle + community) based on the knobs above.
 
@@ -186,8 +193,9 @@ This produces a ranking that respects trade-offs: a neighborhood doesn't have to
 
 Applied in order on [app/results/page.tsx](./app/results/page.tsx):
 
-- `applyMbtaBonus`: +10 if the neighborhood has at least one of the user's preferred MBTA lines
-- `applyAgeAdjustment`: soft nudges for age group (e.g., 21–25 gets a lift for nightlife-heavy neighborhoods, 30–35 gets a lift for family-friendly ones)
+- `applyMbtaBonus`: +5–15 points if the neighborhood serves the user's preferred MBTA lines (proportional to how many match), or a **15% penalty** if none match
+- `applyAgeAdjustment`: soft nudges for age group (e.g., 21–25 gets a lift for nightlife-heavy neighborhoods, 30–35 gets a lift for family-friendly ones). Clamped to ±10%
+- `applyUrbanAdjustment`: ±12–15% nudge when the user has a strong urban or suburban preference (sliders 1–2 or 4–5). Prevents suburban neighborhoods from outranking urban ones for city-oriented users
 - `avoidCollegeArea` + `neighborhood.collegeArea` → multiply by 0.3
 - `needsParking` + `!parkingFriendly` → multiply by 0.3
 - `overBudget` → match score set to 0 (recommendation disqualified)
@@ -196,11 +204,11 @@ Applied in order on [app/results/page.tsx](./app/results/page.tsx):
 
 `calculateBudgetTiers(income, maxRent)` returns:
 
-- **Saver**: `min(income * 0.45, maxRent)` per person
-- **Balanced**: `min(income * 0.60, maxRent)` per person
-- **Stretched**: `maxRent` (the absolute ceiling the user specified)
+- **Save Money**: `min(income * 0.45, maxRent)` — prioritize cheaper areas
+- **Balanced**: `maxRent` — the rent the user said they'd normally pay
+- **Stretch Budget**: `min(maxRent * 1.15, income * 0.70)` — willing to spend more for the right spot (capped at 15% above entered rent or 70% of income, whichever is lower)
 
-The results page picks one recommendation per tier — the top-scoring neighborhood whose per-person rent fits under that tier's cap. The three picks are labeled **Saver**, **Balanced**, and **Stretched**.
+The user picks their budget priority in the wizard (merged into a single `BudgetSelector` component showing the label, dollar amount, and description for each tier). The selection affects both the budget used for scoring and the scoring curve shape (save rewards cheap, balanced is pass/fail, spend rewards expensive).
 
 ## API routes
 
@@ -258,7 +266,7 @@ See [DATA_SOURCES.md](./DATA_SOURCES.md) for the full provenance of each field.
 
 ## Testing
 
-Run `npm test` for the full Jest suite (78 tests). Coverage focuses on pure logic:
+Run `npm test` for the full Jest suite (138 tests). Coverage focuses on pure logic:
 
 - [scoring.test.ts](./__tests__/scoring.test.ts) — dimension scorers, TOPSIS, bonuses
 - [weights.test.ts](./__tests__/weights.test.ts) — weight derivation under different inputs

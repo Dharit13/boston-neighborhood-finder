@@ -6,17 +6,18 @@ It also includes a Claude-powered chat assistant that can answer follow-up quest
 
 ## Features
 
-- **Four-step wizard** — collects income, living arrangement, commute, and lifestyle preferences
+- **Four-step wizard** — collects income, living arrangement, commute, and lifestyle preferences (multi-select vibes with blended scoring)
 - **TOPSIS-based ranking** across five weighted dimensions (budget, commute, safety, lifestyle, community)
-- **Three budget tiers** — Saver (45% of income), Balanced (60%), Stretched (user max); each tier gets its own top pick
+- **Three budget tiers** — Save Money (45% of income), Balanced (your entered rent), Stretch Budget (min of 115% rent or 70% income); each tier gets its own top pick
 - **Real commute times** via Google Maps Directions (transit + walking) when the user provides an office address
 - **AI explanations** — Claude Haiku generates per-neighborhood summaries and a top-3 overview
 - **Neighborhood chat** — multi-turn conversation about any of the 44 neighborhoods, with Fair Housing guardrails and prompt-injection protection
 - **Live Boston news** from Google News RSS and **live MBTA service alerts** for the user's preferred lines
+- **Direct links** to Zillow and Apartments.com listings for each neighborhood
 - **Side-by-side comparison** of up to three neighborhoods
 - **Interactive map** with recommendation pins and an optional office marker
 - **Full sign-in gate** (Google / GitHub OAuth via Supabase)
-- **Per-user rate limiting** on AI routes (20/hr)
+- **Per-user rate limiting** on AI routes (20/hr) with input validation on all API routes
 - **Public user counter** on sign-in page
 
 ## Tech stack
@@ -27,7 +28,7 @@ It also includes a Claude-powered chat assistant that can answer follow-up quest
 - **Rate limiting:** Upstash Redis sliding window (20 req/hr per user for AI routes)
 - **Maps:** Google Maps JavaScript API + Directions API
 - **Data parsing:** fast-xml-parser for RSS
-- **Testing:** Jest + Testing Library (78 tests covering scoring, weights, budget, rate-limit, news, chat prompt, MBTA alerts)
+- **Testing:** Jest + Testing Library (138 tests covering scoring, weights, budget, TOPSIS, auth, input validation, rate-limit, news, chat prompt, MBTA alerts)
 
 ## Getting started
 
@@ -68,7 +69,7 @@ For Google Maps, create two separate keys if you can: one restricted to HTTP ref
 ```bash
 npm run dev      # dev server on http://localhost:3000
 npm run build    # production build
-npm test         # run the Jest suite (78 tests)
+npm test         # run the Jest suite (138 tests)
 npm run lint     # ESLint (currently clean)
 ```
 
