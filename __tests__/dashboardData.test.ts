@@ -1,4 +1,4 @@
-import type { Neighborhood } from "@/lib/types";
+import type { Neighborhood, SafetyTrend } from "@/lib/types";
 import {
   computeMedianRent,
   computeRentLeaderboard,
@@ -6,6 +6,8 @@ import {
   computeBestValue,
   computeCommuteScore,
   computeCommuteFriendly,
+  computeSafetyRankings,
+  computeLifestyleClusters,
 } from "@/lib/dashboardData";
 
 // Minimal neighborhood factory — only fields used by dashboard logic
@@ -122,5 +124,55 @@ describe("computeCommuteFriendly", () => {
     ];
     const result = computeCommuteFriendly(neighborhoods);
     expect(result[0].name).toBe("High");
+  });
+});
+
+describe("computeSafetyRankings", () => {
+  it("returns top 5 safest and top 5 trending safer", () => {
+    const neighborhoods = [
+      makeNeighborhood({ name: "Safe1", safety: 90, safetyTrend: "stable" }),
+      makeNeighborhood({ name: "Safe2", safety: 85, safetyTrend: "improving" }),
+      makeNeighborhood({ name: "Unsafe", safety: 40, safetyTrend: "declining" }),
+      makeNeighborhood({ name: "Improving", safety: 60, safetyTrend: "improving" }),
+    ];
+    const result = computeSafetyRankings(neighborhoods);
+    expect(result.safest[0].name).toBe("Safe1");
+    expect(result.safest[0].safety).toBe(90);
+    expect(result.trendingSafer[0].name).toBe("Safe2");
+    expect(result.trendingSafer).toHaveLength(2);
+  });
+
+  it("caps both lists at 5", () => {
+    const neighborhoods = Array.from({ length: 10 }, (_, i) =>
+      makeNeighborhood({ name: `N${i}`, safety: 50 + i * 5, safetyTrend: "improving" as SafetyTrend })
+    );
+    const result = computeSafetyRankings(neighborhoods);
+    expect(result.safest).toHaveLength(5);
+    expect(result.trendingSafer).toHaveLength(5);
+  });
+});
+
+describe("computeLifestyleClusters", () => {
+  it("assigns neighborhoods to correct clusters based on lifestyle thresholds", () => {
+    const neighborhoods = [
+      makeNeighborhood({ name: "Party", lifestyleProfile: { nightlifeVsQuiet: 1, urbanVsSuburban: 1, trendyVsFamily: 2, communityVsPrivacy: 3 } }),
+      makeNeighborhood({ name: "Family", lifestyleProfile: { nightlifeVsQuiet: 4, urbanVsSuburban: 3, trendyVsFamily: 5, communityVsPrivacy: 3 } }),
+      makeNeighborhood({ name: "Urban", lifestyleProfile: { nightlifeVsQuiet: 3, urbanVsSuburban: 1, trendyVsFamily: 3, communityVsPrivacy: 3 } }),
+      makeNeighborhood({ name: "Suburb", lifestyleProfile: { nightlifeVsQuiet: 3, urbanVsSuburban: 5, trendyVsFamily: 3, communityVsPrivacy: 3 } }),
+    ];
+    const result = computeLifestyleClusters(neighborhoods);
+    expect(result.nightlife).toContain("Party");
+    expect(result.family).toContain("Family");
+    expect(result.urban).toContain("Urban");
+    expect(result.quiet).toContain("Suburb");
+  });
+
+  it("a neighborhood can appear in multiple clusters", () => {
+    const neighborhoods = [
+      makeNeighborhood({ name: "PartyUrban", lifestyleProfile: { nightlifeVsQuiet: 1, urbanVsSuburban: 1, trendyVsFamily: 3, communityVsPrivacy: 3 } }),
+    ];
+    const result = computeLifestyleClusters(neighborhoods);
+    expect(result.nightlife).toContain("PartyUrban");
+    expect(result.urban).toContain("PartyUrban");
   });
 });

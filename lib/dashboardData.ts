@@ -1,4 +1,4 @@
-import type { Neighborhood } from "./types";
+import type { Neighborhood, SafetyTrend } from "./types";
 
 // --- Helpers ---
 
@@ -93,4 +93,62 @@ export function computeCommuteFriendly(neighborhoods: Neighborhood[]): CommuteEn
     }))
     .sort((a, b) => b.commuteScore - a.commuteScore)
     .slice(0, 5);
+}
+
+// --- Safety Rankings ---
+
+interface SafetyEntry {
+  name: string;
+  safety: number;
+  safetyTrend: SafetyTrend;
+}
+
+interface SafetyRankings {
+  safest: SafetyEntry[];
+  trendingSafer: SafetyEntry[];
+}
+
+export function computeSafetyRankings(neighborhoods: Neighborhood[]): SafetyRankings {
+  const entries: SafetyEntry[] = neighborhoods.map((n) => ({
+    name: n.name,
+    safety: n.safety,
+    safetyTrend: n.safetyTrend,
+  }));
+
+  const safest = [...entries]
+    .sort((a, b) => b.safety - a.safety)
+    .slice(0, 5);
+
+  const trendingSafer = entries
+    .filter((e) => e.safetyTrend === "improving")
+    .sort((a, b) => b.safety - a.safety)
+    .slice(0, 5);
+
+  return { safest, trendingSafer };
+}
+
+// --- Lifestyle Clusters ---
+
+interface LifestyleClusters {
+  nightlife: string[];
+  family: string[];
+  urban: string[];
+  quiet: string[];
+}
+
+export function computeLifestyleClusters(neighborhoods: Neighborhood[]): LifestyleClusters {
+  return {
+    nightlife: neighborhoods
+      .filter((n) => n.lifestyleProfile.nightlifeVsQuiet <= 2)
+      .map((n) => n.name),
+    family: neighborhoods
+      .filter((n) => n.lifestyleProfile.trendyVsFamily >= 4)
+      .map((n) => n.name),
+    urban: neighborhoods
+      .filter((n) => n.lifestyleProfile.urbanVsSuburban <= 2)
+      .map((n) => n.name),
+    quiet: neighborhoods
+      .filter((n) => n.lifestyleProfile.urbanVsSuburban >= 4)
+      .map((n) => n.name),
+  };
 }
