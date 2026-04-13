@@ -74,6 +74,28 @@ export default function UserMenu({ email }: Props) {
             <p className="text-sm text-white truncate mt-0.5">{email}</p>
           </div>
           <a
+            href="/dashboard"
+            className="w-full text-left px-4 py-3 text-sm text-white hover:bg-white/10 transition-colors flex items-center gap-2.5"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-4 h-4 text-white/70"
+              aria-hidden="true"
+            >
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+            </svg>
+            Dashboard
+          </a>
+          <a
             href="https://github.com/Dharit13/boston-neighborhood-finder"
             target="_blank"
             rel="noopener noreferrer"
