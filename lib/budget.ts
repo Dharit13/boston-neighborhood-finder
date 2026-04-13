@@ -4,13 +4,16 @@ export function calculateBudgetTiers(
   monthlyIncome: number,
   maxRent: number
 ): BudgetTiers {
+  // maxRent is the rent the user would normally pay (balanced tier).
+  // Save Money = 45% of income (capped at what they entered).
+  // Best Fit = 70% of income (stretch above what they entered).
   const saverRaw = Math.round(monthlyIncome * 0.45);
-  const balancedRaw = Math.round(monthlyIncome * 0.6);
+  const stretchedRaw = Math.round(monthlyIncome * 0.7);
 
   return {
     saver: Math.min(saverRaw, maxRent),
-    balanced: Math.min(balancedRaw, maxRent),
-    stretched: maxRent,
+    balanced: maxRent,
+    stretched: Math.max(stretchedRaw, maxRent),
   };
 }
 
@@ -19,17 +22,19 @@ export function getActiveTiers(
   maxRent: number
 ): ("saver" | "balanced" | "stretched")[] {
   const saver45 = Math.round(monthlyIncome * 0.45);
-  const balanced60 = Math.round(monthlyIncome * 0.6);
+  const stretched70 = Math.round(monthlyIncome * 0.7);
 
-  // Always return 3 tiers — if balanced/stretched collapse to the same
-  // budget, the recommendation engine handles deduplication
-  if (maxRent < saver45) return ["stretched"];
-  if (maxRent < balanced60) {
-    // Saver and stretched are distinct; add balanced even if it equals stretched
-    // so we always try to recommend 3 neighborhoods
-    return ["saver", "balanced", "stretched"];
-  }
-  return ["saver", "balanced", "stretched"];
+  const tiers: ("saver" | "balanced" | "stretched")[] = [];
+
+  // Only show Save Money if 45% of income is meaningfully less than entered rent
+  if (saver45 < maxRent - 50) tiers.push("saver");
+
+  tiers.push("balanced");
+
+  // Only show Best Fit if 70% of income is meaningfully more than entered rent
+  if (stretched70 > maxRent + 50) tiers.push("stretched");
+
+  return tiers;
 }
 
 export function getRentAsPercentOfIncome(

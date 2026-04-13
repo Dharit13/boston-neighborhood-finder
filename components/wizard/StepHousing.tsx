@@ -215,8 +215,8 @@ export default function StepHousing({ input, onChange }: Props) {
         <label className="block text-xs font-semibold text-white uppercase tracking-widest mb-2">
           {input.livingArrangement === "own-room" ||
           input.livingArrangement === "shared-room"
-            ? "Maximum monthly rent (your share)"
-            : "Maximum monthly rent"}
+            ? "Monthly rent you'd pay (your share)"
+            : "Monthly rent you'd pay"}
         </label>
         <div className="relative">
           <span className="absolute left-4 top-3 text-white pointer-events-none">$</span>
