@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Neighborhood } from "@/lib/types";
 import { computeDashboardData, type DashboardData } from "@/lib/dashboardData";
-import { SidePixelTrail } from "@/components/ui/SidePixelTrail";
+
 
 const MBTA_COLORS: Record<string, string> = {
   red: "bg-red-600",
@@ -65,7 +65,7 @@ export default function DashboardPage() {
         alt=""
         className="fixed inset-0 w-full h-full object-cover z-0 opacity-70"
       />
-      <SidePixelTrail centerWidthRem={48} fixed />
+
       <div className="relative z-10 max-w-3xl mx-auto px-4 py-8 space-y-6">
         {/* Back button */}
         <button
