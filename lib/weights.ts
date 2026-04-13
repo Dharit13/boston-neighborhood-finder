@@ -36,7 +36,7 @@ export function deriveWeights(
   // Split practical: budget vs commute via slider 5
   const commuteRatio = hasOffice ? (sliders.budgetVsConvenience - 1) / 4 : 0;
   let budgetRaw = practicalWeight * (1 - commuteRatio);
-  let commuteRaw = practicalWeight * commuteRatio;
+  const commuteRaw = practicalWeight * commuteRatio;
 
   // Budget priority adjustment:
   // "save"  → boost budget weight (cheap = good)
@@ -57,7 +57,7 @@ export function deriveWeights(
   // Split preference: lifestyle vs community (slider 4 influences)
   const communityBias = (5 - sliders.communityVsPrivacy) / 4; // 0-1
   const communityRatio = 0.3 + communityBias * 0.4;
-  let lifestyleRaw = preferenceWeight * (1 - communityRatio);
+  const lifestyleRaw = preferenceWeight * (1 - communityRatio);
   const communityRaw = preferenceWeight * communityRatio;
 
   // Normalize to ensure sum = 1.0

@@ -1,4 +1,4 @@
-import type { UserInput, BudgetPriority } from "@/lib/types";
+import type { UserInput } from "@/lib/types";
 import BudgetSelector from "@/components/ui/BudgetSelector";
 import { parseMoneyInput, validateMaxRent } from "@/lib/validation";
 
