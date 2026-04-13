@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import SignInButtons from "./SignInButtons";
-import SignInPixelTrail from "./SignInPixelTrail";
+
 import UserCount from "./UserCount";
-import { GooeyFilter } from "@/components/ui/gooey-filter";
+
 import { getTotalUserCount } from "@/lib/userCount";
 
 export const dynamic = "force-dynamic";
@@ -32,14 +32,6 @@ export default async function SignInPage({
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
       />
 
-      {/* Gooey pixel trail — same cursor effect as the wizard */}
-      <GooeyFilter id="sign-in-gooey" strength={5} />
-      <div
-        className="absolute inset-0 z-[1]"
-        style={{ filter: "url(#sign-in-gooey)" }}
-      >
-        <SignInPixelTrail />
-      </div>
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-md mx-auto px-4">
