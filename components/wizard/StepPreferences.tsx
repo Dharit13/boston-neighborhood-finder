@@ -185,17 +185,26 @@ export default function StepPreferences({ input, onChange }: Props) {
             <button
               key={vibe.label}
               onClick={() => toggleVibe(vibe.label)}
-              className={`flex flex-col items-start gap-2 p-4 rounded-xl border-2 transition-all text-left ${
+              className={`relative flex flex-col items-start gap-2 p-4 rounded-xl border-2 transition-all text-left ${
                 isSelected
-                  ? `${vibe.selectedColor} shadow-lg`
-                  : `${vibe.color} hover:bg-white/5`
+                  ? `${vibe.selectedColor} shadow-lg ring-2 ring-white/70 scale-[1.02]`
+                  : "border-white/10 bg-white/[0.03] opacity-60 hover:opacity-90 hover:border-white/25 hover:bg-white/[0.06]"
               }`}
             >
-              <span className="text-2xl">{vibe.emoji}</span>
-              <span className="text-sm font-semibold text-white">
+              {isSelected && (
+                <span className="absolute top-2 right-2 w-5 h-5 rounded-full bg-white flex items-center justify-center">
+                  <svg className="w-3 h-3 text-black" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3.5 8.5L6.5 11.5L12.5 4.5" />
+                  </svg>
+                </span>
+              )}
+              <span className={`text-2xl transition-all ${isSelected ? "" : "grayscale"}`}>
+                {vibe.emoji}
+              </span>
+              <span className={`text-sm font-semibold ${isSelected ? "text-white" : "text-white/70"}`}>
                 {vibe.label}
               </span>
-              <span className="text-xs leading-relaxed text-white">
+              <span className={`text-xs leading-relaxed ${isSelected ? "text-white" : "text-white/60"}`}>
                 {vibe.description}
               </span>
             </button>
