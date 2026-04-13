@@ -39,12 +39,14 @@ export function scoreBudget(
   }
 
   if (budgetPriority === "spend") {
-    // User wants quality — higher rent (closer to budget) = better neighborhood
-    // 0% of budget → 65, 50% → 82, 100% → 100
-    if (effectiveRent <= 0) return 65;
+    // User wants premium — strongly reward neighborhoods that use the
+    // full stretch budget. Cheap areas should score poorly so that
+    // upscale neighborhoods actually rise to the top.
+    // 0% of budget → 30, 50% → 55, 75% → 75, 100% → 100
+    if (effectiveRent <= 0) return 30;
     if (effectiveRent <= budget) {
       const ratio = effectiveRent / budget;
-      return Math.round(65 + ratio * 35);
+      return Math.round(30 + ratio * 70);
     }
     // Still penalize over-budget, but gently
     const overRatio = (effectiveRent - budget) / budget;
@@ -221,10 +223,17 @@ export function applyMbtaBonus(
   preferredLines: MbtaLine[]
 ): number {
   if (preferredLines.length === 0) return baseScore;
-  const hasPreferred = preferredLines.some((line) =>
+  const matchCount = preferredLines.filter((line) =>
     neighborhoodLines.includes(line)
-  );
-  return hasPreferred ? Math.min(100, baseScore + 10) : baseScore;
+  ).length;
+  if (matchCount === 0) {
+    // No preferred lines at all — penalize
+    return Math.max(0, baseScore * 0.85);
+  }
+  // Boost proportional to how many preferred lines are served
+  const ratio = matchCount / preferredLines.length;
+  const bonus = Math.round(5 + ratio * 10); // 5-15 point bonus
+  return Math.min(100, baseScore + bonus);
 }
 
 /**

@@ -39,16 +39,15 @@ export function deriveWeights(
   let commuteRaw = practicalWeight * commuteRatio;
 
   // Budget priority adjustment:
-  // "save" → budget weight stays high (default behavior)
+  // "save"  → boost budget weight (cheap = good)
   // "balanced" → no change
-  // "spend" → budget weight drops significantly, redistributed to lifestyle/commute
+  // "spend" → boost budget weight (expensive = good, since scoreBudget
+  //           rewards higher rent in spend mode)
   if (budgetPriority === "spend") {
-    // Cut budget weight by 70%, redistribute to other dimensions
-    const budgetReduction = budgetRaw * 0.7;
-    budgetRaw -= budgetReduction;
-    // Give most of the freed weight to lifestyle, some to commute
-    commuteRaw += budgetReduction * 0.3;
-    // The rest goes to preference via scaling below
+    // Boost budget weight by 20% so the "reward expensive" scoring
+    // curve actually moves premium neighborhoods to the top
+    const budgetBoost = practicalWeight * 0.1;
+    budgetRaw += budgetBoost;
   } else if (budgetPriority === "save") {
     // Boost budget weight by 30%, taking from lifestyle
     const budgetBoost = practicalWeight * 0.15;
@@ -60,12 +59,6 @@ export function deriveWeights(
   const communityRatio = 0.3 + communityBias * 0.4;
   let lifestyleRaw = preferenceWeight * (1 - communityRatio);
   const communityRaw = preferenceWeight * communityRatio;
-
-  // For "spend" mode, boost lifestyle weight with the freed budget weight
-  if (budgetPriority === "spend") {
-    const budgetFreed = practicalWeight * (1 - commuteRatio) * 0.7 * 0.7;
-    lifestyleRaw += budgetFreed;
-  }
 
   // Normalize to ensure sum = 1.0
   const rawTotal = budgetRaw + commuteRaw + lifestyleRaw + communityRaw;
