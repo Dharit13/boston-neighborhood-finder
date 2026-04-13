@@ -1,4 +1,4 @@
-import type { Neighborhood, SafetyTrend } from "@/lib/types";
+import type { Neighborhood, MbtaLine, SafetyTrend } from "@/lib/types";
 import {
   computeMedianRent,
   computeRentLeaderboard,
@@ -8,6 +8,7 @@ import {
   computeCommuteFriendly,
   computeSafetyRankings,
   computeLifestyleClusters,
+  computeDashboardData,
 } from "@/lib/dashboardData";
 
 // Minimal neighborhood factory — only fields used by dashboard logic
@@ -174,5 +175,57 @@ describe("computeLifestyleClusters", () => {
     const result = computeLifestyleClusters(neighborhoods);
     expect(result.nightlife).toContain("PartyUrban");
     expect(result.urban).toContain("PartyUrban");
+  });
+});
+
+describe("computeDashboardData", () => {
+  const neighborhoods = [
+    makeNeighborhood({
+      name: "Expensive",
+      rent: { studio: [2500, 3000], oneBr: [3000, 3400], twoBr: [4000, 4600] },
+      safety: 60,
+      walkScore: 90,
+      transitScore: 85,
+      mbtaLines: ["red", "green"] as MbtaLine[],
+      safetyTrend: "stable" as SafetyTrend,
+      lifestyleProfile: { nightlifeVsQuiet: 2, urbanVsSuburban: 1, trendyVsFamily: 2, communityVsPrivacy: 2 },
+    }),
+    makeNeighborhood({
+      name: "Safe",
+      rent: { studio: [1500, 1700], oneBr: [2000, 2200], twoBr: [2800, 3000] },
+      safety: 95,
+      walkScore: 70,
+      transitScore: 60,
+      mbtaLines: ["green"] as MbtaLine[],
+      safetyTrend: "improving" as SafetyTrend,
+      lifestyleProfile: { nightlifeVsQuiet: 4, urbanVsSuburban: 4, trendyVsFamily: 4, communityVsPrivacy: 3 },
+    }),
+    makeNeighborhood({
+      name: "Transit",
+      rent: { studio: [1800, 2000], oneBr: [2200, 2600], twoBr: [3200, 3600] },
+      safety: 70,
+      walkScore: 85,
+      transitScore: 96,
+      mbtaLines: ["red", "orange", "green", "silver", "blue"] as MbtaLine[],
+      safetyTrend: "stable" as SafetyTrend,
+      lifestyleProfile: { nightlifeVsQuiet: 1, urbanVsSuburban: 1, trendyVsFamily: 3, communityVsPrivacy: 3 },
+    }),
+  ];
+
+  it("returns hero stats with correct winners", () => {
+    const data = computeDashboardData(neighborhoods);
+    expect(data.heroStats.mostExpensive.name).toBe("Expensive");
+    expect(data.heroStats.safest.name).toBe("Safe");
+    expect(data.heroStats.bestTransit.name).toBe("Transit");
+  });
+
+  it("returns all sections populated", () => {
+    const data = computeDashboardData(neighborhoods);
+    expect(data.rentLeaderboard.mostExpensive.length).toBeGreaterThan(0);
+    expect(data.rentLeaderboard.mostAffordable.length).toBeGreaterThan(0);
+    expect(data.bestValue.length).toBeGreaterThan(0);
+    expect(data.commuteFriendly.length).toBeGreaterThan(0);
+    expect(data.safety.safest.length).toBeGreaterThan(0);
+    expect(data.lifestyleClusters.nightlife.length).toBeGreaterThan(0);
   });
 });

@@ -8,12 +8,12 @@ export function computeMedianRent(n: Neighborhood): number {
 
 // --- Rent Leaderboard ---
 
-interface RentEntry {
+export interface RentEntry {
   name: string;
   rent: number;
 }
 
-interface RentLeaderboard {
+export interface RentLeaderboard {
   mostExpensive: RentEntry[];
   mostAffordable: RentEntry[];
 }
@@ -44,7 +44,7 @@ export function computeValueScore(n: Neighborhood): number {
   return avgQuality / rent * 1000;
 }
 
-interface ValueEntry {
+export interface ValueEntry {
   name: string;
   rent: number;
   safety: number;
@@ -74,7 +74,7 @@ export function computeCommuteScore(n: Neighborhood): number {
   return n.transitScore * 0.5 + n.walkScore * 0.3 + lineCoverage * 0.2;
 }
 
-interface CommuteEntry {
+export interface CommuteEntry {
   name: string;
   transitScore: number;
   walkScore: number;
@@ -97,13 +97,13 @@ export function computeCommuteFriendly(neighborhoods: Neighborhood[]): CommuteEn
 
 // --- Safety Rankings ---
 
-interface SafetyEntry {
+export interface SafetyEntry {
   name: string;
   safety: number;
   safetyTrend: SafetyTrend;
 }
 
-interface SafetyRankings {
+export interface SafetyRankings {
   safest: SafetyEntry[];
   trendingSafer: SafetyEntry[];
 }
@@ -129,7 +129,7 @@ export function computeSafetyRankings(neighborhoods: Neighborhood[]): SafetyRank
 
 // --- Lifestyle Clusters ---
 
-interface LifestyleClusters {
+export interface LifestyleClusters {
   nightlife: string[];
   family: string[];
   urban: string[];
@@ -150,5 +150,49 @@ export function computeLifestyleClusters(neighborhoods: Neighborhood[]): Lifesty
     quiet: neighborhoods
       .filter((n) => n.lifestyleProfile.urbanVsSuburban >= 4)
       .map((n) => n.name),
+  };
+}
+
+// --- Orchestrator ---
+
+export interface DashboardData {
+  heroStats: {
+    mostExpensive: { name: string; rent: number };
+    safest: { name: string; safety: number };
+    bestTransit: { name: string; transitScore: number };
+    bestValue: { name: string; valueScore: number };
+  };
+  rentLeaderboard: RentLeaderboard;
+  bestValue: ValueEntry[];
+  commuteFriendly: CommuteEntry[];
+  safety: SafetyRankings;
+  lifestyleClusters: LifestyleClusters;
+}
+
+export function computeDashboardData(neighborhoods: Neighborhood[]): DashboardData {
+  const rentLeaderboard = computeRentLeaderboard(neighborhoods);
+  const bestValue = computeBestValue(neighborhoods);
+  const commuteFriendly = computeCommuteFriendly(neighborhoods);
+  const safety = computeSafetyRankings(neighborhoods);
+  const lifestyleClusters = computeLifestyleClusters(neighborhoods);
+
+  return {
+    heroStats: {
+      mostExpensive: rentLeaderboard.mostExpensive[0],
+      safest: safety.safest[0],
+      bestTransit: {
+        name: commuteFriendly[0].name,
+        transitScore: commuteFriendly[0].transitScore,
+      },
+      bestValue: {
+        name: bestValue[0].name,
+        valueScore: bestValue[0].valueScore,
+      },
+    },
+    rentLeaderboard,
+    bestValue,
+    commuteFriendly,
+    safety,
+    lifestyleClusters,
   };
 }
