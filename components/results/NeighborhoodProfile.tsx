@@ -294,6 +294,9 @@ export default function NeighborhoodProfile({
               </span>
             </div>
           </div>
+          <p className="text-[11px] text-white/70 leading-snug">
+            Actual rents may be up to 10% higher in some listings. Utilities (electric, gas, internet) are typically not included.
+          </p>
           <div className="p-2.5 rounded-lg bg-white/10 border border-white/15 text-sm">
             <span className="text-white">
               {userInput.livingArrangement === "own-room" ||
@@ -352,10 +355,18 @@ export default function NeighborhoodProfile({
               <div className="text-[10px] text-white uppercase tracking-wide">Bike</div>
             </div>
           </div>
-          <div className="flex items-center justify-between text-sm pt-1">
-            <span className="text-white">Safety Trend</span>
+          <div
+            className={`flex items-center justify-between text-sm p-2.5 rounded-lg border ${
+              n.safetyTrend === "improving"
+                ? "border-emerald-500 bg-emerald-500/20"
+                : n.safetyTrend === "declining"
+                ? "border-red-500 bg-red-500/20"
+                : "border-white/20 bg-white/10"
+            }`}
+          >
+            <span className="text-white font-medium">Safety Trend</span>
             <span
-              className={`font-medium ${
+              className={`font-bold ${
                 n.safetyTrend === "improving"
                   ? "text-emerald-400"
                   : n.safetyTrend === "declining"
@@ -455,11 +466,21 @@ export default function NeighborhoodProfile({
         </div>
 
         {/* Local Tips Card */}
-        <div className="p-4 rounded-lg border border-white/20 bg-white/5 space-y-2">
-          <h3 className="text-xs font-semibold text-white uppercase tracking-widest">
-            Local Tips
+        <div className="p-4 rounded-lg border border-amber-500/40 bg-amber-500/10 space-y-2.5">
+          <h3 className="text-xs font-semibold text-amber-300 uppercase tracking-widest flex items-center gap-1.5">
+            <span>💡</span> Local Tips
           </h3>
-          <p className="text-sm text-white leading-relaxed">{n.localTips}</p>
+          <ul className="space-y-2">
+            {n.localTips
+              .split(/\.\s+/)
+              .filter((tip: string) => tip.trim().length > 0)
+              .map((tip: string, i: number) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-white leading-relaxed">
+                  <span className="text-amber-400 mt-0.5 flex-shrink-0">▸</span>
+                  <span>{tip.replace(/\.$/, "").trim()}</span>
+                </li>
+              ))}
+          </ul>
         </div>
       </div>
 

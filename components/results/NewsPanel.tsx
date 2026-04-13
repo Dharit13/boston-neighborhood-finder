@@ -49,8 +49,10 @@ export default function NewsPanel() {
   }, []);
 
   return (
-    <div className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-xl p-6">
-      <h2 className="text-lg font-bold text-white mb-4">Boston News</h2>
+    <div className="rounded-xl border border-sky-500/40 bg-sky-500/10 backdrop-blur-xl p-6">
+      <h2 className="text-lg font-bold text-sky-300 mb-4 flex items-center gap-2">
+        <span>📰</span> Boston News
+      </h2>
 
       {status === "loading" && (
         <div className="space-y-3">
@@ -69,20 +71,28 @@ export default function NewsPanel() {
       )}
 
       {status === "ok" && (
-        <ul className="space-y-3">
+        <ul className="space-y-1">
           {items.map((item) => (
-            <li key={item.url}>
+            <li
+              key={item.url}
+              className="p-3 rounded-lg hover:bg-white/5 transition-colors"
+            >
               <a
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-white hover:text-blue-300 transition-colors block"
+                className="flex items-start gap-2.5"
               >
-                {item.title}
+                <span className="text-sky-400 mt-0.5 flex-shrink-0">▸</span>
+                <div>
+                  <span className="text-sm text-white hover:text-sky-300 transition-colors">
+                    {item.title}
+                  </span>
+                  <div className="text-xs text-white/70 mt-1">
+                    {item.source} · {relativeTime(item.publishedAt)}
+                  </div>
+                </div>
               </a>
-              <div className="text-xs text-white mt-0.5">
-                {item.source} · {relativeTime(item.publishedAt)}
-              </div>
             </li>
           ))}
         </ul>
