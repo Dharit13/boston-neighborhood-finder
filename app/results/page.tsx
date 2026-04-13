@@ -249,7 +249,7 @@ export default function ResultsPage() {
         <img
           src="/images/boston-night.jpg"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
+          className="absolute inset-0 w-full h-full object-cover z-0 opacity-75"
         />
 
         <div className="relative z-10 text-center">
@@ -273,7 +273,7 @@ export default function ResultsPage() {
       <img
         src="/images/boston-night.jpg"
         alt=""
-        className="fixed inset-0 w-full h-full object-cover z-0 opacity-60"
+        className="fixed inset-0 w-full h-full object-cover z-0 opacity-75"
       />
 
 

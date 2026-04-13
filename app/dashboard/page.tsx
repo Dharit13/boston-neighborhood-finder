@@ -40,7 +40,7 @@ export default function DashboardPage() {
   if (error) {
     return (
       <main className="relative min-h-screen bg-black flex items-center justify-center overflow-hidden">
-        <img src="/images/boston-dusk.jpg" alt="" className="fixed inset-0 w-full h-full object-cover z-0 opacity-60" />
+        <img src="/images/boston-dusk.jpg" alt="" className="fixed inset-0 w-full h-full object-cover z-0 opacity-75" />
         <p className="relative z-10 text-red-400">Failed to load neighborhood data.</p>
       </main>
     );
@@ -49,7 +49,7 @@ export default function DashboardPage() {
   if (!data) {
     return (
       <main className="relative min-h-screen bg-black flex items-center justify-center overflow-hidden">
-        <img src="/images/boston-dusk.jpg" alt="" className="fixed inset-0 w-full h-full object-cover z-0 opacity-60" />
+        <img src="/images/boston-dusk.jpg" alt="" className="fixed inset-0 w-full h-full object-cover z-0 opacity-75" />
         <p className="relative z-10 text-white/60 animate-pulse">Loading dashboard...</p>
       </main>
     );
@@ -63,7 +63,7 @@ export default function DashboardPage() {
       <img
         src="/images/boston-dusk.jpg"
         alt=""
-        className="fixed inset-0 w-full h-full object-cover z-0 opacity-60"
+        className="fixed inset-0 w-full h-full object-cover z-0 opacity-75"
       />
 
       <div className="relative z-10 max-w-3xl mx-auto px-4 py-8 space-y-6">

@@ -112,7 +112,7 @@ export default function WizardContainer() {
       <img
         src="/images/boston-sunset.jpg"
         alt=""
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-75"
       />
 
 
