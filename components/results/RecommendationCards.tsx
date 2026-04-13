@@ -61,7 +61,7 @@ export default function RecommendationCards({
             <button
               key={n.neighborhood.id}
               onClick={() => onSelect(n.neighborhood.id)}
-              className={`text-left p-5 rounded-xl border-2 ${colors.border} bg-white/10 backdrop-blur-xl transition-all hover:bg-white/15`}
+              className={`text-left p-5 rounded-xl border-2 ${colors.border} bg-black/60 backdrop-blur-xl transition-all hover:bg-black/70`}
             >
               <span
                 className={`inline-block px-2.5 py-1 rounded-md text-xs font-medium ${colors.badge} mb-3`}

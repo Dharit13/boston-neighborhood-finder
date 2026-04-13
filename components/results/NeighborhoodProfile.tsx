@@ -236,7 +236,7 @@ export default function NeighborhoodProfile({
   const rentalUrls = getRentalUrls(n.id, n.name, n.region);
 
   return (
-    <div className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-xl p-6 space-y-5">
+    <div className="rounded-xl border border-white/20 bg-black/60 backdrop-blur-xl p-6 space-y-5">
       {/* ── Header ── */}
       <div className="flex justify-between items-start">
         <div className="flex-1">

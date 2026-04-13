@@ -82,7 +82,7 @@ export default function MbtaAlertsPanel({ lines }: Props) {
   if (queryableLines.length === 0) return null;
 
   return (
-    <div className="rounded-lg border border-white/15 bg-white/10 p-4">
+    <div className="rounded-lg border border-white/20 bg-black/60 backdrop-blur-xl p-4">
       <h3 className="text-sm font-bold text-white mb-3">MBTA Service Alerts</h3>
 
       {status === "loading" && (
