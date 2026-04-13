@@ -218,32 +218,33 @@ export default function NeighborhoodProfile({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [n.id]);
 
+  const rentalUrls = getRentalUrls(n.id, n.name, n.region);
+
   return (
-    <div className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-xl p-6">
-      <div className="flex justify-between items-start mb-4">
-        <div>
-          <h2 className="text-2xl font-bold text-white">{n.name}</h2>
-          <p className="text-white mt-1">{n.description}</p>
+    <div className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-xl p-6 space-y-5">
+      {/* ── Header ── */}
+      <div className="flex justify-between items-start">
+        <div className="flex-1">
+          <div className="flex items-center gap-3 flex-wrap">
+            <h2 className="text-2xl font-bold text-white">{n.name}</h2>
+            <span className="px-3 py-1 rounded-full bg-blue-600 text-white text-sm font-bold">
+              {Math.round(scored.matchScore)}% Match
+            </span>
+          </div>
+          <p className="text-white text-sm mt-2">{n.description}</p>
         </div>
         <button
           onClick={onClose}
-          className="text-white hover:text-white text-2xl leading-none"
+          className="text-white hover:text-white/70 text-2xl leading-none ml-4 flex-shrink-0"
         >
           &times;
         </button>
       </div>
 
-      {/* Match Score */}
-      <div className="mb-6 p-4 rounded-lg border border-blue-500 bg-blue-500/30">
-        <div className="text-3xl font-bold text-white">
-          {Math.round(scored.matchScore)}% Match
-        </div>
-      </div>
-
-      {/* AI Summary */}
+      {/* ── AI Summary ── */}
       {(aiLoading || aiSummary || error) && (
-        <div className="mb-6 p-4 rounded-lg border border-purple-500 bg-purple-500/30">
-          <h3 className="text-sm font-semibold text-white mb-1">
+        <div className="p-4 rounded-lg border border-purple-500 bg-purple-500/30">
+          <h3 className="text-xs font-semibold text-white uppercase tracking-widest mb-2">
             Why this neighborhood for you
           </h3>
           {aiLoading ? (
@@ -260,144 +261,188 @@ export default function NeighborhoodProfile({
               You&apos;ve used all 20 of your hourly AI requests. {formatResetAt(error.resetAt)}
             </div>
           ) : (
-            <p className="text-sm text-white">{aiSummary}</p>
+            <p className="text-sm text-white leading-relaxed">{aiSummary}</p>
           )}
         </div>
       )}
 
-      {/* Transit Details */}
-      <div className="mb-6 space-y-3">
-        <h3 className="font-semibold text-white">Transit</h3>
-        {n.mbtaLines
-          .filter((line) => line !== "bus" && line !== "ferry")
-          .map((line) => {
-            const stations = n.mbtaStations.filter((s) => s.line === line);
-            return (
-              <div key={line} className="flex items-start gap-2">
-                <span
-                  className="mt-1 w-3 h-3 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: MBTA_COLORS[line] }}
-                />
-                <div>
-                  <span className="text-sm font-medium text-white">
-                    {MBTA_LABELS[line]}
-                  </span>
-                  {stations.length > 0 && (
-                    <span className="text-sm text-white ml-1">
-                      — {stations.map((s) => s.name).join(", ")}
-                    </span>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        {n.busRoutes.length > 0 && (
-          <div className="flex items-start gap-2">
-            <span
-              className="mt-1 w-3 h-3 rounded-full flex-shrink-0"
-              style={{ backgroundColor: MBTA_COLORS.bus }}
-            />
-            <div>
-              <span className="text-sm font-medium text-white">Bus</span>
-              <span className="text-sm text-white ml-1">
-                — Routes {n.busRoutes.join(", ")}
+      {/* ── Two-column grid ── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        {/* Rent Card */}
+        <div className="p-4 rounded-lg border border-white/20 bg-white/5 space-y-3">
+          <h3 className="text-xs font-semibold text-white uppercase tracking-widest">
+            Rent
+          </h3>
+          <div className="space-y-1.5 text-sm">
+            <div className="flex justify-between">
+              <span className="text-white">Studio</span>
+              <span className="text-white font-medium">
+                ${n.rent.studio[0].toLocaleString()} – ${n.rent.studio[1].toLocaleString()}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-white">1 Bedroom</span>
+              <span className="text-white font-medium">
+                ${n.rent.oneBr[0].toLocaleString()} – ${n.rent.oneBr[1].toLocaleString()}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-white">2 Bedroom</span>
+              <span className="text-white font-medium">
+                ${n.rent.twoBr[0].toLocaleString()} – ${n.rent.twoBr[1].toLocaleString()}
               </span>
             </div>
           </div>
-        )}
-        {(() => {
-          const ferryStops = n.mbtaStations.filter((s) => s.line === "ferry");
-          if (ferryStops.length === 0) return null;
-          return (
+          <div className="p-2.5 rounded-lg bg-white/10 border border-white/15 text-sm">
+            <span className="text-white">
+              {userInput.livingArrangement === "own-room" ||
+              userInput.livingArrangement === "shared-room"
+                ? "Your per-person cost: "
+                : "Your monthly rent: "}
+            </span>
+            <span className="font-bold text-white">
+              ${scored.perPersonRent.toLocaleString()}/mo
+            </span>
+            <span className={`ml-2 font-medium ${budgetColor(rentPercent)}`}>
+              ({rentPercent}% of income)
+            </span>
+          </div>
+          <div className="flex gap-2">
+            <a
+              href={rentalUrls.zillow}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 text-center px-3 py-2 rounded-lg bg-blue-600 border border-blue-500 text-white text-sm font-medium hover:bg-blue-700 transition-colors"
+            >
+              Zillow
+            </a>
+            <a
+              href={rentalUrls.apartments}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 text-center px-3 py-2 rounded-lg bg-green-600 border border-green-500 text-white text-sm font-medium hover:bg-green-700 transition-colors"
+            >
+              Apartments.com
+            </a>
+          </div>
+        </div>
+
+        {/* Scores Card */}
+        <div className="p-4 rounded-lg border border-white/20 bg-white/5 space-y-3">
+          <h3 className="text-xs font-semibold text-white uppercase tracking-widest">
+            Scores
+          </h3>
+          <div className="space-y-3">
+            <ScoreBar label="Safety" score={scored.scores.safety} />
+            <ScoreBar label="Lifestyle Match" score={scored.scores.lifestyle} />
+            <ScoreBar label="Community Vibe" score={scored.scores.community} />
+          </div>
+          <div className="grid grid-cols-3 gap-2 pt-1">
+            <div className="text-center p-2 rounded-lg bg-white/10">
+              <div className="text-lg font-bold text-white">{n.walkScore}</div>
+              <div className="text-[10px] text-white uppercase tracking-wide">Walk</div>
+            </div>
+            <div className="text-center p-2 rounded-lg bg-white/10">
+              <div className="text-lg font-bold text-white">{n.transitScore}</div>
+              <div className="text-[10px] text-white uppercase tracking-wide">Transit</div>
+            </div>
+            <div className="text-center p-2 rounded-lg bg-white/10">
+              <div className="text-lg font-bold text-white">{n.bikeScore}</div>
+              <div className="text-[10px] text-white uppercase tracking-wide">Bike</div>
+            </div>
+          </div>
+          <div className="flex items-center justify-between text-sm pt-1">
+            <span className="text-white">Safety Trend</span>
+            <span
+              className={`font-medium ${
+                n.safetyTrend === "improving"
+                  ? "text-emerald-400"
+                  : n.safetyTrend === "declining"
+                  ? "text-red-400"
+                  : "text-white"
+              }`}
+            >
+              {n.safetyTrend === "improving"
+                ? "↑ Improving"
+                : n.safetyTrend === "declining"
+                ? "↓ Declining"
+                : "→ Stable"}
+            </span>
+          </div>
+        </div>
+
+        {/* Transit Card */}
+        <div className="p-4 rounded-lg border border-white/20 bg-white/5 space-y-2.5">
+          <h3 className="text-xs font-semibold text-white uppercase tracking-widest">
+            Transit
+          </h3>
+          {n.mbtaLines
+            .filter((line) => line !== "bus" && line !== "ferry")
+            .map((line) => {
+              const stations = n.mbtaStations.filter((s) => s.line === line);
+              return (
+                <div key={line} className="flex items-start gap-2">
+                  <span
+                    className="mt-1 w-3 h-3 rounded-full flex-shrink-0"
+                    style={{ backgroundColor: MBTA_COLORS[line] }}
+                  />
+                  <div className="text-sm">
+                    <span className="font-medium text-white">
+                      {MBTA_LABELS[line]}
+                    </span>
+                    {stations.length > 0 && (
+                      <span className="text-white ml-1">
+                        — {stations.map((s) => s.name).join(", ")}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          {n.busRoutes.length > 0 && (
             <div className="flex items-start gap-2">
               <span
                 className="mt-1 w-3 h-3 rounded-full flex-shrink-0"
-                style={{ backgroundColor: MBTA_COLORS.ferry }}
+                style={{ backgroundColor: MBTA_COLORS.bus }}
               />
-              <div>
-                <span className="text-sm font-medium text-white">
-                  {MBTA_LABELS.ferry}
-                </span>
-                <span className="text-sm text-white ml-1">
-                  — {ferryStops.map((s) => s.name).join(", ")}
-                </span>
-              </div>
-            </div>
-          );
-        })()}
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Left column */}
-        <div className="space-y-5">
-          <div>
-            <h3 className="font-semibold text-white mb-2">Rent</h3>
-            <div className="space-y-1 text-sm">
-              <div className="flex justify-between">
-                <span className="text-white">Studio</span>
-                <span className="text-white">
-                  ${n.rent.studio[0].toLocaleString()} - $
-                  {n.rent.studio[1].toLocaleString()}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-white">1 Bedroom</span>
-                <span className="text-white">
-                  ${n.rent.oneBr[0].toLocaleString()} - $
-                  {n.rent.oneBr[1].toLocaleString()}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-white">2 Bedroom</span>
-                <span className="text-white">
-                  ${n.rent.twoBr[0].toLocaleString()} - $
-                  {n.rent.twoBr[1].toLocaleString()}
-                </span>
-              </div>
-            </div>
-            <div className="mt-2 p-2 rounded bg-white/5 border border-white/10 text-sm">
-              <span className="text-white">
-                {userInput.livingArrangement === "own-room" ||
-                userInput.livingArrangement === "shared-room"
-                  ? "Your per-person cost: "
-                  : "Your monthly rent: "}
-              </span>
-              <span className="font-bold text-white">
-                ${scored.perPersonRent.toLocaleString()}/mo
-              </span>
-              <span className={`ml-2 font-medium ${budgetColor(rentPercent)}`}>
-                ({rentPercent}% of income)
-              </span>
-            </div>
-            <div className="mt-3 flex gap-2">
-              <a
-                href={getRentalUrls(n.id, n.name, n.region).zillow}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 text-center px-3 py-2 rounded-lg bg-blue-600 border border-blue-500 text-white text-sm font-medium hover:bg-blue-700 transition-colors"
-              >
-                Zillow
-              </a>
-              <a
-                href={getRentalUrls(n.id, n.name, n.region).apartments}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 text-center px-3 py-2 rounded-lg bg-green-600 border border-green-500 text-white text-sm font-medium hover:bg-green-700 transition-colors"
-              >
-                Apartments.com
-              </a>
-            </div>
-          </div>
-
-          {scored.commuteMinutes !== null && (
-            <div>
-              <h3 className="font-semibold text-white mb-2">Commute</h3>
               <div className="text-sm">
-                <div className="text-2xl font-bold text-white">
-                  {scored.commuteMinutes} min
+                <span className="font-medium text-white">Bus</span>
+                <span className="text-white ml-1">
+                  — Routes {n.busRoutes.join(", ")}
+                </span>
+              </div>
+            </div>
+          )}
+          {(() => {
+            const ferryStops = n.mbtaStations.filter((s) => s.line === "ferry");
+            if (ferryStops.length === 0) return null;
+            return (
+              <div className="flex items-start gap-2">
+                <span
+                  className="mt-1 w-3 h-3 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: MBTA_COLORS.ferry }}
+                />
+                <div className="text-sm">
+                  <span className="font-medium text-white">
+                    {MBTA_LABELS.ferry}
+                  </span>
+                  <span className="text-white ml-1">
+                    — {ferryStops.map((s) => s.name).join(", ")}
+                  </span>
                 </div>
+              </div>
+            );
+          })()}
+          {scored.commuteMinutes !== null && (
+            <div className="pt-2 mt-1 border-t border-white/15 flex items-baseline justify-between">
+              <span className="text-sm text-white">Your commute</span>
+              <div className="text-right">
+                <span className="text-lg font-bold text-white">
+                  {scored.commuteMinutes} min
+                </span>
                 {scored.commuteRoute && (
-                  <div className="text-white mt-1">
+                  <div className="text-xs text-white">
                     via{" "}
                     {scored.commuteRoute.includes(" · ")
                       ? scored.commuteRoute.split(" · ")[0]
@@ -407,61 +452,19 @@ export default function NeighborhoodProfile({
               </div>
             </div>
           )}
-
-          <div>
-            <h3 className="font-semibold text-white mb-2">Local Tips</h3>
-            <p className="text-sm text-white">{n.localTips}</p>
-          </div>
         </div>
 
-        {/* Right column — scores */}
-        <div className="space-y-4">
-          <h3 className="font-semibold text-white">Scores</h3>
-          <ScoreBar label="Safety" score={scored.scores.safety} />
-          <ScoreBar label="Lifestyle Match" score={scored.scores.lifestyle} />
-          <ScoreBar label="Community Vibe" score={scored.scores.community} />
-
-          <div className="pt-2 space-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="text-white">Walk Score</span>
-              <span className="font-medium text-white">{n.walkScore}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-white">Transit Score</span>
-              <span className="font-medium text-white">{n.transitScore}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-white">Bike Score</span>
-              <span className="font-medium text-white">{n.bikeScore}</span>
-            </div>
-          </div>
-
-          <div className="pt-2">
-            <h4 className="text-sm font-medium text-white mb-1">
-              Safety Trend
-            </h4>
-            <span
-              className={`text-sm font-medium ${
-                n.safetyTrend === "improving"
-                  ? "text-emerald-400"
-                  : n.safetyTrend === "declining"
-                  ? "text-red-400"
-                  : "text-white"
-              }`}
-            >
-              {n.safetyTrend === "improving"
-                ? "Improving"
-                : n.safetyTrend === "declining"
-                ? "Declining"
-                : "Stable"}
-            </span>
-          </div>
+        {/* Local Tips Card */}
+        <div className="p-4 rounded-lg border border-white/20 bg-white/5 space-y-2">
+          <h3 className="text-xs font-semibold text-white uppercase tracking-widest">
+            Local Tips
+          </h3>
+          <p className="text-sm text-white leading-relaxed">{n.localTips}</p>
         </div>
       </div>
 
-      <div className="mt-6">
-        <MbtaAlertsPanel lines={n.mbtaLines} />
-      </div>
+      {/* ── MBTA Alerts ── */}
+      <MbtaAlertsPanel lines={n.mbtaLines} />
     </div>
   );
 }
