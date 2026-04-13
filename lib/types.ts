@@ -144,9 +144,9 @@ export interface MbtaAlert {
 export type BudgetTier = "saver" | "balanced" | "stretched";
 
 export interface BudgetTiers {
-  saver: number; // 45% of income, adjusted for roommates
-  balanced: number; // 60% of income, adjusted for roommates
-  stretched: number; // user's max rent
+  saver: number; // 45% of income (capped at entered rent)
+  balanced: number; // user's entered rent
+  stretched: number; // min(115% of rent, 70% of income)
 }
 
 export interface TieredRecommendation {

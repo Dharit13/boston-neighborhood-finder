@@ -22,6 +22,7 @@ export function scoreBudget(
   budget: number,
   budgetPriority: BudgetPriority = "balanced"
 ): number {
+  if (budget <= 0) return 0;
   const effectiveRent = medianRent;
 
   if (budgetPriority === "save") {

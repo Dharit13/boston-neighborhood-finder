@@ -17,6 +17,12 @@ export default function RecommendationOverview({
   const [loading, setLoading] = useState(true);
   const { error, handleResponse, reauth } = useAiErrorState();
 
+  // Derive a stable key from the recommendation IDs so we only refetch
+  // when the actual neighborhoods change, not on every parent re-render.
+  const recKey = recommendations
+    .map((r) => r.neighborhood.neighborhood.id)
+    .join(",");
+
   useEffect(() => {
     if (recommendations.length === 0) return;
 
@@ -65,7 +71,8 @@ export default function RecommendationOverview({
     return () => {
       cancelled = true;
     };
-  }, [recommendations, userInput, handleResponse]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recKey]);
 
   if (recommendations.length === 0) return null;
   if (!loading && !overview && !error) return null;
