@@ -80,41 +80,41 @@ export default function DashboardPage() {
           <h1 className="text-2xl font-bold text-white">
             Boston Neighborhoods at a Glance
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-white/70 mt-1">
             44 neighborhoods compared across rent, safety, transit, and lifestyle
           </p>
         </div>
 
         {/* Hero Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div className="rounded-xl border border-red-500/30 bg-red-500/15 backdrop-blur-xl p-4 text-center">
+          <div className="rounded-xl border border-red-500/40 bg-red-950/60 backdrop-blur-xl p-4 text-center">
             <p className="text-[11px] uppercase tracking-wider text-red-300">Most Expensive</p>
             <p className="text-xl font-bold text-white mt-1">${data.heroStats.mostExpensive.rent.toLocaleString()}/mo</p>
-            <p className="text-sm text-slate-400 mt-0.5">{data.heroStats.mostExpensive.name} (1BR)</p>
+            <p className="text-sm text-white/70 mt-0.5">{data.heroStats.mostExpensive.name} (1BR)</p>
           </div>
-          <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/15 backdrop-blur-xl p-4 text-center">
+          <div className="rounded-xl border border-emerald-500/40 bg-emerald-950/60 backdrop-blur-xl p-4 text-center">
             <p className="text-[11px] uppercase tracking-wider text-emerald-300">Safest</p>
             <p className="text-xl font-bold text-white mt-1">{data.heroStats.safest.safety} / 100</p>
-            <p className="text-sm text-slate-400 mt-0.5">{data.heroStats.safest.name}</p>
+            <p className="text-sm text-white/70 mt-0.5">{data.heroStats.safest.name}</p>
           </div>
-          <div className="rounded-xl border border-blue-500/30 bg-blue-500/15 backdrop-blur-xl p-4 text-center">
+          <div className="rounded-xl border border-blue-500/40 bg-blue-950/60 backdrop-blur-xl p-4 text-center">
             <p className="text-[11px] uppercase tracking-wider text-blue-300">Best Transit</p>
             <p className="text-xl font-bold text-white mt-1">Score: {data.heroStats.bestTransit.transitScore}</p>
-            <p className="text-sm text-slate-400 mt-0.5">{data.heroStats.bestTransit.name}</p>
+            <p className="text-sm text-white/70 mt-0.5">{data.heroStats.bestTransit.name}</p>
           </div>
-          <div className="rounded-xl border border-purple-500/30 bg-purple-500/15 backdrop-blur-xl p-4 text-center">
+          <div className="rounded-xl border border-purple-500/40 bg-purple-950/60 backdrop-blur-xl p-4 text-center">
             <p className="text-[11px] uppercase tracking-wider text-purple-300">Best Value</p>
             <p className="text-xl font-bold text-white mt-1">Score: {data.heroStats.bestValue.valueScore}</p>
-            <p className="text-sm text-slate-400 mt-0.5">{data.heroStats.bestValue.name}</p>
+            <p className="text-sm text-white/70 mt-0.5">{data.heroStats.bestValue.name}</p>
           </div>
         </div>
 
         {/* Rent Leaderboard */}
-        <section className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-xl p-5">
+        <section className="rounded-xl border border-white/20 bg-black/60 backdrop-blur-xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <span className="text-xl">🏠</span>
             <h2 className="text-base font-semibold text-white">Rent Leaderboard</h2>
-            <span className="text-slate-500 text-xs ml-auto">1BR median rent</span>
+            <span className="text-white/50 text-xs ml-auto">1BR median rent</span>
           </div>
 
           <div className="mb-4">
@@ -122,7 +122,7 @@ export default function DashboardPage() {
             <div className="space-y-2">
               {data.rentLeaderboard.mostExpensive.map((entry, i) => (
                 <div key={entry.name} className="flex items-center gap-3">
-                  <span className="text-xs text-slate-500 w-4">{i + 1}.</span>
+                  <span className="text-xs text-white/50 w-4">{i + 1}.</span>
                   <span className="text-sm text-white flex-1 min-w-0 truncate">{entry.name}</span>
                   <div className="w-28 sm:w-36 h-2 bg-white/10 rounded-full overflow-hidden flex-shrink-0">
                     <div
@@ -143,7 +143,7 @@ export default function DashboardPage() {
             <div className="space-y-2">
               {data.rentLeaderboard.mostAffordable.map((entry, i) => (
                 <div key={entry.name} className="flex items-center gap-3">
-                  <span className="text-xs text-slate-500 w-4">{i + 1}.</span>
+                  <span className="text-xs text-white/50 w-4">{i + 1}.</span>
                   <span className="text-sm text-white flex-1 min-w-0 truncate">{entry.name}</span>
                   <div className="w-28 sm:w-36 h-2 bg-white/10 rounded-full overflow-hidden flex-shrink-0">
                     <div
@@ -161,12 +161,12 @@ export default function DashboardPage() {
         </section>
 
         {/* Best Value for Money */}
-        <section className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-xl p-5">
+        <section className="rounded-xl border border-white/20 bg-black/60 backdrop-blur-xl p-5">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-xl">💰</span>
             <h2 className="text-base font-semibold text-white">Best Value for Money</h2>
           </div>
-          <p className="text-xs text-slate-500 ml-7 mb-4">
+          <p className="text-xs text-white/50 ml-7 mb-4">
             Composite of safety + walk score + transit score per rent dollar
           </p>
           <div className="space-y-2">
@@ -176,12 +176,12 @@ export default function DashboardPage() {
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg border ${
                   i === 0
                     ? "border-purple-500/20 bg-purple-500/10"
-                    : "border-white/10 bg-white/[0.06]"
+                    : "border-white/15 bg-black/40"
                 }`}
               >
                 <span className="text-purple-300 font-bold text-base w-5">{i + 1}</span>
                 <span className="text-sm text-white flex-1 min-w-0 truncate">{entry.name}</span>
-                <span className="text-xs text-slate-400 hidden sm:inline">
+                <span className="text-xs text-white/70 hidden sm:inline">
                   Safety {entry.safety} · Walk {entry.walkScore} · Transit {entry.transitScore}
                 </span>
                 <span className="text-sm font-semibold text-emerald-400 flex-shrink-0">
@@ -193,12 +193,12 @@ export default function DashboardPage() {
         </section>
 
         {/* Commute-Friendly */}
-        <section className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-xl p-5">
+        <section className="rounded-xl border border-white/20 bg-black/60 backdrop-blur-xl p-5">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-xl">🚇</span>
             <h2 className="text-base font-semibold text-white">Commute-Friendly</h2>
           </div>
-          <p className="text-xs text-slate-500 ml-7 mb-4">
+          <p className="text-xs text-white/50 ml-7 mb-4">
             Ranked by transit score, walk score, and MBTA line coverage
           </p>
           <div className="space-y-2">
@@ -208,7 +208,7 @@ export default function DashboardPage() {
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg border ${
                   i === 0
                     ? "border-blue-500/20 bg-blue-500/10"
-                    : "border-white/10 bg-white/[0.06]"
+                    : "border-white/15 bg-black/40"
                 }`}
               >
                 <span className="text-blue-300 font-bold text-base w-5">{i + 1}</span>
@@ -234,7 +234,7 @@ export default function DashboardPage() {
         </section>
 
         {/* Safety Rankings */}
-        <section className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-xl p-5">
+        <section className="rounded-xl border border-white/20 bg-black/60 backdrop-blur-xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <span className="text-xl">🛡️</span>
             <h2 className="text-base font-semibold text-white">Safety Rankings</h2>
@@ -254,7 +254,7 @@ export default function DashboardPage() {
                             ? "text-emerald-400"
                             : entry.safetyTrend === "declining"
                               ? "text-red-400"
-                              : "text-slate-500"
+                              : "text-white/50"
                         }`}
                       >
                         {entry.safetyTrend === "improving"
@@ -278,7 +278,7 @@ export default function DashboardPage() {
                   </div>
                 ))}
                 {data.safety.trendingSafer.length === 0 && (
-                  <p className="text-sm text-slate-500">No neighborhoods currently trending safer</p>
+                  <p className="text-sm text-white/50">No neighborhoods currently trending safer</p>
                 )}
               </div>
             </div>
@@ -286,7 +286,7 @@ export default function DashboardPage() {
         </section>
 
         {/* Lifestyle Clusters */}
-        <section className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-xl p-5">
+        <section className="rounded-xl border border-white/20 bg-black/60 backdrop-blur-xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <span className="text-xl">🎭</span>
             <h2 className="text-base font-semibold text-white">Lifestyle Clusters</h2>
@@ -294,25 +294,25 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="rounded-lg border border-amber-500/20 bg-amber-500/10 p-3">
               <p className="text-sm font-semibold text-amber-300 mb-1">🌃 Nightlife Hubs</p>
-              <p className="text-sm text-slate-300 leading-relaxed">
+              <p className="text-sm text-white/80 leading-relaxed">
                 {data.lifestyleClusters.nightlife.join(" · ") || "None"}
               </p>
             </div>
             <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-3">
               <p className="text-sm font-semibold text-emerald-300 mb-1">👨‍👩‍👧 Family-Friendly</p>
-              <p className="text-sm text-slate-300 leading-relaxed">
+              <p className="text-sm text-white/80 leading-relaxed">
                 {data.lifestyleClusters.family.join(" · ") || "None"}
               </p>
             </div>
             <div className="rounded-lg border border-blue-500/20 bg-blue-500/10 p-3">
               <p className="text-sm font-semibold text-blue-300 mb-1">🏙️ Urban Core</p>
-              <p className="text-sm text-slate-300 leading-relaxed">
+              <p className="text-sm text-white/80 leading-relaxed">
                 {data.lifestyleClusters.urban.join(" · ") || "None"}
               </p>
             </div>
             <div className="rounded-lg border border-purple-500/20 bg-purple-500/10 p-3">
               <p className="text-sm font-semibold text-purple-300 mb-1">🌳 Quiet & Suburban</p>
-              <p className="text-sm text-slate-300 leading-relaxed">
+              <p className="text-sm text-white/80 leading-relaxed">
                 {data.lifestyleClusters.quiet.join(" · ") || "None"}
               </p>
             </div>
