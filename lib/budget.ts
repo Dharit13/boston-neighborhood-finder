@@ -6,9 +6,12 @@ export function calculateBudgetTiers(
 ): BudgetTiers {
   // maxRent is the rent the user would normally pay (balanced tier).
   // Save Money = 45% of income (capped at what they entered).
-  // Best Fit = 70% of income (stretch above what they entered).
+  // Stretch = 15% above entered rent or 70% of income, whichever is lower.
   const saverRaw = Math.round(monthlyIncome * 0.45);
-  const stretchedRaw = Math.round(monthlyIncome * 0.7);
+  const stretchedRaw = Math.min(
+    Math.round(maxRent * 1.15),
+    Math.round(monthlyIncome * 0.7)
+  );
 
   return {
     saver: Math.min(saverRaw, maxRent),
