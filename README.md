@@ -1,8 +1,22 @@
 # Boston Neighborhood Finder
 
-A Next.js web app that helps people figure out where to live in the Greater Boston area. You answer a few questions about your budget, commute, and lifestyle, and it ranks 44 neighborhoods by how well they fit — grounded in real rent data, MBTA transit coverage, crime statistics, and walkability scores.
+## Why this project exists
 
-It also includes a Claude-powered chat assistant that can answer follow-up questions about specific neighborhoods, grounded in the same dataset.
+Apartment sites like Zillow and Apartments.com are great once you already know *where* you want to live. They're useless for the actual hard question — **which neighborhood is right for me?** — because they filter listings by bedroom count and price, not by lifestyle fit, commute reality, safety, transit access, or vibe.
+
+Anyone moving to a new city (students, relocating professionals, families) ends up cobbling together the answer from 10 browser tabs: a city subreddit for vibe, Google Maps for commute, a crime map for safety, MBTA's site for transit, Walk Score for walkability, a half-dozen rent listings to sanity-check budget. It's tedious, slow, and easy to get wrong.
+
+**Boston Neighborhood Finder collapses that whole workflow into a 4-question wizard.** You tell it your budget, commute, and vibe — and it ranks all **44 Greater Boston neighborhoods** by how well they fit *you*, grounded in real rent data, MBTA transit coverage, Boston Police crime statistics, and Walk Score / Transit Score data.
+
+## What makes it different
+
+- **Vibe-based matching, not just filters.** Pick one or more of six lifestyle archetypes (City Life, Young Professional, Quiet & Cozy, Social Butterfly, Commute First, Family Friendly) — each maps to a 5-dimensional preference vector (nightlife↔quiet, urban↔suburban, trendy↔family, community↔privacy, budget↔convenience). Blend multiple vibes and the app averages them into a custom lifestyle profile. Zillow can't do this.
+- **TOPSIS multi-criteria ranking** — instead of a naive weighted sum, neighborhoods are scored by their geometric distance to both an *ideal* point (best on every axis) and an *anti-ideal* point. That surfaces **well-rounded neighborhoods over lopsided ones** with one great stat and three terrible ones.
+- **Three budget tiers surfaced side by side** — Save Money, Balanced, and Stretch — so you don't just see the cheapest fit, you see how much more you'd get by stretching (or how much you'd save by compromising).
+- **Real commute times**, not straight-line distance, via Google Maps Directions for the actual office address you enter.
+- **AI explanations grounded in real data** — Claude-powered per-neighborhood summaries and a top-3 overview explain *why* each pick was chosen, plus a follow-up chat assistant for "what's the late-night food scene like in East Boston?"–type questions.
+- **Live Boston news and live MBTA service alerts** filtered to the lines that matter for your picks — so the recommendation reflects what's actually happening today, not a static snapshot.
+- **Embedded Zillow and Apartments.com links** on every recommendation, so once you've picked a neighborhood you can jump straight to real listings.
 
 ## Features
 
@@ -14,9 +28,8 @@ It also includes a Claude-powered chat assistant that can answer follow-up quest
 - **Neighborhood chat** — multi-turn conversation about any of the 44 neighborhoods, with Fair Housing guardrails and prompt-injection protection
 - **Live Boston news** from Google News RSS and **live MBTA service alerts** for the user's preferred lines
 - **Direct links** to Zillow and Apartments.com listings for each neighborhood
-- **Side-by-side comparison** of up to three neighborhoods
 - **Interactive map** with recommendation pins and an optional office marker
-- **Full sign-in gate** (Google / GitHub OAuth via Supabase)
+- **Full sign-in gate** (Google OAuth via Supabase)
 - **Per-user rate limiting** on AI routes (20/hr) with input validation on all API routes
 - **Public user counter** on sign-in page
 
@@ -109,8 +122,7 @@ See [ARCHITECTURE.md](./ARCHITECTURE.md) for the full breakdown.
 
 ## Credits
 
-- The pixel-trail and gooey-filter visual effects under [components/ui/](./components/ui/) are adapted from **[Fancy Components](https://fancycomponents.dev)** by Daniel Petho ([github.com/danielpetho/fancy](https://github.com/danielpetho/fancy), MIT).
-- All other external data sources are documented in [DATA_SOURCES.md](./DATA_SOURCES.md).
+External data sources are documented in [DATA_SOURCES.md](./DATA_SOURCES.md).
 
 ## License
 
